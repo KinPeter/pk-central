@@ -1,0 +1,31 @@
+{
+  "name": "tripz-api",
+  "version": "0.0.0",
+  "description": "Serverless functions based API for Tripz",
+  "scripts": {
+    "lint": "eslint --ext .ts",
+    "format:check": "prettier --check \"**/*.{ts,json}\"",
+    "format": "prettier --write \"**/*.{ts,json}\""
+  },
+  "author": "Peter Kin",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@netlify/functions": "^2.4.1",
+    "mongodb": "^6.3.0",
+    "nodemailer": "^6.9.7",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/nodemailer": "^6.4.14",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.1",
+    "netlify-cli": "^17.10.1",
+    "prettier": "^3.1.1"
+  }
+}
