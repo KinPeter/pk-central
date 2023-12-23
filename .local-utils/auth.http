@@ -1,0 +1,7 @@
+### Send POST request with json body
+POST http://localhost:8888/auth/login
+Content-Type: application/json
+
+{
+  "email": "kinpeter85@gmail.com"
+}

@@ -1,8 +1,8 @@
 import type { Context } from '@netlify/functions';
-import { withMongoDb } from '../src/mongo-hof.js';
+import { withMongoDb } from '../src/utils/mongo-hof.js';
 import { Db } from 'mongodb';
-import { ErrorResponse } from '../src/response.js';
-import { User, withAuthentication } from '../src/auth-hof.js';
+import { ErrorResponse } from '../src/utils/response.js';
+import { User, withAuthentication } from '../src/utils/auth-hof.js';
 
 export default async (req: Request, context: Context) => {
   return await withMongoDb(await withAuthentication(run), req, context);

@@ -19,7 +19,7 @@ export async function withMongoDb(
 ): Promise<Response> {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    const db = (await connectionPromise).db('tripz');
+    const db = (await connectionPromise).db(process.env.MONGO_DB_NAME);
     console.log('Connected to the database');
     return await nextStepFunction(req, context, db);
   } catch (e) {
