@@ -1,6 +1,24 @@
-### Send POST request with json body
+### Get login code email
 POST http://localhost:8888/auth/login
 Content-Type: application/json
+
+{
+  "email": "kinpeter85@gmail.com"
+}
+
+### Verify login code
+POST http://localhost:8888/auth/verify
+Content-Type: application/json
+
+{
+  "email": "kinpeter85@gmail.com",
+  "loginCode": "831561"
+}
+
+### Refresh token
+POST http://localhost:8888/auth/token-refresh
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtpbnBldGVyODVAZ21haWwuY29tIiwidXNlcklkIjoiZDY5NjVlMGQtNjEzMC00M2ExLTg2NTEtMGJhNTZhN2Y2NzhkIiwiaWF0IjoxNzAzMzY2MDYxLCJleHAiOjE3MDM5NzA4NjF9.Y5rkM4T80NxaA3qTFqm0udLGUQFvOKUIqX3-hnrlptk
 
 {
   "email": "kinpeter85@gmail.com"
