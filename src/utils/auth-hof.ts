@@ -23,7 +23,7 @@ async function authenticate(
     if (!payload) throw new Error();
     const { email, userId } = payload;
     const user = await db.collection<User>('users').findOne({ id: userId });
-    if (!user) throw new NotFoundErrorResponse('User');
+    if (!user) return new NotFoundErrorResponse('User');
     if (email !== user.email) throw new Error();
     return await nextStepFunction(req, context, db, user);
   } catch (_e) {
