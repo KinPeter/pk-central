@@ -12,6 +12,12 @@ export class OkResponse extends Response {
   }
 }
 
+export class CorsOkResponse extends Response {
+  constructor() {
+    super('ok', { headers: corsHeaders });
+  }
+}
+
 export class ErrorResponse extends Response {
   constructor(message: string, status: number, details?: any) {
     super(JSON.stringify({ error: message, details }), { status, headers: { ...corsHeaders } });

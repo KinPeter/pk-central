@@ -1,6 +1,6 @@
 import { Config, Context } from '@netlify/functions';
 import { withMongoDb } from '../src/utils/mongo-hof.js';
-import { ErrorResponse } from '../src/utils/response.js';
+import { CorsOkResponse, ErrorResponse } from '../src/utils/response.js';
 import { withAuthentication } from '../src/utils/auth-hof.js';
 import { refreshToken, requestLoginCode, verifyLogin } from '../src/handlers/auth.js';
 
@@ -10,6 +10,10 @@ export const config: Config = {
 };
 
 export default async (req: Request, context: Context) => {
+  if (req.method === 'OPTIONS') {
+    return new CorsOkResponse();
+  }
+
   const { operation } = context.params;
 
   switch (operation) {
