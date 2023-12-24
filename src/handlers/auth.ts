@@ -16,16 +16,19 @@ import { getLoginCode, getToken, validateLoginCode } from '../utils/crypt-jwt.js
 export async function requestLoginCode(req: Request, _context: Context, db: Db): Promise<Response> {
   try {
     const body = await req.json();
-
+    console.debug('Got body', body);
     try {
       await emailRequestSchema.validate(body);
     } catch (e: any) {
       return new ValidationErrorResponse(e);
     }
+    console.debug('Validated body');
 
     const { email } = body;
     const users = db.collection<User>('users');
+    console.debug('Got collection', users);
     const existingUser = await users.findOne({ email });
+    console.debug('Existing user:', existingUser);
     let user: User;
 
     if (!existingUser) {
@@ -38,6 +41,7 @@ export async function requestLoginCode(req: Request, _context: Context, db: Db):
     }
 
     const { loginCode, hashedLoginCode, loginCodeExpires, salt } = await getLoginCode();
+    console.debug('Got login code', loginCode);
     await users.updateOne(
       { id: user.id },
       {
@@ -48,6 +52,7 @@ export async function requestLoginCode(req: Request, _context: Context, db: Db):
         },
       }
     );
+    console.debug('Updated user entry');
 
     await sendLoginCode(body.email, loginCode);
     return new OkResponse({ message: 'Check your inbox' });
