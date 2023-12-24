@@ -7,8 +7,7 @@ import { NotFoundErrorResponse, UnauthorizedErrorResponse } from './response.js'
 export async function withAuthentication(
   run: (req: Request, context: Context, db: Db, user: User) => Promise<Response>
 ) {
-  return async (req: Request, context: Context, db: Db) =>
-    await authenticate(run, req, context, db);
+  return async (req: Request, context: Context, db: Db) => await authenticate(run, req, context, db);
 }
 
 async function authenticate(

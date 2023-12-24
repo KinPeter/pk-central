@@ -16,11 +16,7 @@ interface EmailTemplates {
   text: string;
 }
 
-export async function sendLoginCode(
-  email: string,
-  loginCode: string,
-  magicLinkToken: string
-): Promise<any> {
+export async function sendLoginCode(email: string, loginCode: string, magicLinkToken: string): Promise<any> {
   const subject = `${loginCode} - Log in to Tripz`;
   const { html, text } = getLoginCodeTemplates(loginCode, magicLinkToken);
   const data = new EmailData(email, subject, text, html);

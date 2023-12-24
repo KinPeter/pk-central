@@ -2,8 +2,6 @@ import { Db, MongoClient, ServerApiVersion } from 'mongodb';
 import { Context } from '@netlify/functions';
 import { ErrorResponse } from './response.js';
 
-// const connectionPromise = client.connect();
-
 export async function withMongoDb(
   nextStepFunction: (req: Request, context: Context, db: Db) => Promise<Response>,
   req: Request,
@@ -20,7 +18,7 @@ export async function withMongoDb(
       },
     });
     const db = (await client.connect()).db(process.env.MONGO_DB_NAME);
-    console.log('Connected to the database: ', db.databaseName);
+    console.log('Connected to the database:', db.databaseName);
     return await nextStepFunction(req, context, db);
   } catch (e) {
     return new ErrorResponse('Could not connect to the database', 500, e);

@@ -15,9 +15,7 @@ async function run(req: Request, context: Context, db: Db, user: User): Promise<
     console.log(req.url, context.requestId);
     // Send a ping to confirm a successful connection
     await db.command({ ping: 1 });
-    return new Response(
-      'Pinged your deployment. You successfully connected to MongoDB! User id is: ' + user.id
-    );
+    return new Response('Pinged your deployment. You successfully connected to MongoDB! User id is: ' + user.id);
   } catch (e) {
     return new ErrorResponse('Something went wrong in run()', 500, e);
   }

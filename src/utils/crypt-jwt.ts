@@ -7,10 +7,7 @@ export function getAccessToken(email: string, userId: string): { token: string; 
   const token = jwt.sign({ email, userId }, process.env.JWT_SECRET!, { expiresIn: nDaysInSeconds });
   const nowInSeconds = new Date().getTime() / 1000;
   const expiresAt = new Date((nowInSeconds + nDaysInSeconds) * 1000);
-  return {
-    token,
-    expiresAt,
-  };
+  return { token, expiresAt };
 }
 
 function getMagicLinkToken(userId: string): { token: string } {
@@ -22,10 +19,7 @@ function getMagicLinkToken(userId: string): { token: string } {
 async function getHashed(loginCode: string): Promise<{ hashedLoginCode: string; salt: string }> {
   const salt = await bcrypt.genSalt();
   const hashedLoginCode = await bcrypt.hash(loginCode, salt);
-  return {
-    hashedLoginCode,
-    salt,
-  };
+  return { hashedLoginCode, salt };
 }
 
 export async function getLoginCode(userId: string): Promise<{
