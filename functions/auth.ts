@@ -2,11 +2,16 @@ import { Config, Context } from '@netlify/functions';
 import { withMongoDb } from '../src/utils/mongo-hof.js';
 import { CorsOkResponse, ErrorResponse } from '../src/utils/response.js';
 import { withAuthentication } from '../src/utils/auth-hof.js';
-import { refreshToken, requestLoginCode, verifyLogin } from '../src/handlers/auth.js';
+import {
+  refreshToken,
+  requestLoginCode,
+  verifyLoginCode,
+  verifyMagicLink,
+} from '../src/handlers/auth.js';
 
 export const config: Config = {
-  path: '/auth/:operation',
-  method: ['POST', 'OPTIONS'],
+  path: ['/auth/:operation', '/auth/:operation/:token/:redirectEnv'],
+  method: ['GET', 'POST', 'OPTIONS'],
 };
 
 export default async (req: Request, context: Context) => {
@@ -19,8 +24,10 @@ export default async (req: Request, context: Context) => {
   switch (operation) {
     case 'login':
       return await withMongoDb(requestLoginCode, req, context);
-    case 'verify':
-      return await withMongoDb(verifyLogin, req, context);
+    case 'verify-code':
+      return await withMongoDb(verifyLoginCode, req, context);
+    case 'verify-link':
+      return await withMongoDb(verifyMagicLink, req, context);
     case 'token-refresh':
       return await withMongoDb(await withAuthentication(refreshToken), req, context);
     default:

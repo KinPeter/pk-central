@@ -1,26 +1,27 @@
 import { ValidationError } from 'yup';
 
-const corsHeaders = {
+const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'OPTIONS, GET, POST, PUT, PATCH, DELETE',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Content-Type': 'application/json',
 };
 
 export class OkResponse extends Response {
   constructor(data: unknown, status = 200) {
-    super(JSON.stringify(data), { status, headers: { ...corsHeaders } });
+    super(JSON.stringify(data), { status, headers });
   }
 }
 
 export class CorsOkResponse extends Response {
   constructor() {
-    super('ok', { headers: corsHeaders });
+    super('ok', { headers });
   }
 }
 
 export class ErrorResponse extends Response {
   constructor(message: string, status: number, details?: any) {
-    super(JSON.stringify({ error: message, details }), { status, headers: { ...corsHeaders } });
+    super(JSON.stringify({ error: message, details }), { status, headers });
   }
 }
 
@@ -39,5 +40,11 @@ export class UnauthorizedErrorResponse extends ErrorResponse {
 export class NotFoundErrorResponse extends ErrorResponse {
   constructor(item: string) {
     super(`${item} not found`, 404);
+  }
+}
+
+export class MethodNotAllowedResponse extends ErrorResponse {
+  constructor(method: string) {
+    super(`Method not allowed: ${method}`, 405);
   }
 }

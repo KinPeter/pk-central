@@ -7,7 +7,7 @@ Content-Type: application/json
 }
 
 ### Verify login code
-POST http://localhost:8888/auth/verify
+POST http://localhost:8888/auth/verify-code
 Content-Type: application/json
 
 {
@@ -15,10 +15,13 @@ Content-Type: application/json
   "loginCode": "831561"
 }
 
+### Verify magic link
+GET http://localhost:8888/auth/verify-link/...
+
 ### Refresh token
 POST http://localhost:8888/auth/token-refresh
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtpbnBldGVyODVAZ21haWwuY29tIiwidXNlcklkIjoiZDY5NjVlMGQtNjEzMC00M2ExLTg2NTEtMGJhNTZhN2Y2NzhkIiwiaWF0IjoxNzAzMzY2MDYxLCJleHAiOjE3MDM5NzA4NjF9.Y5rkM4T80NxaA3qTFqm0udLGUQFvOKUIqX3-hnrlptk
+Authorization: Bearer ...
 
 {
   "email": "kinpeter85@gmail.com"

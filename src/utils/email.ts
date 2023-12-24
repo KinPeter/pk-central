@@ -16,9 +16,13 @@ interface EmailTemplates {
   text: string;
 }
 
-export async function sendLoginCode(email: string, loginCode: string): Promise<any> {
+export async function sendLoginCode(
+  email: string,
+  loginCode: string,
+  magicLinkToken: string
+): Promise<any> {
   const subject = `${loginCode} - Log in to Tripz`;
-  const { html, text } = getLoginCodeTemplates(loginCode);
+  const { html, text } = getLoginCodeTemplates(loginCode, magicLinkToken);
   const data = new EmailData(email, subject, text, html);
   return await sendMail(data);
 }
@@ -53,12 +57,18 @@ async function sendMail(emailData: EmailData): Promise<any> {
   }
 }
 
-function getLoginCodeTemplates(loginCode: string): EmailTemplates {
+function getLoginCodeTemplates(loginCode: string, magicLinkToken: string): EmailTemplates {
   const expiresInMinutes = Number(process.env.LOGIN_CODE_EXPIRY);
+  const prodProdMagicLink = `${process.env.SELF_URL}/auth/verify-link/${magicLinkToken}/prod`;
+  const localLocalMagicLink = `http://localhost:8888/auth/verify-link/${magicLinkToken}/dev`;
+  const prodLocalMagicLink = `${process.env.SELF_URL}/auth/verify-link/${magicLinkToken}/dev`;
   const html = `
     <h3>Hello!</h3>
     <p>Please use the code below to log in, it expires in ${expiresInMinutes} minutes.</p>
     <h1>${loginCode}</h1>
+    <p>Or, use the <a href="${prodProdMagicLink}">magic link</a>!</p>
+    <p>[DEV local] <a href="${localLocalMagicLink}">magic link</a>!</p>
+    <p>[DEV prod/local] <a href="${prodLocalMagicLink}">magic link</a>!</p>
     `;
   const text = `
     Hello!
