@@ -12,16 +12,16 @@ Content-Type: application/json
 
 {
   "email": "kinpeter85@gmail.com",
-  "loginCode": "831561"
+  "loginCode": "947749"
 }
 
 ### Verify magic link
-GET http://localhost:8888/auth/verify-link/...
+GET http://localhost:8888/auth/verify-link/{{token}}/dev
 
 ### Refresh token
 POST http://localhost:8888/auth/token-refresh
 Content-Type: application/json
-Authorization: Bearer ...
+Authorization: Bearer {{token}}
 
 {
   "email": "kinpeter85@gmail.com"
