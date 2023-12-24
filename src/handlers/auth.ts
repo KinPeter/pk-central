@@ -26,9 +26,16 @@ export async function requestLoginCode(req: Request, _context: Context, db: Db):
 
     const { email } = body;
     const users = db.collection<User>('users');
-    console.debug('Got collection', users);
-    const existingUser = await users.findOne({ email });
-    console.debug('Existing user:', existingUser);
+    console.debug('Got collection', users.collectionName);
+
+    let existingUser;
+    try {
+      existingUser = await users.findOne({ email });
+      console.debug('Existing user:', existingUser);
+    } catch (e) {
+      console.error(e);
+      return new NotFoundErrorResponse('User'); // TODO remove- debug
+    }
     let user: User;
 
     if (!existingUser) {
