@@ -1,6 +1,6 @@
 import { Config, Context } from '@netlify/functions';
 import { CorsOkResponse, ErrorResponse } from '../src/utils/response.js';
-import { getAllVisits } from '../src/handlers/visits.js';
+import { getAllVisits } from '../src/handlers/visits.handler.js';
 import { MongoDbManager } from '../src/utils/mongo-db-manager.js';
 import { AuthManager } from '../src/utils/auth-manager.js';
 

@@ -1,39 +1,44 @@
-import { getAllFlights } from './flights.js';
+import { getAllVisits } from './visits.handler.js';
 import { Context } from '@netlify/functions';
-import { Db } from 'mongodb';
-import { User } from '../types/users.js';
-import { MockCollection, MockCursor, MockDb } from '../mock/db.js';
+import { MockCollection, MockCursor, MockDb, MockDbManager } from '../mock/db.mock.js';
+import { MockAuthManager } from '../mock/auth.mock.js';
+import { MongoDbManager } from '../utils/mongo-db-manager.js';
 
 const twoResults = [
-  { _id: 'm1', id: 'uuid1', userId: 'user1', date: '2023-12-16' },
-  { _id: 'm2', id: 'uuid2', userId: 'user1', date: '2023-12-27' },
+  { _id: 'm1', id: 'uuid1', userId: 'user1', city: 'Chania' },
+  { _id: 'm2', id: 'uuid2', userId: 'user1', city: 'Athens' },
 ];
 
 const notAllowedMethods = ['POST', 'PUT', 'DELETE', 'PATCH'];
 
-describe('Flights handler', () => {
+describe('Visits handler', () => {
   let db: MockDb;
   let collection: MockCollection;
+  let dbManager: MockDbManager;
   let cursor: MockCursor;
+  let authManager: MockAuthManager;
 
   beforeEach(() => {
     db = new MockDb();
     collection = new MockCollection();
+    dbManager = new MockDbManager(db, collection);
     cursor = new MockCursor();
+    authManager = new MockAuthManager();
     db.collection.and.returnValue(collection);
     collection.find.and.returnValue(cursor);
+    authManager.authenticateUser.and.resolveTo({ id: '123' });
   });
 
-  describe('getAllFlights', () => {
-    it('should return flights without object and user ids', async () => {
-      cursor.toArray.and.returnValue(twoResults);
-      const response = await getAllFlights(
+  describe('getAllVisits', () => {
+    it('should return visits without object and user ids', async () => {
+      cursor.toArray.and.resolveTo(twoResults);
+      const response = await getAllVisits(
         { method: 'GET' } as Request,
         {} as Context,
-        db as unknown as Db,
-        { id: '123' } as User
+        dbManager as unknown as MongoDbManager,
+        authManager
       );
-      expect(db.collection).toHaveBeenCalledWith('flights');
+      expect(db.collection).toHaveBeenCalledWith('visits');
       expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
       expect(response.status).toEqual(200);
       const data = await response.json();
@@ -43,17 +48,17 @@ describe('Flights handler', () => {
       expect(data[0].hasOwnProperty('userId')).toBeFalse();
       expect(data[1].hasOwnProperty('_id')).toBeFalse();
       expect(data[1].hasOwnProperty('userId')).toBeFalse();
-      expect(data[0].date).toBe('2023-12-16');
+      expect(data[0].city).toBe('Chania');
       expect(data[1].id).toBe('uuid2');
     });
 
-    it('should return empty array if no flights', async () => {
-      cursor.toArray.and.returnValue([]);
-      const response = await getAllFlights(
+    it('should return empty array if no visits', async () => {
+      cursor.toArray.and.resolveTo([]);
+      const response = await getAllVisits(
         { method: 'GET' } as Request,
         {} as Context,
-        db as unknown as Db,
-        { id: '123' } as User
+        dbManager as unknown as MongoDbManager,
+        authManager
       );
       expect(response.status).toEqual(200);
       const data = await response.json();
@@ -63,11 +68,11 @@ describe('Flights handler', () => {
 
     notAllowedMethods.forEach(method => {
       it(`should not allow ${method} requests`, async () => {
-        const response = await getAllFlights(
+        const response = await getAllVisits(
           { method } as Request,
           {} as Context,
-          db as unknown as Db,
-          { id: '123' } as User
+          dbManager as unknown as MongoDbManager,
+          authManager
         );
         expect(response.status).toEqual(405);
       });
@@ -76,11 +81,11 @@ describe('Flights handler', () => {
     it('should return server error if collection.find fails', async () => {
       collection.find.calls.reset();
       collection.find.and.throwError(new Error());
-      const response = await getAllFlights(
+      const response = await getAllVisits(
         { method: 'GET' } as Request,
         {} as Context,
-        db as unknown as Db,
-        { id: '123' } as User
+        dbManager as unknown as MongoDbManager,
+        authManager
       );
       expect(response.status).toEqual(500);
     });

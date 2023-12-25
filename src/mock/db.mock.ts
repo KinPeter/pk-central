@@ -12,3 +12,18 @@ export class MockCollection {
 export class MockCursor {
   toArray = jasmine.createSpy('toArray');
 }
+
+export class MockDbManager {
+  constructor(
+    public db: MockDb,
+    public collection: MockCollection
+  ) {}
+
+  getMongoDb() {
+    return { db: this.db };
+  }
+
+  closeMongoClient() {
+    return true;
+  }
+}

@@ -1,5 +1,4 @@
 import { Context } from '@netlify/functions';
-import { Db, MongoClient } from 'mongodb';
 import {
   ErrorResponse,
   MethodNotAllowedResponse,
@@ -8,15 +7,20 @@ import {
   UnauthorizedErrorResponse,
   ValidationErrorResponse,
 } from '../utils/response.js';
-import { sendLoginCode, sendSignupNotification } from '../utils/email.js';
 import { emailRequestSchema, loginVerifyRequestSchema } from '../validators/auth.js';
 import { v4 as uuid } from 'uuid';
 import { User } from '../types/users.js';
 import { getLoginCode, getAccessToken, validateLoginCode, verifyToken } from '../utils/crypt-jwt.js';
 import { MongoDbManager } from '../utils/mongo-db-manager.js';
 import { AuthManager } from '../utils/auth-manager.js';
+import { EmailManager } from '../utils/email-manager.js';
 
-export async function requestLoginCode(req: Request, _context: Context, dbManager: MongoDbManager): Promise<Response> {
+export async function requestLoginCode(
+  req: Request,
+  _context: Context,
+  dbManager: MongoDbManager,
+  emailManager: EmailManager
+): Promise<Response> {
   try {
     if (req.method !== 'POST') return new MethodNotAllowedResponse(req.method);
 
@@ -40,7 +44,7 @@ export async function requestLoginCode(req: Request, _context: Context, dbManage
       user = { id, email };
       await users.insertOne({ id, email });
       console.log('Created new user:', email, id);
-      sendSignupNotification(email).then(); // no need to await this
+      emailManager.sendSignupNotification(email).then(); // no need to await this
     } else {
       user = existingUser;
     }
@@ -57,9 +61,10 @@ export async function requestLoginCode(req: Request, _context: Context, dbManage
       }
     );
 
-    await sendLoginCode(body.email, loginCode, magicLinkToken);
+    await emailManager.sendLoginCode(body.email, loginCode, magicLinkToken);
     return new OkResponse({ message: 'Check your inbox' });
   } catch (e) {
+    console.log(e);
     return new ErrorResponse('Something went wrong', 500, e);
   } finally {
     await dbManager.closeMongoClient();
