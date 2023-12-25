@@ -1,5 +1,5 @@
 import { Context } from '@netlify/functions';
-import { Db } from 'mongodb';
+import { Db, MongoClient } from 'mongodb';
 import {
   ErrorResponse,
   MethodNotAllowedResponse,
@@ -13,8 +13,10 @@ import { emailRequestSchema, loginVerifyRequestSchema } from '../validators/auth
 import { v4 as uuid } from 'uuid';
 import { User } from '../types/users.js';
 import { getLoginCode, getAccessToken, validateLoginCode, verifyToken } from '../utils/crypt-jwt.js';
+import { MongoDbManager } from '../utils/mongo-db-manager.js';
+import { AuthManager } from '../utils/auth-manager.js';
 
-export async function requestLoginCode(req: Request, _context: Context, db: Db): Promise<Response> {
+export async function requestLoginCode(req: Request, _context: Context, dbManager: MongoDbManager): Promise<Response> {
   try {
     if (req.method !== 'POST') return new MethodNotAllowedResponse(req.method);
 
@@ -25,6 +27,8 @@ export async function requestLoginCode(req: Request, _context: Context, db: Db):
     } catch (e: any) {
       return new ValidationErrorResponse(e);
     }
+
+    const { db } = await dbManager.getMongoDb();
 
     const { email } = body;
     const users = db.collection<User>('users');
@@ -57,10 +61,12 @@ export async function requestLoginCode(req: Request, _context: Context, db: Db):
     return new OkResponse({ message: 'Check your inbox' });
   } catch (e) {
     return new ErrorResponse('Something went wrong', 500, e);
+  } finally {
+    await dbManager.closeMongoClient();
   }
 }
 
-export async function verifyLoginCode(req: Request, _context: Context, db: Db): Promise<Response> {
+export async function verifyLoginCode(req: Request, _context: Context, dbManager: MongoDbManager): Promise<Response> {
   try {
     if (req.method !== 'POST') return new MethodNotAllowedResponse(req.method);
 
@@ -71,6 +77,8 @@ export async function verifyLoginCode(req: Request, _context: Context, db: Db): 
     } catch (e: any) {
       return new ValidationErrorResponse(e);
     }
+
+    const { db } = await dbManager.getMongoDb();
 
     const { email, loginCode } = body;
 
@@ -93,10 +101,12 @@ export async function verifyLoginCode(req: Request, _context: Context, db: Db): 
     return new OkResponse({ id, email, token, expiresAt });
   } catch (e) {
     return new ErrorResponse('Something went wrong', 500, e);
+  } finally {
+    await dbManager.closeMongoClient();
   }
 }
 
-export async function verifyMagicLink(req: Request, context: Context, db: Db): Promise<Response> {
+export async function verifyMagicLink(req: Request, context: Context, dbManager: MongoDbManager): Promise<Response> {
   try {
     if (req.method !== 'GET') return new MethodNotAllowedResponse(req.method);
 
@@ -105,6 +115,8 @@ export async function verifyMagicLink(req: Request, context: Context, db: Db): P
     const payload = verifyToken(magicLinkToken);
     if (!payload) return new UnauthorizedErrorResponse('Magic link token is invalid or expired');
     const { userId: id } = payload;
+
+    const { db } = await dbManager.getMongoDb();
 
     const users = db.collection<User>('users');
     const user = await users.findOne({ id });
@@ -118,16 +130,30 @@ export async function verifyMagicLink(req: Request, context: Context, db: Db): P
     return Response.redirect(redirectUrl, 301);
   } catch (e) {
     return new ErrorResponse('Something went wrong', 500, e);
+  } finally {
+    await dbManager.closeMongoClient();
   }
 }
 
-export async function refreshToken(req: Request, _context: Context, _db: Db, user: User): Promise<Response> {
+export async function refreshToken(
+  req: Request,
+  _context: Context,
+  dbManager: MongoDbManager,
+  authManager: AuthManager
+): Promise<Response> {
   try {
     if (req.method !== 'POST') return new MethodNotAllowedResponse(req.method);
+
+    const { db } = await dbManager.getMongoDb();
+    const user = await authManager.authenticateUser(req, db);
+    if (!user) return new UnauthorizedErrorResponse('Access token is invalid');
+
     const { email, id } = user;
     const { token, expiresAt } = getAccessToken(email, id);
     return new OkResponse({ id, email, token, expiresAt });
   } catch (e) {
     return new ErrorResponse('Something went wrong', 500, e);
+  } finally {
+    await dbManager.closeMongoClient();
   }
 }
