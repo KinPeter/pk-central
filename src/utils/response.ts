@@ -48,3 +48,9 @@ export class MethodNotAllowedResponse extends ErrorResponse {
     super(`Method not allowed: ${method}`, 405);
   }
 }
+
+export class UnauthorizedInvalidAccessTokenErrorResponse extends UnauthorizedErrorResponse {
+  constructor() {
+    super('Authorization failed: Access token is invalid');
+  }
+}
