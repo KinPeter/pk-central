@@ -1,5 +1,4 @@
 import { MockCollection, MockDb, MockDbManager } from '../../mock/db.mock.js';
-import { MockAuthManager } from '../../mock/auth.mock.js';
 import { MockEmailManager } from '../../mock/email.mock.js';
 import { requestLoginCode } from './request-login-code.js';
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
@@ -9,7 +8,6 @@ describe('requestLoginCode', () => {
   let db: MockDb;
   let collection: MockCollection;
   let dbManager: MockDbManager;
-  let authManager: MockAuthManager;
   let emailManager: MockEmailManager;
 
   beforeEach(() => {
@@ -20,7 +18,6 @@ describe('requestLoginCode', () => {
     collection = new MockCollection();
     dbManager = new MockDbManager(db, collection);
     emailManager = new MockEmailManager();
-    authManager = new MockAuthManager();
     db.collection.and.returnValue(collection);
   });
 
@@ -64,5 +61,33 @@ describe('requestLoginCode', () => {
     expect(emailManager.sendSignupNotification).not.toHaveBeenCalled();
     expect(emailManager.sendLoginCode).toHaveBeenCalled();
     expect(response.status).toBe(200);
+  });
+
+  ['GET', 'PUT', 'DELETE', 'PATCH'].forEach(method => {
+    it(`should not allow ${method} requests`, async () => {
+      const response = await requestLoginCode(
+        { method } as Request,
+        dbManager as unknown as MongoDbManager,
+        emailManager as unknown as EmailManager
+      );
+      expect(response.status).toEqual(405);
+    });
+  });
+
+  [{ email: null }, { email: 'not-an-email' }].forEach(body => {
+    it(`should return validation error for invalid request body: ${JSON.stringify(body)}`, async () => {
+      const request = new Request('http://localhost:8888', {
+        method: 'POST',
+        body: JSON.stringify(body),
+      });
+      const response = await requestLoginCode(
+        request,
+        dbManager as unknown as MongoDbManager,
+        emailManager as unknown as EmailManager
+      );
+      expect(response.status).toEqual(400);
+      const data = await response.json();
+      expect(data.details[0]).toContain('email');
+    });
   });
 });

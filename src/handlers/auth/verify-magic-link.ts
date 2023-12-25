@@ -5,13 +5,21 @@ import {
   MethodNotAllowedResponse,
   NotFoundErrorResponse,
   UnauthorizedErrorResponse,
+  ValidationErrorResponse,
 } from '../../utils/response.js';
 import { getAccessToken, verifyToken } from '../../utils/crypt-jwt.js';
 import { User } from '../../types/users.js';
+import { magicLinkParamsSchema } from '../../validators/auth.js';
 
 export async function verifyMagicLink(req: Request, context: Context, dbManager: MongoDbManager): Promise<Response> {
   try {
     if (req.method !== 'GET') return new MethodNotAllowedResponse(req.method);
+
+    try {
+      await magicLinkParamsSchema.validate(context.params);
+    } catch (e: any) {
+      return new ValidationErrorResponse(e);
+    }
 
     const { token: magicLinkToken, redirectEnv } = context.params;
 
