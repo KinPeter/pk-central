@@ -8,7 +8,7 @@
     "format:check": "prettier --check \"**/*.{ts,json}\"",
     "format": "prettier --write \"**/*.{ts,json}\"",
     "test": "tsc && jasmine --config=./jasmine.json",
-    "build": "sh scripts/netlify-build.sh"
+    "build": "./scripts/netlify-build.sh"
   },
   "author": "Peter Kin",
   "license": "ISC",
