@@ -87,7 +87,7 @@ describe('Flights handler', () => {
         dbManager as unknown as MongoDbManager,
         authManager
       );
-      expect(response.status).toEqual(500);
+      expect(response.status).toEqual(501);
     });
   });
 });
