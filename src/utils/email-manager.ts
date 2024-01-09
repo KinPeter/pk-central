@@ -22,14 +22,14 @@ export class EmailManager {
   constructor(private createTransport: TransportCreatorFn) {}
 
   public async sendLoginCode(email: string, loginCode: string, magicLinkToken: string): Promise<any> {
-    const subject = `${loginCode} - Log in to Tripz`;
+    const subject = `${loginCode} - Log in to PK-Central`;
     const { html, text } = this.getLoginCodeTemplates(loginCode, magicLinkToken);
     const data = new EmailData(email, subject, text, html);
     return await this.sendMail(data);
   }
 
   public async sendSignupNotification(email: string) {
-    const subject = 'A user signed up to Tripz';
+    const subject = 'A user signed up to PK-Central';
     const { html, text } = this.getSignupNotificationTemplates(email);
     const data = new EmailData(process.env.NOTIFICATION_EMAIL ?? '', subject, text, html);
     return await this.sendMail(data);
@@ -82,12 +82,12 @@ export class EmailManager {
   private getSignupNotificationTemplates(email: string) {
     const html = `
     <h3>Hey Peter!</h3>
-    <p>A user just signed up to Tripz:</p>
+    <p>A user just signed up to PK-Central:</p>
     <p>Email: ${email}</p>
     `;
     const text = `
     Hey Peter!
-    A user just signed up to Tripz:
+    A user just signed up to PK-Central:
     Email: ${email}
     `;
     return { html, text };

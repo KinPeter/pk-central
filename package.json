@@ -1,7 +1,7 @@
 {
-  "name": "tripz-api",
+  "name": "pk-central",
   "version": "0.0.0",
-  "description": "Serverless functions based API for Tripz",
+  "description": "Serverless functions based API",
   "scripts": {
     "dev": "netlify dev --no-open",
     "lint": "eslint --ext .ts",
@@ -10,6 +10,9 @@
     "test": "tsc && jasmine --config=./jasmine.json",
     "postinstall": "npm run lint && npm run format:check && npm run test",
     "prepare": "husky install"
+  },
+  "engines": {
+    "node": ">=20.10.0"
   },
   "author": "Peter Kin",
   "license": "ISC",
@@ -39,7 +42,7 @@
     "eslint-plugin-prettier": "^5.1.1",
     "husky": "^8.0.3",
     "jasmine": "^5.1.0",
-    "netlify-cli": "^17.10.1",
+    "netlify-cli": "^17.13.0",
     "prettier": "^3.1.1"
   }
 }
