@@ -5369,5 +5369,87 @@
     "flightReason": "Leisure",
     "note": "",
     "distance": 268
+  },
+  {
+    "date": "2023-12-27",
+    "flightNumber": "A3337",
+    "from": {
+      "city": "Chania",
+      "name": "Souda",
+      "iata": "CHQ",
+      "icao": "LGSA",
+      "lat": 35.53175,
+      "lng": 24.14968,
+      "country": "Greece"
+    },
+    "to": {
+      "city": "Athens",
+      "name": "Eleftherios Venizelos",
+      "iata": "ATH",
+      "icao": "LGAV",
+      "lat": 37.93636,
+      "lng": 23.94447,
+      "country": "Greece"
+    },
+    "departureTime": "19:05:00",
+    "arrivalTime": "20:05:00",
+    "duration": "01:00:00",
+    "airline": {
+      "name": "Aegean Airlines",
+      "iata": "A3",
+      "icao": "AEE"
+    },
+    "aircraft": {
+      "name": "Airbus A320",
+      "icao": "A320"
+    },
+    "registration": "SX-DVQ",
+    "seatNumber": "18C",
+    "seatType": "Aisle",
+    "flightClass": "Economy",
+    "flightReason": "Leisure",
+    "note": "",
+    "distance": 268
+  },
+  {
+    "date": "2023-12-30",
+    "flightNumber": "FR1242",
+    "from": {
+      "city": "Athens",
+      "name": "Eleftherios Venizelos",
+      "iata": "ATH",
+      "icao": "LGAV",
+      "lat": 37.93636,
+      "lng": 23.94447,
+      "country": "Greece"
+    },
+    "to": {
+      "city": "Budapest",
+      "name": "Franz Liszt International",
+      "iata": "BUD",
+      "icao": "LHBP",
+      "lat": 47.43693,
+      "lng": 19.25559,
+      "country": "Hungary"
+    },
+    "departureTime": "21:55:00",
+    "arrivalTime": "23:00:00",
+    "duration": "02:05:00",
+    "airline": {
+      "name": "Ryanair",
+      "iata": "FR",
+      "icao": "RYR"
+    },
+    "aircraft": {
+      "name": "Boeing 737 MAX 8",
+      "icao": "B38M"
+    },
+    "registration": "SP-RZI",
+    "seatNumber": "28C",
+    "seatType": "Aisle",
+    "flightClass": "Economy",
+    "flightReason": "Leisure",
+    "note": "",
+    "distance": 1123
   }
 ]

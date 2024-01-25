@@ -36,7 +36,7 @@ export async function verifyMagicLink(req: Request, context: Context, dbManager:
     const { token, expiresAt } = getAccessToken(user.email, user.id);
 
     const frontendUrl =
-      redirectEnv === 'prod' ? process.env.FRONTEND_URL : redirectEnv === 'dev' ? 'http://localhost:5100' : '';
+      redirectEnv === 'prod' ? process.env.TRIPZ_FRONTEND_URL : redirectEnv === 'dev' ? 'http://localhost:5100' : '';
     const redirectUrl = `${frontendUrl}?accessToken=${token}&expiresAt=${expiresAt}&email=${user.email}&id=${user.id}`;
     return Response.redirect(redirectUrl, 301);
   } catch (e) {
