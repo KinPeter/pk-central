@@ -10,6 +10,7 @@ const headers = {
 export class OkResponse<T> extends Response {
   constructor(data: T, status = 200) {
     super(JSON.stringify(data), { status, headers });
+    console.log(`${status} Status Success response generated`);
   }
 }
 
@@ -22,6 +23,7 @@ export class CorsOkResponse extends Response {
 export class ErrorResponse extends Response {
   constructor(message: string, status: number, details?: any) {
     super(JSON.stringify({ error: message, details }), { status, headers });
+    console.log(`${status} Status Error response generated with message: ${message}`);
   }
 }
 

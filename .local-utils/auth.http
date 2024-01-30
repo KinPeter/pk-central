@@ -1,5 +1,5 @@
 ### Get login code email
-POST http://localhost:8888/auth/login
+POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
@@ -7,19 +7,19 @@ Content-Type: application/json
 }
 
 ### Verify login code
-POST http://localhost:8888/auth/verify-code
+POST {{baseUrl}}/auth/verify-code
 Content-Type: application/json
 
 {
   "email": "kinpeter85@gmail.com",
-  "loginCode": "236913"
+  "loginCode": "151188"
 }
 
 ### Verify magic link
-GET http://localhost:8888/auth/verify-link/{{token}}/dev
+GET {{baseUrl}}/auth/verify-link/{{token}}/dev
 
 ### Refresh token
-POST http://localhost:8888/auth/token-refresh
+POST {{baseUrl}}/auth/token-refresh
 Content-Type: application/json
 Authorization: Bearer {{token}}
 

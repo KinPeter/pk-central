@@ -10,6 +10,7 @@ export class AuthManager {
     const { email, userId } = payload;
     const user = await db.collection<User>('users').findOne({ id: userId });
     if (!user || email !== user.email) return null;
+    console.log('User authenticated:', user.email);
     return user;
   }
 }

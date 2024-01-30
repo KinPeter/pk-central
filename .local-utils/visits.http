@@ -1,4 +1,4 @@
 ### Get all visits
-GET http://localhost:8888/visits/all
+GET {{baseUrl}}/visits/all
 Content-Type: application/json
 Authorization: Bearer {{token}}

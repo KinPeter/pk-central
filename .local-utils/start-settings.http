@@ -1,4 +1,4 @@
-### Get all flights
-GET {{baseUrl}}/flights/all
+### Get settings for user
+GET {{baseUrl}}/start-settings
 Content-Type: application/json
 Authorization: Bearer {{token}}
