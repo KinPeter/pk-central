@@ -7,6 +7,7 @@ import {
   OkResponse,
 } from '../../utils/response.js';
 import { getAccessToken } from '../../utils/crypt-jwt.js';
+import { AuthData } from 'pk-common';
 
 export async function refreshToken(
   req: Request,
@@ -22,7 +23,7 @@ export async function refreshToken(
 
     const { email, id } = user;
     const { token, expiresAt } = getAccessToken(email, id);
-    return new OkResponse({ id, email, token, expiresAt });
+    return new OkResponse<AuthData>({ id, email, token, expiresAt });
   } catch (e) {
     return new ErrorResponse('Something went wrong', 500, e);
   } finally {

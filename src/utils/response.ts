@@ -7,8 +7,8 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-export class OkResponse extends Response {
-  constructor(data: unknown, status = 200) {
+export class OkResponse<T> extends Response {
+  constructor(data: T, status = 200) {
     super(JSON.stringify(data), { status, headers });
   }
 }

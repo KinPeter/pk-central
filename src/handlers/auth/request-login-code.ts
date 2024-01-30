@@ -1,10 +1,9 @@
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
 import { EmailManager } from '../../utils/email-manager.js';
 import { ErrorResponse, MethodNotAllowedResponse, OkResponse, ValidationErrorResponse } from '../../utils/response.js';
-import { emailRequestSchema } from '../../validators/auth.js';
-import { User } from '../../types/users.js';
 import { v4 as uuid } from 'uuid';
 import { getLoginCode } from '../../utils/crypt-jwt.js';
+import { emailRequestSchema, User } from 'pk-common';
 
 export async function requestLoginCode(
   req: Request,

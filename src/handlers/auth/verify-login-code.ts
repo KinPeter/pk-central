@@ -7,9 +7,8 @@ import {
   UnauthorizedErrorResponse,
   ValidationErrorResponse,
 } from '../../utils/response.js';
-import { loginVerifyRequestSchema } from '../../validators/auth.js';
-import { User } from '../../types/users.js';
 import { getAccessToken, validateLoginCode } from '../../utils/crypt-jwt.js';
+import { AuthData, loginVerifyRequestSchema, User } from 'pk-common';
 
 export async function verifyLoginCode(req: Request, dbManager: MongoDbManager): Promise<Response> {
   try {
@@ -43,7 +42,7 @@ export async function verifyLoginCode(req: Request, dbManager: MongoDbManager): 
     }
 
     const { token, expiresAt } = getAccessToken(email, id);
-    return new OkResponse({ id, email, token, expiresAt });
+    return new OkResponse<AuthData>({ id, email, token, expiresAt });
   } catch (e) {
     return new ErrorResponse('Something went wrong', 500, e);
   } finally {

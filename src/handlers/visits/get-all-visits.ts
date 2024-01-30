@@ -6,8 +6,8 @@ import {
   MethodNotAllowedResponse,
   OkResponse,
 } from '../../utils/response.js';
-import { VisitDocument } from '../../types/visits.js';
 import { omitIds } from '../../utils/omit-ids.js';
+import { VisitDocument } from 'pk-common';
 
 export async function getAllVisits(
   req: Request,

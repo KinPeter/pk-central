@@ -6,8 +6,8 @@ import {
   MethodNotAllowedResponse,
   OkResponse,
 } from '../../utils/response.js';
-import { FlightDocument } from '../../types/flights.js';
 import { omitIds } from '../../utils/omit-ids.js';
+import { FlightDocument } from 'pk-common';
 
 export async function getAllFlights(
   req: Request,

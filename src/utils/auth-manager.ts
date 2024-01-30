@@ -1,6 +1,6 @@
 import { Db } from 'mongodb';
-import { User } from '../types/users.js';
 import { verifyToken } from './crypt-jwt.js';
+import { User } from 'pk-common';
 
 export class AuthManager {
   public async authenticateUser(req: Request, db: Db): Promise<User | null> {

@@ -8,8 +8,7 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response.js';
 import { getAccessToken, verifyToken } from '../../utils/crypt-jwt.js';
-import { User } from '../../types/users.js';
-import { magicLinkParamsSchema } from '../../validators/auth.js';
+import { magicLinkParamsSchema, User } from 'pk-common';
 
 export async function verifyMagicLink(req: Request, context: Context, dbManager: MongoDbManager): Promise<Response> {
   try {
