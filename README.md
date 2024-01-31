@@ -16,6 +16,16 @@ Find out more at the [Netlify Docs](https://docs.netlify.com/cli/get-started/) o
 
 Environment variables are handled by Netlify, it is possible to set one by one or import from .env file on the Netlify UI under Site configuration / Environment variables.
 
+See the `.env.example` for currently used variables.
+
+### Environment variables for Local dev server
+
+When running the Netlify CLI local dev server it automatically reads the local `.env` file and uses the variables stored in that file (thus ignoring the variables stored on Netlify online). 
+To use the local MongoDB for development, set this variable:
+```shell
+MONGO_DB_URI=mongodb://admin:admin@localhost:27017/
+```
+
 ### Local DEV MongoDB
 
 MongoDB for development is configured to run in Docker.
