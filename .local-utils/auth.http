@@ -11,8 +11,8 @@ POST {{baseUrl}}/auth/verify-code
 Content-Type: application/json
 
 {
-  "email": "kinpeter85@gmail.com",
-  "loginCode": "151188"
+  "email": "main@test.com",
+  "loginCode": "509950"
 }
 
 ### Verify magic link

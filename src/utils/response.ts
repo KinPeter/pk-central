@@ -10,7 +10,8 @@ const headers = {
 export class OkResponse<T> extends Response {
   constructor(data: T, status = 200) {
     super(JSON.stringify(data), { status, headers });
-    console.log(`${status} Status Success response generated`);
+    const returnedItems = Array.isArray(data) ? data.length : 1;
+    console.log(`${status} Status Success response generated ${returnedItems} item(s) in payload`);
   }
 }
 
