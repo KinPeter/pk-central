@@ -1,10 +1,10 @@
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
 import { AuthManager } from '../../utils/auth-manager.js';
 import {
-  ErrorResponse,
   UnauthorizedInvalidAccessTokenErrorResponse,
   MethodNotAllowedResponse,
   OkResponse,
+  UnknownErrorResponse,
 } from '../../utils/response.js';
 import { omitIds } from '../../utils/omit-ids.js';
 import { VisitDocument } from 'pk-common';
@@ -27,7 +27,7 @@ export async function getAllVisits(
 
     return new OkResponse(omitIds(results));
   } catch (e) {
-    return new ErrorResponse('Something went wrong', 500, e);
+    return new UnknownErrorResponse(e);
   } finally {
     await dbManager.closeMongoClient();
   }

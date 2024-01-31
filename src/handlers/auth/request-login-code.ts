@@ -1,6 +1,11 @@
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
 import { EmailManager } from '../../utils/email-manager.js';
-import { ErrorResponse, MethodNotAllowedResponse, OkResponse, ValidationErrorResponse } from '../../utils/response.js';
+import {
+  MethodNotAllowedResponse,
+  OkResponse,
+  UnknownErrorResponse,
+  ValidationErrorResponse,
+} from '../../utils/response.js';
 import { v4 as uuid } from 'uuid';
 import { getLoginCode } from '../../utils/crypt-jwt.js';
 import { emailRequestSchema, User } from 'pk-common';
@@ -54,7 +59,7 @@ export async function requestLoginCode(
     return new OkResponse({ message: 'Check your inbox' });
   } catch (e) {
     console.log(e);
-    return new ErrorResponse('Something went wrong', 500, e);
+    return new UnknownErrorResponse(e);
   } finally {
     await dbManager.closeMongoClient();
   }

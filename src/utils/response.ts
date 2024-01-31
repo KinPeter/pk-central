@@ -1,4 +1,5 @@
 import { ValidationError } from 'yup';
+import { ApiError } from 'pk-common';
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
@@ -30,30 +31,42 @@ export class ErrorResponse extends Response {
 
 export class ValidationErrorResponse extends ErrorResponse {
   constructor(error: ValidationError) {
-    super('Request validation error', 400, error.errors);
+    super(ApiError.REQUEST_VALIDATION_FAILED, 400, error.errors);
   }
 }
 
 export class UnauthorizedErrorResponse extends ErrorResponse {
   constructor(message?: string) {
-    super(message ? `Unauthorized: ${message}` : 'Unauthorized', 401);
+    super(message ?? ApiError.UNAUTHORIZED, 401);
   }
 }
 
 export class NotFoundErrorResponse extends ErrorResponse {
   constructor(item: string) {
-    super(`${item} not found`, 404);
+    super(ApiError.ITEM_NOT_FOUND, 404, { item });
+  }
+}
+
+export class UserNotFoundErrorResponse extends ErrorResponse {
+  constructor() {
+    super(ApiError.USER_NOT_FOUND, 404);
   }
 }
 
 export class MethodNotAllowedResponse extends ErrorResponse {
   constructor(method: string) {
-    super(`Method not allowed: ${method}`, 405);
+    super(ApiError.METHOD_NOT_ALLOWED, 405, { method });
   }
 }
 
 export class UnauthorizedInvalidAccessTokenErrorResponse extends UnauthorizedErrorResponse {
   constructor() {
-    super('Authorization failed: Access token is invalid');
+    super(ApiError.INVALID_AUTH_TOKEN);
+  }
+}
+
+export class UnknownErrorResponse extends ErrorResponse {
+  constructor(error: unknown) {
+    super(ApiError.UNKNOWN_ERROR, 500, error);
   }
 }

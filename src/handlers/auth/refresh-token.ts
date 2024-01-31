@@ -1,10 +1,10 @@
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
 import { AuthManager } from '../../utils/auth-manager.js';
 import {
-  ErrorResponse,
   UnauthorizedInvalidAccessTokenErrorResponse,
   MethodNotAllowedResponse,
   OkResponse,
+  UnknownErrorResponse,
 } from '../../utils/response.js';
 import { getAccessToken } from '../../utils/crypt-jwt.js';
 import { AuthData } from 'pk-common';
@@ -25,7 +25,7 @@ export async function refreshToken(
     const { token, expiresAt } = getAccessToken(email, id);
     return new OkResponse<AuthData>({ id, email, token, expiresAt });
   } catch (e) {
-    return new ErrorResponse('Something went wrong', 500, e);
+    return new UnknownErrorResponse(e);
   } finally {
     await dbManager.closeMongoClient();
   }

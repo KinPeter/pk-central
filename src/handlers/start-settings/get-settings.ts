@@ -1,10 +1,10 @@
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
 import { AuthManager } from '../../utils/auth-manager.js';
 import {
-  ErrorResponse,
   UnauthorizedInvalidAccessTokenErrorResponse,
   OkResponse,
   NotFoundErrorResponse,
+  UnknownErrorResponse,
 } from '../../utils/response.js';
 import { omitIdsForOne } from '../../utils/omit-ids.js';
 import { PkStartSettings } from 'pk-common';
@@ -25,7 +25,7 @@ export async function getSettings(
 
     return new OkResponse(omitIdsForOne(settings));
   } catch (e) {
-    return new ErrorResponse('Something went wrong', 500, e);
+    return new UnknownErrorResponse(e);
   } finally {
     await dbManager.closeMongoClient();
   }

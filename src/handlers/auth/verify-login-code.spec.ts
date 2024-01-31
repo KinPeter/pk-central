@@ -2,6 +2,7 @@ import { MockCollection, MockDb, MockDbManager } from '../../mock/db.mock.js';
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
 import { verifyLoginCode } from './verify-login-code.js';
 import { getLoginCode } from '../../utils/crypt-jwt.js';
+import { ApiError } from 'pk-common';
 
 describe('verifyLoginCode', () => {
   let db: MockDb;
@@ -52,7 +53,7 @@ describe('verifyLoginCode', () => {
     const response = await verifyLoginCode(request, dbManager as unknown as MongoDbManager);
     expect(response.status).toEqual(401);
     const data = await response.json();
-    expect(data.error).toContain('Invalid');
+    expect(data.error).toContain(ApiError.INVALID_LOGIN_CODE);
   });
 
   it('should return unauthorized error if no entry in the database', async () => {
@@ -65,7 +66,7 @@ describe('verifyLoginCode', () => {
     const response = await verifyLoginCode(request, dbManager as unknown as MongoDbManager);
     expect(response.status).toEqual(401);
     const data = await response.json();
-    expect(data.error).toContain('no entry');
+    expect(data.error).toContain(ApiError.INVALID_LOGIN_CODE);
   });
 
   ['GET', 'PUT', 'DELETE', 'PATCH'].forEach(method => {

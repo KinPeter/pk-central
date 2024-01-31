@@ -1,14 +1,14 @@
 import { Context } from '@netlify/functions';
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
 import {
-  ErrorResponse,
   MethodNotAllowedResponse,
-  NotFoundErrorResponse,
   UnauthorizedErrorResponse,
+  UnknownErrorResponse,
+  UserNotFoundErrorResponse,
   ValidationErrorResponse,
 } from '../../utils/response.js';
 import { getAccessToken, verifyToken } from '../../utils/crypt-jwt.js';
-import { magicLinkParamsSchema, User } from 'pk-common';
+import { ApiError, magicLinkParamsSchema, User } from 'pk-common';
 
 export async function verifyMagicLink(req: Request, context: Context, dbManager: MongoDbManager): Promise<Response> {
   try {
@@ -23,14 +23,14 @@ export async function verifyMagicLink(req: Request, context: Context, dbManager:
     const { token: magicLinkToken, redirectEnv } = context.params;
 
     const payload = verifyToken(magicLinkToken);
-    if (!payload) return new UnauthorizedErrorResponse('Magic link token is invalid or expired');
+    if (!payload) return new UnauthorizedErrorResponse(ApiError.INVALID_MAGIC_LINK);
     const { userId: id } = payload;
 
     const { db } = await dbManager.getMongoDb();
 
     const users = db.collection<User>('users');
     const user = await users.findOne({ id });
-    if (!user) return new NotFoundErrorResponse('User');
+    if (!user) return new UserNotFoundErrorResponse();
 
     const { token, expiresAt } = getAccessToken(user.email, user.id);
 
@@ -39,7 +39,7 @@ export async function verifyMagicLink(req: Request, context: Context, dbManager:
     const redirectUrl = `${frontendUrl}?accessToken=${token}&expiresAt=${expiresAt}&email=${user.email}&id=${user.id}`;
     return Response.redirect(redirectUrl, 301);
   } catch (e) {
-    return new ErrorResponse('Something went wrong', 500, e);
+    return new UnknownErrorResponse(e);
   } finally {
     await dbManager.closeMongoClient();
   }

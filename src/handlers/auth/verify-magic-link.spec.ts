@@ -3,6 +3,7 @@ import { MongoDbManager } from '../../utils/mongo-db-manager.js';
 import { getLoginCode } from '../../utils/crypt-jwt.js';
 import { verifyMagicLink } from './verify-magic-link.js';
 import { Context } from '@netlify/functions';
+import { ApiError } from 'pk-common';
 
 describe('verifyMagicLink', () => {
   let db: MockDb;
@@ -50,7 +51,7 @@ describe('verifyMagicLink', () => {
     );
     expect(response.status).toEqual(401);
     const data = await response.json();
-    expect(data.error).toContain('invalid');
+    expect(data.error).toContain(ApiError.INVALID_MAGIC_LINK);
   });
 
   ['POST', 'PUT', 'DELETE', 'PATCH'].forEach(method => {
