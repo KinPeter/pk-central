@@ -68,5 +68,6 @@ export class UnauthorizedInvalidAccessTokenErrorResponse extends UnauthorizedErr
 export class UnknownErrorResponse extends ErrorResponse {
   constructor(error: unknown) {
     super(ApiError.UNKNOWN_ERROR, 500, error);
+    console.log(JSON.stringify(error));
   }
 }

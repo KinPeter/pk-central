@@ -1,13 +1,13 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, ErrorResponse, MethodNotAllowedResponse } from '../src/utils/response.js';
+import { CorsOkResponse, MethodNotAllowedResponse } from '../src/utils/response.js';
 import { MongoDbManager } from '../src/utils/mongo-db-manager.js';
 import { AuthManager } from '../src/utils/auth-manager.js';
-import { getAllFlights } from '../src/handlers/flights/get-all-flights.js';
 import { getSettings } from '../src/handlers/start-settings/get-settings.js';
+import { updateSettings } from '../src/handlers/start-settings/update-settings.js';
 
 export const config: Config = {
   path: ['/start-settings'],
-  method: ['GET', 'POST', 'PUT', 'OPTIONS'],
+  method: ['GET', 'PUT', 'OPTIONS'],
 };
 
 export default async (req: Request, context: Context) => {
@@ -19,6 +19,8 @@ export default async (req: Request, context: Context) => {
   switch (req.method) {
     case 'GET':
       return await getSettings(req, dbManager, authManager);
+    case 'PUT':
+      return await updateSettings(req, dbManager, authManager);
     default:
       return new MethodNotAllowedResponse(req.method);
   }

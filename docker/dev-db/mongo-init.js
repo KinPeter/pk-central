@@ -41,7 +41,7 @@ db.createCollection('start-settings')
 db.getCollection('start-settings').insertMany([
   {
     id: 'b26ef9a3-d1ff-417e-bce7-75188a6114c2',
-    userId: 'c13ef9a2-d1ff-417d-bce7-75188a6114d2',
+    userId: 'a06ef9a2-d1ff-417d-bce7-75188a6118c1',
     name: 'testuser',
     weatherApiKey: null,
     locationApiKey: null,

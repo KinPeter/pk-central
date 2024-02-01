@@ -2,3 +2,20 @@
 GET {{baseUrl}}/start-settings
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+### Update settings for user
+PUT {{baseUrl}}/start-settings
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "testuser",
+  "weatherApiKey": "WeatherApiKey123",
+  "locationApiKey": null,
+  "shortcutIconBaseUrl": "https://other.p-kin.com/start-tile-icons/",
+  "birthdaysUrl": null,
+  "koreanUrl": "https://docs.google.com/asd123aaa",
+  "stravaClientId": null,
+  "stravaClientSecret": null,
+  "stravaRedirectUri": null
+}

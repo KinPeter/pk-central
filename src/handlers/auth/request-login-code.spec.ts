@@ -3,6 +3,7 @@ import { MockEmailManager } from '../../mock/email.mock.js';
 import { requestLoginCode } from './request-login-code.js';
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
 import { EmailManager } from '../../utils/email-manager.js';
+import { ApiError } from 'pk-common';
 
 describe('requestLoginCode', () => {
   let db: MockDb;
@@ -87,7 +88,7 @@ describe('requestLoginCode', () => {
       );
       expect(response.status).toEqual(400);
       const data = await response.json();
-      expect(data.details[0]).toContain('email');
+      expect(data.error).toContain(ApiError.REQUEST_VALIDATION_FAILED);
     });
   });
 });
