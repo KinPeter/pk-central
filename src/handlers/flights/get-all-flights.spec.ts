@@ -1,12 +1,8 @@
-import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../mock/db.mock.js';
-import { MockAuthManager } from '../../mock/auth.mock.js';
+import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
 import { getAllFlights } from './get-all-flights.js';
-
-const twoResults = [
-  { _id: 'm1', id: 'uuid1', userId: 'user1', date: '2023-12-16' },
-  { _id: 'm2', id: 'uuid2', userId: 'user1', date: '2023-12-27' },
-];
+import { twoResults } from '../../test-utils/test-data/flights.js';
 
 const notAllowedMethods = ['POST', 'PUT', 'DELETE', 'PATCH'];
 

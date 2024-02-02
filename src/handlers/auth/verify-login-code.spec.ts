@@ -1,4 +1,4 @@
-import { MockCollection, MockDb, MockDbManager } from '../../mock/db.mock.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
 import { verifyLoginCode } from './verify-login-code.js';
 import { getLoginCode } from '../../utils/crypt-jwt.js';

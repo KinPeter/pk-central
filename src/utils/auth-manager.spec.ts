@@ -1,4 +1,4 @@
-import { MockCollection, MockDb } from '../mock/db.mock.js';
+import { MockCollection, MockDb } from '../test-utils/mock/db.mock.js';
 import { getAccessToken } from './crypt-jwt.js';
 import { AuthManager } from './auth-manager.js';
 import { Db } from 'mongodb';

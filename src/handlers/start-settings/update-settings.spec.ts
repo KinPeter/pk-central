@@ -1,79 +1,14 @@
-import { MockCollection, MockDb, MockDbManager } from '../../mock/db.mock.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { MockAuthManager } from '../../mock/auth.mock.js';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
 import { updateSettings } from './update-settings.js';
-import { ApiError, PkStartSettings, PkStartSettingsRequest } from 'pk-common';
-
-const validSettingsRequest: PkStartSettingsRequest = {
-  name: 'testuser',
-  weatherApiKey: 'WeatherApiKey123',
-  locationApiKey: null,
-  shortcutIconBaseUrl: 'https://other.p-kin.com/start-tile-icons/',
-  birthdaysUrl: null,
-  koreanUrl: 'https://docs.google.com/asd123aaa',
-  stravaClientId: null,
-  stravaClientSecret: null,
-  stravaRedirectUri: null,
-};
-
-const validSettings: PkStartSettings = {
-  ...validSettingsRequest,
-  id: 'abc123',
-  userId: '123',
-};
-
-const updatedSettings: PkStartSettings = {
-  ...validSettings,
-  locationApiKey: 'apiKey123',
-  koreanUrl: null,
-  stravaClientId: 'clientId',
-};
-
-const invalidRequestBodies = [
-  {
-    name: 'testuser',
-    weatherApiKey: 'WeatherApiKey123',
-    locationApiKey: null,
-    shortcutIconBaseUrl: 'https://other.p-kin.com/start-tile-icons/',
-    birthdaysUrl: null,
-    koreanUrl: 'not-a-valid-url',
-    stravaClientId: null,
-    stravaClientSecret: null,
-    stravaRedirectUri: null,
-  },
-  {
-    name: 'testuser',
-    weatherApiKey: 'WeatherApiKey123',
-    locationApiKey: undefined,
-    shortcutIconBaseUrl: 'https://other.p-kin.com/start-tile-icons/',
-    birthdaysUrl: null,
-    koreanUrl: 'https://docs.google.com/asd123aaa',
-    stravaClientId: null,
-    stravaClientSecret: null,
-    stravaRedirectUri: null,
-  },
-  {
-    name: 'testuser',
-    weatherApiKey: 'WeatherApiKey123',
-    locationApiKey: null,
-    shortcutIconBaseUrl: 'https://other.p-kin.com/start-tile-icons/',
-    birthdaysUrl: true,
-    koreanUrl: 'https://docs.google.com/asd123aaa',
-    stravaClientId: null,
-    stravaClientSecret: null,
-    stravaRedirectUri: null,
-  },
-  {
-    name: 'testuser',
-    locationApiKey: null,
-    shortcutIconBaseUrl: 'https://other.p-kin.com/start-tile-icons/',
-    birthdaysUrl: null,
-    koreanUrl: 'https://docs.google.com/asd123aaa',
-    stravaClientId: null,
-    stravaClientSecret: null,
-    stravaRedirectUri: null,
-  },
-];
+import { ApiError, PkStartSettings } from 'pk-common';
+import {
+  invalidRequestBodies,
+  updatedSettings,
+  validSettings,
+  validSettingsRequest,
+} from '../../test-utils/test-data/start-settings.js';
 
 describe('updateSettings', () => {
   let db: MockDb;

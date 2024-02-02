@@ -1,5 +1,5 @@
-import { MockCollection, MockDb, MockDbManager } from '../../mock/db.mock.js';
-import { MockEmailManager } from '../../mock/email.mock.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
+import { MockEmailManager } from '../../test-utils/mock/email.mock.js';
 import { requestLoginCode } from './request-login-code.js';
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
 import { EmailManager } from '../../utils/email-manager.js';

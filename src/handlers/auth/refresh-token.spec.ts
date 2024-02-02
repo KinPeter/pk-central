@@ -1,6 +1,6 @@
-import { MockCollection, MockDb, MockDbManager } from '../../mock/db.mock.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { MockAuthManager } from '../../mock/auth.mock.js';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
 import { refreshToken } from './refresh-token.js';
 
 describe('refreshToken', () => {

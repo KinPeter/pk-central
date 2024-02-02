@@ -1,4 +1,4 @@
-import { PkStartSettings, PkStartSettingsRequest } from 'pk-common';
+import { CyclingChore, CyclingChoreRequest, PkStartSettings, PkStartSettingsRequest } from 'pk-common';
 
 export function toPkStartSettingsRequest(body: Partial<PkStartSettings>): PkStartSettingsRequest {
   return {
@@ -11,5 +11,13 @@ export function toPkStartSettingsRequest(body: Partial<PkStartSettings>): PkStar
     stravaRedirectUri: body.stravaRedirectUri ?? null,
     locationApiKey: body.locationApiKey ?? null,
     weatherApiKey: body.weatherApiKey ?? null,
+  };
+}
+
+export function toCyclingChoreRequest(body: Partial<CyclingChore>): CyclingChoreRequest {
+  return {
+    name: body.name!,
+    lastKm: body.lastKm!,
+    kmInterval: body.kmInterval!,
   };
 }

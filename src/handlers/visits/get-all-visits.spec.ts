@@ -1,12 +1,8 @@
-import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../mock/db.mock.js';
-import { MockAuthManager } from '../../mock/auth.mock.js';
+import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
 import { getAllVisits } from './get-all-visits.js';
 import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-
-const twoResults = [
-  { _id: 'm1', id: 'uuid1', userId: 'user1', city: 'Chania' },
-  { _id: 'm2', id: 'uuid2', userId: 'user1', city: 'Athens' },
-];
+import { twoResults } from '../../test-utils/test-data/visits.js';
 
 const notAllowedMethods = ['POST', 'PUT', 'DELETE', 'PATCH'];
 
