@@ -1,4 +1,11 @@
-import { CyclingChore, CyclingChoreRequest, PkStartSettings, PkStartSettingsRequest } from 'pk-common';
+import {
+  NoteRequest,
+  CyclingChore,
+  CyclingChoreRequest,
+  Note,
+  PkStartSettings,
+  PkStartSettingsRequest,
+} from 'pk-common';
 
 export function toPkStartSettingsRequest(body: Partial<PkStartSettings>): PkStartSettingsRequest {
   return {
@@ -19,5 +26,14 @@ export function toCyclingChoreRequest(body: Partial<CyclingChore>): CyclingChore
     name: body.name!,
     lastKm: body.lastKm!,
     kmInterval: body.kmInterval!,
+  };
+}
+
+export function toNoteRequest(body: Partial<Note>): NoteRequest {
+  return {
+    text: body.text,
+    archived: !!body.archived,
+    pinned: !!body.pinned,
+    links: body.links?.map(linkBody => ({ name: linkBody.name, url: linkBody.url })) ?? [],
   };
 }

@@ -8,6 +8,7 @@ export class MockCollection {
   insertOne = jasmine.createSpy('insertOne');
   updateOne = jasmine.createSpy('updateOne');
   findOneAndUpdate = jasmine.createSpy('findOneAndUpdate');
+  findOneAndDelete = jasmine.createSpy('findOneAndDelete');
 }
 
 export class MockCursor {
