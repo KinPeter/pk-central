@@ -1,0 +1,32 @@
+### Get personal data for user
+GET {{baseUrl}}/personal-data
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Add personal data
+POST {{baseUrl}}/personal-data
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "only text",
+  "identifier": "123123123",
+  "expiry": "2024-12-11"
+}
+
+### Update personal data
+PUT {{baseUrl}}/personal-data/65c39726-ea40-4a4d-b231-81b1ca8dbddf
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "New card",
+  "identifier": "BB123123123",
+  "expiry": "2024-12-11"
+}
+
+### Delete personal data
+DELETE {{baseUrl}}/personal-data/65c39726-ea40-4a4d-b231-81b1ca8dbddf
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
