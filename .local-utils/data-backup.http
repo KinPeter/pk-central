@@ -1,0 +1,4 @@
+### Get data backup in email
+GET {{baseUrl}}/data-backup
+Content-Type: application/json
+Authorization: Bearer {{token}}
