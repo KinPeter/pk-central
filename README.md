@@ -40,3 +40,24 @@ mongodb://admin:admin@localhost:27017/
 ```
 
 To remove the volume and clear the DB data, the best way is to run `npm run clear:db` from the root, `docker-compose down -v` from the `dev-db/` directory.
+
+
+### Common types and utils
+
+This repository contains type declarations and utils like validators that can be used by frontends or other clients.
+Everything under the `common/` folder will be part of the public NPM package published under the name `@kinpeter/pk-common`.
+
+To publish a new version after any change in the common files run
+```shell
+npm run common:publish
+```
+
+This command automatically increases the patch version of the package. If you want to increase minor or major version, do it manually and run 
+```shell
+cd common
+npm publish --access public
+```
+
+Don't forget to log in to NPM before publishing using the `npm login` command!
+
+[Link to the package on NPM](https://www.npmjs.com/package/@kinpeter/pk-common)

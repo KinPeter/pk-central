@@ -1,0 +1,9 @@
+{
+  "name": "@kinpeter/pk-common",
+  "version": "1.0.1",
+  "main": "index.ts",
+  "author": "Peter Kin",
+  "dependencies": {
+    "yup": "^1.3.3"
+  }
+}
