@@ -1,48 +1,236 @@
 functions:
-  - auth:
-      name: Auth
-      description: Endpoints related to users and authentication
-      types: types/auth.ts
-      validators: validators/auth.ts
-      endpoints:
-        - login:
-            method: POST
-            route: /auth/login
-            description: Initiate login to request a login code by email
-            request: EmailRequest
-            response: "{ message: 'Check your inbox' }"
-            authenticated: False
-        - verify-code:
-            method: POST
-            route: /auth/verify-code
-            description: Verify login code to get an access token
-            request: LoginVerifyRequest
-            response: AuthData
-            authenticated: False
-        - verify-link:
-            method: GET
-            route: /auth/verify-link/:token/:redirectEnv
-            description: Verify magic link to redirect client to get access token
-            request: null
-            response: null
-            authenticated: False
-        - refresh-token:
-            method: POST
-            route: /auth/token-refresh
-            description: Get a new access token
-            request: null
-            response: null
-            authenticated: True
-  - cycling:
-      name: Cycling
-      description: Endpoints for cycling data on PK Start
-      types: types/cycling.ts
-      validators: validators/cycling.ts
-      endpoints:
-        - get:
-            method: GET
-            route: /cycling
-            description: Get the cycling data of the current user
-            request: null
-            response: Cycling
-            authenticated: True
+  - name: Auth
+    description: Endpoints related to users and authentication
+    types: types/auth.ts
+    validators: validators/auth.ts
+    endpoints:
+      # POST Request Login Code
+      - method: POST
+        route: /auth/login
+        description: Initiate login to request a login code by email
+        request: EmailRequest
+        response: "{ message: 'Check your inbox' }"
+        authenticated: False
+      # POST Verify Login Code
+      - method: POST
+        route: /auth/verify-code
+        description: Verify login code to get an access token
+        request: LoginVerifyRequest
+        response: AuthData
+        authenticated: False
+      # GET Verify Magic Link
+      - method: GET
+        route: /auth/verify-link/:token/:redirectEnv
+        description: Verify magic link to redirect client to get access token
+        request: null
+        response: null
+        authenticated: False
+      # POST Refresh Token
+      - method: POST
+        route: /auth/token-refresh
+        description: Get a new access token
+        request: null
+        response: null
+        authenticated: True
+
+  - name: Cycling
+    description: Endpoints for cycling data on PK Start
+    types: types/cycling.ts
+    validators: validators/cycling.ts
+    endpoints:
+      # GET Fetch Cycling data
+      - method: GET
+        route: /cycling
+        description: Get the cycling data of the current user
+        request: null
+        response: Cycling
+        authenticated: True
+      # POST Initialize Cycling data
+      - method: POST
+        route: /cycling/initialize
+        description: Initialize cycling data for the current user
+        request: null
+        response: Cycling
+        authenticated: True
+      # PATCH Update weekly goal
+      - method: PATCH
+        route: /cycling/weekly-goal
+        description: Set weekly goal for the current user
+        request: SetWeeklyGoalRequest
+        response: Cycling
+        authenticated: True
+      # PATCH Update monthly goal
+      - method: PATCH
+        route: /cycling/monthly-goal
+        description: Set monthly goal for the current user
+        request: SetMonthlyGoalRequest
+        response: Cycling
+        authenticated: True
+      # POST Add chore
+      - method: POST
+        route: /cycling/chore
+        description: Create a new chore
+        request: CyclingChoreRequest
+        response: Cycling
+        authenticated: True
+      # PUT Update a chore
+      - method: PUT
+        route: /cycling/chore/:id
+        description: Update a chore
+        request: CyclingChoreRequest
+        response: Cycling
+        authenticated: True
+      # DELETE Delete a chore
+      - method: PUT
+        route: /cycling/chore/:id
+        description: Remove a chore
+        request: null
+        response: Cycling
+        authenticated: True
+
+  - name: Data backup
+    description: Endpoints for PK Central data backup
+    types: types/data-backup.ts
+    validators: null
+    endpoints:
+      # GET Send data backup
+      - method: GET
+        route: /data-backup
+        description: Sends an email with data backup of the current user
+        request: null
+        response: DataBackup
+        authenticated: True
+
+  - name: Notes
+    description: Endpoints related to Notes
+    types: types/notes.ts
+    validators: validators/notes.ts
+    endpoints:
+      # GET Fetch all notes
+      - method: GET
+        route: /notes
+        description: Get all notes of the current user
+        request: null
+        response: Note[]
+        authenticated: True
+      # POST Create a note
+      - method: POST
+        route: /notes
+        description: Create a new note
+        request: NoteRequest
+        response: Note
+        authenticated: True
+      # PUT Update a note
+      - method: PUT
+        route: /notes/:id
+        description: Update a note
+        request: NoteRequest
+        response: Note
+        authenticated: True
+      # DELETE Delete a note
+      - method: DELETE
+        route: /notes/:id
+        description: Delete a note
+        request: null
+        response: IdObject
+        authenticated: True
+
+  - name: Personal Data
+    description: Endpoints related to Personal Data
+    types: types/personal-data.ts
+    validators: validators/personal-data.ts
+    endpoints:
+      # GET Fetch all personal data
+      - method: GET
+        route: /personal-data
+        description: Get all personal data of the current user
+        request: null
+        response: PersonalData[]
+        authenticated: True
+      # POST Create a personal data
+      - method: POST
+        route: /personal-data
+        description: Create a new personal data
+        request: PersonalDataRequest
+        response: PersonalData
+        authenticated: True
+      # PUT Update a personal data
+      - method: PUT
+        route: /personal-data/:id
+        description: Update a personal data
+        request: PersonalDataRequest
+        response: PersonalData
+        authenticated: True
+      # DELETE Delete a personal data
+      - method: DELETE
+        route: /personal-data/:id
+        description: Delete a personal data
+        request: null
+        response: IdObject
+        authenticated: True
+
+  - name: Shortcuts
+    description: Endpoints related to Shortcuts
+    types: types/shortcuts.ts
+    validators: validators/shortcuts.ts
+    endpoints:
+      # GET Fetch all shortcuts
+      - method: GET
+        route: /shortcuts
+        description: Get all shortcuts of the current user
+        request: null
+        response: Shortcut[]
+        authenticated: True
+      # POST Create a shortcut
+      - method: POST
+        route: /shortcuts
+        description: Create a new shortcut
+        request: ShortcutRequest
+        response: Shortcut
+        authenticated: True
+      # PUT Update a shortcut
+      - method: PUT
+        route: /shortcuts/:id
+        description: Update a shortcut
+        request: ShortcutRequest
+        response: Shortcut
+        authenticated: True
+      # DELETE Delete a shortcut
+      - method: DELETE
+        route: /shortcuts/:id
+        description: Delete a shortcut
+        request: null
+        response: IdObject
+        authenticated: True
+
+  - name: PK Start settings
+    description: Endpoints related to PK Start settings
+    types: types/start-settings.ts
+    validators: validators/start-settings.ts
+    endpoints:
+      # GET Fetch PK Start settings
+      - method: GET
+        route: /start-settings
+        description: Get PK Start settings of the current user
+        request: null
+        response: PkStartSettings
+        authenticated: True
+      # PUT Update PK Start settings
+      - method: PUT
+        route: /start-settings
+        description: Update PK Start settings of the current user
+        request: PkStartSettingsRequest
+        response: PkStartSettings
+        authenticated: True
+
+  - name: Flights
+    description: Endpoints related to Flights (Tripz)
+    types: types/flights.ts
+    validators: null
+    endpoints:
+
+  - name: Visits
+    description: Endpoints related to Visits (Tripz)
+    types: types/visits.ts
+    validators: null
+    endpoints:

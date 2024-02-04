@@ -12,6 +12,7 @@
     "start:db": "docker-compose -f docker/dev-db/docker-compose.yml up",
     "clear:db": "docker-compose -f docker/dev-db/docker-compose.yml down -v",
     "common:publish": "cd common && npm version patch && npm publish --access public",
+    "docs:generate": "node ./api-docs/generate-docs.js",
     "prepare": "husky install"
   },
   "engines": {

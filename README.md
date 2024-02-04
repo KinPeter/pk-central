@@ -63,3 +63,10 @@ npm publish --access public
 Don't forget to log in to NPM before publishing using the `npm login` command!
 
 [Link to the package on NPM](https://www.npmjs.com/package/@kinpeter/pk-common)
+
+### Maintaining the API Docs
+
+On any change of the API (e.g. routes, parameters, types, validators) update the YAML file: `api-docs/api-docs.yaml` and run this command to generate a new HTML:
+```shell
+npm run docs:generate
+```

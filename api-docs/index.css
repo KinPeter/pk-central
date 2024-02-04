@@ -1,0 +1,162 @@
+body {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, "Helvetica Neue", sans-serif;
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  body {
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  body {
+    padding-left: 16rem;
+    padding-right: 16rem;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  body {
+    padding-left: 32rem;
+    padding-right: 32rem;
+  }
+}
+
+/* Style for code block */
+pre {
+  background-color: #2F2F2F;
+  color: #CCCCCC;
+  padding: 16px;
+  font-family: 'Source Code Pro', Courier, monospace;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+summary {
+  list-style-type: none;
+  cursor: pointer;
+}
+
+.endpoint:last-child {
+  margin-bottom: 1rem;
+}
+
+.endpoint details {
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 0 0 8px;
+}
+
+.endpoint summary {
+  display: flex;
+  align-items: center;
+}
+
+.endpoint summary .method {
+  width: 80px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 4px;
+  margin-right: 12px;
+  font-weight: bold;
+}
+
+.endpoint summary .route {
+  font-family: 'Source Code Pro', Courier, monospace;
+}
+
+.endpoint.get details {
+  border-color: #61affe;
+  background-color: rgba(97,175,254,.1);
+}
+
+.endpoint.get summary .method {
+  background-color: #61affe;
+}
+
+.endpoint.post details {
+  background: rgba(73,204,144,.1);
+  border-color: #49cc90;
+}
+
+.endpoint.post summary .method {
+  background-color: #49cc90;
+}
+
+.endpoint.put details {
+  background: rgba(252,161,48,.1);
+  border-color: #fca130;
+}
+
+.endpoint.put summary .method {
+  background-color: #fca130;
+}
+
+.endpoint.patch details {
+  border-color: #c17eff;
+  background-color: rgba(193, 126, 255, 0.1);;
+}
+
+.endpoint.patch summary .method {
+  background-color: #c17eff;
+}
+
+.endpoint.delete details {
+  background: rgba(249,62,62,.1);
+  border-color: #f93e3e;
+}
+
+.endpoint.delete summary .method {
+  background-color: #f93e3e;
+}
+
+.endpoint .info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 50px;
+  margin-bottom: 6px;
+}
+
+.endpoint .info code {
+  font-family: 'Source Code Pro', Courier, monospace;
+  font-weight: bolder;
+  background: #e7e7e7;
+  font-size: 0.9rem;
+  padding: 3px 6px;
+  border-radius: 6px;
+  margin: 0 6px;
+}
+
+.endpoint .info .authenticated {
+  font-weight: bold;
+  margin: 0 6px;
+}
+
+.code-block-details {
+  margin-bottom: 1rem;
+}
+
+.code-block-summary {
+  background: #e7e7e7;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 4px 28px;
+  border: 1px solid #b1b1b1;
+}

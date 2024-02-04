@@ -1,74 +1,820 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="ie=edge" /><title>PK Central</title></head><body><p>{
-  "functions": [
-    {
-      "auth": {
-        "name": "Auth",
-        "description": "Endpoints related to users and authentication",
-        "types": "types/auth.ts",
-        "validators": "validators/auth.ts",
-        "endpoints": [
-          {
-            "login": {
-              "method": "POST",
-              "route": "/auth/login",
-              "description": "Initiate login to request a login code by email",
-              "request": "EmailRequest",
-              "response": "{ message: 'Check your inbox' }",
-              "authenticated": false
-            }
-          },
-          {
-            "verify-code": {
-              "method": "POST",
-              "route": "/auth/verify-code",
-              "description": "Verify login code to get an access token",
-              "request": "LoginVerifyRequest",
-              "response": "AuthData",
-              "authenticated": false
-            }
-          },
-          {
-            "verify-link": {
-              "method": "GET",
-              "route": "/auth/verify-link/:token/:redirectEnv",
-              "description": "Verify magic link to redirect client to get access token",
-              "request": null,
-              "response": null,
-              "authenticated": false
-            }
-          },
-          {
-            "refresh-token": {
-              "method": "POST",
-              "route": "/auth/token-refresh",
-              "description": "Get a new access token",
-              "request": null,
-              "response": null,
-              "authenticated": true
-            }
-          }
-        ]
-      }
-    },
-    {
-      "cycling": {
-        "name": "Cycling",
-        "description": "Endpoints for cycling data on PK Start",
-        "types": "types/cycling.ts",
-        "validators": "validators/cycling.ts",
-        "endpoints": [
-          {
-            "get": {
-              "method": "GET",
-              "route": "/cycling",
-              "description": "Get the cycling data of the current user",
-              "request": null,
-              "response": "Cycling",
-              "authenticated": true
-            }
-          }
-        ]
-      }
-    }
-  ]
-}<p/></body></html>
+<!doctype html><html lang="en"><head><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet"><link rel="stylesheet" href="index.css"><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="ie=edge" /><title>PK Central</title></head><body><h1>PK Central API</h1><div class="function"><h2>Auth</h2><p>Endpoints related to users and authentication</p>
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/auth/login</span>
+          </summary>
+          <div class="details">
+            <p>Initiate login to request a login code by email</p>
+            <p class="info">
+              <span>Request body:<code class="request">EmailRequest</code></span>
+              <span>Returns:<code class="response">{ message: 'Check your inbox' }</code></span>
+              <span>Authenticated:<span class="authenticated">No</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/auth/verify-code</span>
+          </summary>
+          <div class="details">
+            <p>Verify login code to get an access token</p>
+            <p class="info">
+              <span>Request body:<code class="request">LoginVerifyRequest</code></span>
+              <span>Returns:<code class="response">AuthData</code></span>
+              <span>Authenticated:<span class="authenticated">No</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/auth/verify-link/:token/:redirectEnv</span>
+          </summary>
+          <div class="details">
+            <p>Verify magic link to redirect client to get access token</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">null</code></span>
+              <span>Authenticated:<span class="authenticated">No</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/auth/token-refresh</span>
+          </summary>
+          <div class="details">
+            <p>Get a new access token</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">null</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Auth types</summary>
+        <pre>import { UUID } from './misc';
+
+export interface User {
+  id: UUID;
+  email: string;
+  loginCode?: string;
+  loginCodeExpires?: Date;
+  salt?: string;
+}
+
+export interface JwtPayload {
+  email: string;
+  userId: string;
+}
+
+export interface AuthData {
+  email: string;
+  id: UUID;
+  token: string;
+  expiresAt: Date | string;
+}
+
+export interface EmailRequest {
+  email: string;
+}
+
+export interface LoginVerifyRequest extends EmailRequest {
+  loginCode: string;
+}
+</pre>
+      </details>
+    
+      <details class="code-block-details">
+        <summary class="code-block-summary">Auth validators</summary>
+        <pre>import * as yup from 'yup';
+import { LOGIN_CODE_REGEX } from '../utils';
+import { ValidationError } from '../enums';
+
+export const emailRequestSchema = yup.object({
+  email: yup.string().email(ValidationError.INVALID_EMAIL).required(ValidationError.STRING_REQUIRED),
+});
+
+export const loginVerifyRequestSchema = emailRequestSchema.shape({
+  loginCode: yup
+    .string()
+    .strict()
+    .matches(LOGIN_CODE_REGEX, ValidationError.INVALID_LOGIN_CODE)
+    .required(ValidationError.STRING_REQUIRED),
+});
+
+export const magicLinkParamsSchema = yup.object({
+  token: yup.string().min(5, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  redirectEnv: yup.string().oneOf(['prod', 'dev']).required(ValidationError.STRING_REQUIRED),
+});
+</pre>
+      </details>
+    <div class="function"><h2>Cycling</h2><p>Endpoints for cycling data on PK Start</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/cycling</span>
+          </summary>
+          <div class="details">
+            <p>Get the cycling data of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/cycling/initialize</span>
+          </summary>
+          <div class="details">
+            <p>Initialize cycling data for the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint patch">
+        <details>
+          <summary>
+            <span class="method">PATCH</span>
+            <span class="route">/cycling/weekly-goal</span>
+          </summary>
+          <div class="details">
+            <p>Set weekly goal for the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">SetWeeklyGoalRequest</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint patch">
+        <details>
+          <summary>
+            <span class="method">PATCH</span>
+            <span class="route">/cycling/monthly-goal</span>
+          </summary>
+          <div class="details">
+            <p>Set monthly goal for the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">SetMonthlyGoalRequest</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/cycling/chore</span>
+          </summary>
+          <div class="details">
+            <p>Create a new chore</p>
+            <p class="info">
+              <span>Request body:<code class="request">CyclingChoreRequest</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint put">
+        <details>
+          <summary>
+            <span class="method">PUT</span>
+            <span class="route">/cycling/chore/:id</span>
+          </summary>
+          <div class="details">
+            <p>Update a chore</p>
+            <p class="info">
+              <span>Request body:<code class="request">CyclingChoreRequest</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint put">
+        <details>
+          <summary>
+            <span class="method">PUT</span>
+            <span class="route">/cycling/chore/:id</span>
+          </summary>
+          <div class="details">
+            <p>Remove a chore</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Cycling types</summary>
+        <pre>import { BaseEntity, UUID } from './misc';
+
+export interface CyclingChore {
+  id: UUID;
+  name: string;
+  kmInterval: number;
+  lastKm: number;
+}
+
+export interface Cycling extends BaseEntity {
+  userId: UUID;
+  weeklyGoal: number | null;
+  monthlyGoal: number | null;
+  chores: CyclingChore[] | null;
+}
+
+export type SetWeeklyGoalRequest = Pick<Cycling, 'weeklyGoal'>;
+export type SetMonthlyGoalRequest = Pick<Cycling, 'monthlyGoal'>;
+export type CyclingChoreRequest = Omit<CyclingChore, 'id'>;
+</pre>
+      </details>
+    
+      <details class="code-block-details">
+        <summary class="code-block-summary">Cycling validators</summary>
+        <pre>import * as yup from 'yup';
+import { ValidationError } from '../enums';
+
+export const weeklyGoalSchema = yup.object({
+  weeklyGoal: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
+});
+
+export const monthlyGoalSchema = yup.object({
+  monthlyGoal: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
+});
+
+export const choreSchema = yup.object({
+  kmInterval: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
+  lastKm: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
+  name: yup.string().strict().min(2, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+});
+</pre>
+      </details>
+    <div class="function"><h2>Data backup</h2><p>Endpoints for PK Central data backup</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/data-backup</span>
+          </summary>
+          <div class="details">
+            <p>Sends an email with data backup of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">DataBackup</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Data backup types</summary>
+        <pre>import { User } from './auth';
+import { Note } from './notes';
+import { Shortcut } from './shortcuts';
+import { PersonalData } from './personal-data';
+import { Cycling } from './cycling';
+import { PkStartSettings } from './start-settings';
+import { Flight } from './flights';
+import { Visit } from './visits';
+
+export interface DataBackup {
+  user: User;
+  startSettings: PkStartSettings;
+  notes: Note[];
+  shortcuts: Shortcut[];
+  personalData: PersonalData[];
+  cycling: Cycling;
+  flights: Flight[];
+  visits: Visit[];
+}
+</pre>
+      </details>
+    <div class="function"><h2>Notes</h2><p>Endpoints related to Notes</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/notes</span>
+          </summary>
+          <div class="details">
+            <p>Get all notes of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Note[]</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/notes</span>
+          </summary>
+          <div class="details">
+            <p>Create a new note</p>
+            <p class="info">
+              <span>Request body:<code class="request">NoteRequest</code></span>
+              <span>Returns:<code class="response">Note</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint put">
+        <details>
+          <summary>
+            <span class="method">PUT</span>
+            <span class="route">/notes/:id</span>
+          </summary>
+          <div class="details">
+            <p>Update a note</p>
+            <p class="info">
+              <span>Request body:<code class="request">NoteRequest</code></span>
+              <span>Returns:<code class="response">Note</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint delete">
+        <details>
+          <summary>
+            <span class="method">DELETE</span>
+            <span class="route">/notes/:id</span>
+          </summary>
+          <div class="details">
+            <p>Delete a note</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">IdObject</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Notes types</summary>
+        <pre>import { BaseEntity, UUID } from './misc';
+
+export interface Link {
+  name: string;
+  url: string;
+}
+
+export interface Note extends BaseEntity {
+  userId?: UUID;
+  text?: string;
+  links: Link[];
+  archived: boolean;
+  pinned: boolean;
+}
+
+export type NoteRequest = Omit<Note, 'createdAt' | 'id' | 'userId'>;
+</pre>
+      </details>
+    
+      <details class="code-block-details">
+        <summary class="code-block-summary">Notes validators</summary>
+        <pre>import * as yup from 'yup';
+import { ValidationError } from '../enums';
+import { Link } from '../types';
+
+export const linkSchema = yup.object({
+  name: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  url: yup.string().url(ValidationError.INVALID_URL).required(ValidationError.STRING_REQUIRED),
+});
+
+export const noteSchema = yup.object({
+  text: yup
+    .string()
+    .strict()
+    .when('links', {
+      is: (links: Array<Link>) => links.length === 0,
+      then: schema => schema.required(ValidationError.TEXT_OR_LINK_REQUIRED),
+      otherwise: schema => schema.notRequired(),
+    }),
+  links: yup.array().of(linkSchema).required(),
+  archived: yup.boolean().strict().required(),
+  pinned: yup.boolean().strict().required(),
+});
+</pre>
+      </details>
+    <div class="function"><h2>Personal Data</h2><p>Endpoints related to Personal Data</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/personal-data</span>
+          </summary>
+          <div class="details">
+            <p>Get all personal data of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">PersonalData[]</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/personal-data</span>
+          </summary>
+          <div class="details">
+            <p>Create a new personal data</p>
+            <p class="info">
+              <span>Request body:<code class="request">PersonalDataRequest</code></span>
+              <span>Returns:<code class="response">PersonalData</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint put">
+        <details>
+          <summary>
+            <span class="method">PUT</span>
+            <span class="route">/personal-data/:id</span>
+          </summary>
+          <div class="details">
+            <p>Update a personal data</p>
+            <p class="info">
+              <span>Request body:<code class="request">PersonalDataRequest</code></span>
+              <span>Returns:<code class="response">PersonalData</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint delete">
+        <details>
+          <summary>
+            <span class="method">DELETE</span>
+            <span class="route">/personal-data/:id</span>
+          </summary>
+          <div class="details">
+            <p>Delete a personal data</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">IdObject</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Personal Data types</summary>
+        <pre>import { BaseEntity, UUID } from './misc';
+
+export interface PersonalData extends BaseEntity {
+  userId?: UUID;
+  name: string;
+  identifier: string;
+  expiry: string | null;
+}
+
+export type PersonalDataRequest = Omit<PersonalData, 'createdAt' | 'id' | 'userId'>;
+</pre>
+      </details>
+    
+      <details class="code-block-details">
+        <summary class="code-block-summary">Personal Data validators</summary>
+        <pre>import * as yup from 'yup';
+import { ValidationError } from '../enums';
+import { SIMPLE_DATE_REGEX } from '../utils';
+
+export const personalDataSchema = yup.object({
+  name: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  identifier: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  expiry: yup
+    .string()
+    .strict()
+    .matches(SIMPLE_DATE_REGEX, ValidationError.INVALID_DATE)
+    .nullable()
+    .defined(ValidationError.NULLABLE_FIELD_REQUIRED),
+});
+</pre>
+      </details>
+    <div class="function"><h2>Shortcuts</h2><p>Endpoints related to Shortcuts</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/shortcuts</span>
+          </summary>
+          <div class="details">
+            <p>Get all shortcuts of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Shortcut[]</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/shortcuts</span>
+          </summary>
+          <div class="details">
+            <p>Create a new shortcut</p>
+            <p class="info">
+              <span>Request body:<code class="request">ShortcutRequest</code></span>
+              <span>Returns:<code class="response">Shortcut</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint put">
+        <details>
+          <summary>
+            <span class="method">PUT</span>
+            <span class="route">/shortcuts/:id</span>
+          </summary>
+          <div class="details">
+            <p>Update a shortcut</p>
+            <p class="info">
+              <span>Request body:<code class="request">ShortcutRequest</code></span>
+              <span>Returns:<code class="response">Shortcut</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint delete">
+        <details>
+          <summary>
+            <span class="method">DELETE</span>
+            <span class="route">/shortcuts/:id</span>
+          </summary>
+          <div class="details">
+            <p>Delete a shortcut</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">IdObject</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Shortcuts types</summary>
+        <pre>import { ShortcutCategory } from '../enums';
+import { BaseEntity, UUID } from './misc';
+
+export interface Shortcut extends BaseEntity {
+  userId?: UUID;
+  name: string;
+  url: string;
+  iconUrl: string;
+  category: ShortcutCategory;
+  priority: number;
+}
+
+export type ShortcutRequest = Omit<Shortcut, 'createdAt' | 'id' | 'userId'>;
+</pre>
+      </details>
+    
+      <details class="code-block-details">
+        <summary class="code-block-summary">Shortcuts validators</summary>
+        <pre>import * as yup from 'yup';
+import { ShortcutCategory, ValidationError } from '../enums';
+import { FLEXIBLE_URL_REGEX } from '../utils';
+
+export const shortcutSchema = yup.object({
+  name: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  url: yup.string().url(ValidationError.INVALID_URL).required(ValidationError.STRING_REQUIRED),
+  iconUrl: yup
+    .string()
+    .matches(FLEXIBLE_URL_REGEX, ValidationError.INVALID_URL)
+    .required(ValidationError.STRING_REQUIRED),
+  category: yup
+    .string()
+    .oneOf(Object.values(ShortcutCategory), ValidationError.INVALID_CATEGORY)
+    .required(ValidationError.STRING_REQUIRED),
+  priority: yup
+    .number()
+    .strict()
+    .min(1, ValidationError.MIN_VALUE)
+    .max(10, ValidationError.MAX_VALUE)
+    .required(ValidationError.NUMBER_REQUIRED),
+});
+</pre>
+      </details>
+    <div class="function"><h2>PK Start settings</h2><p>Endpoints related to PK Start settings</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/start-settings</span>
+          </summary>
+          <div class="details">
+            <p>Get PK Start settings of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">PkStartSettings</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint put">
+        <details>
+          <summary>
+            <span class="method">PUT</span>
+            <span class="route">/start-settings</span>
+          </summary>
+          <div class="details">
+            <p>Update PK Start settings of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">PkStartSettingsRequest</code></span>
+              <span>Returns:<code class="response">PkStartSettings</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">PK Start settings types</summary>
+        <pre>import { UUID } from './misc';
+
+export interface PkStartSettings {
+  id: UUID;
+  userId: UUID;
+  name: string | null;
+  weatherApiKey: string | null;
+  locationApiKey: string | null;
+  shortcutIconBaseUrl: string | null;
+  birthdaysUrl: string | null;
+  koreanUrl: string | null;
+  stravaClientId: string | null;
+  stravaClientSecret: string | null;
+  stravaRedirectUri: string | null;
+}
+
+export type PkStartSettingsRequest = Omit<PkStartSettings, 'id' | 'userId'>;
+</pre>
+      </details>
+    
+      <details class="code-block-details">
+        <summary class="code-block-summary">PK Start settings validators</summary>
+        <pre>import * as yup from 'yup';
+import { ValidationError } from '../enums';
+
+export const pkStartSettingsSchema = yup.object({
+  name: yup.string().strict().nullable().required(ValidationError.NULLABLE_FIELD_REQUIRED),
+  weatherApiKey: yup.string().strict().nullable().required(ValidationError.NULLABLE_FIELD_REQUIRED),
+  locationApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
+  shortcutIconBaseUrl: yup
+    .string()
+    .url(ValidationError.INVALID_URL)
+    .nullable()
+    .defined(ValidationError.NULLABLE_FIELD_REQUIRED),
+  birthdaysUrl: yup
+    .string()
+    .url(ValidationError.INVALID_URL)
+    .nullable()
+    .defined(ValidationError.NULLABLE_FIELD_REQUIRED),
+  koreanUrl: yup.string().url(ValidationError.INVALID_URL).nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
+  stravaClientId: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
+  stravaClientSecret: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
+  stravaRedirectUri: yup
+    .string()
+    .url(ValidationError.INVALID_URL)
+    .nullable()
+    .defined(ValidationError.NULLABLE_FIELD_REQUIRED),
+});
+</pre>
+      </details>
+    <div class="function"><h2>Flights</h2><p>Endpoints related to Flights (Tripz)</p></div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Flights types</summary>
+        <pre>import { UUID } from './misc';
+
+export interface Flight {
+  date: string;
+  flightNumber: string;
+  from: Airport;
+  to: Airport;
+  departureTime: string;
+  arrivalTime: string;
+  duration: string;
+  distance: number;
+  airline: Airline;
+  aircraft: Aircraft;
+  registration: string;
+  seatNumber: string;
+  seatType: string;
+  flightClass: string;
+  flightReason: string;
+  note: string;
+}
+
+export interface FlightDocument extends Flight {
+  id: UUID;
+  userId: UUID;
+}
+
+export interface Airport {
+  city: string;
+  name: string;
+  country: string;
+  iata: string;
+  icao: string;
+  lat: number;
+  lng: number;
+}
+
+export interface Airline {
+  name: string;
+  iata: string;
+  icao: string;
+}
+
+export interface Aircraft {
+  name: string;
+  icao: string;
+}
+</pre>
+      </details>
+    <div class="function"><h2>Visits</h2><p>Endpoints related to Visits (Tripz)</p></div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Visits types</summary>
+        <pre>import { UUID } from './misc';
+
+export interface Visit {
+  city: string;
+  country: string;
+  lat: number;
+  lng: number;
+}
+
+export interface VisitDocument extends Visit {
+  id: UUID;
+  userId: UUID;
+}
+</pre>
+      </details>
+    </body></html>
