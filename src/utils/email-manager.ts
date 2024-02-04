@@ -17,7 +17,7 @@ interface EmailTemplates {
   text: string;
 }
 
-type TransportCreatorFn = typeof createTransport;
+export type TransportCreatorFn = typeof createTransport;
 
 export class EmailManager {
   constructor(private createTransport: TransportCreatorFn) {}

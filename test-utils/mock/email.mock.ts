@@ -1,5 +1,7 @@
+import { jest } from '@jest/globals';
+
 export class MockEmailManager {
-  sendLoginCode = jasmine.createSpy('sendLoginCode');
-  sendSignupNotification = jasmine.createSpy('sendSignupNotification');
-  sendDataBackup = jasmine.createSpy('sendDataBackup');
+  sendLoginCode = jest.fn<() => Promise<any>>();
+  sendSignupNotification = jest.fn<() => Promise<any>>();
+  sendDataBackup = jest.fn<() => Promise<any>>();
 }
