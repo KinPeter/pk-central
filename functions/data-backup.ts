@@ -1,10 +1,10 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse } from '../src/utils/response.js';
-import { MongoDbManager } from '../src/utils/mongo-db-manager.js';
-import { AuthManager } from '../src/utils/auth-manager.js';
-import { EmailManager } from '../src/utils/email-manager.js';
+import { CorsOkResponse } from '../src/utils/response';
+import { MongoDbManager } from '../src/utils/mongo-db-manager';
+import { AuthManager } from '../src/utils/auth-manager';
+import { EmailManager } from '../src/utils/email-manager';
 import { createTransport } from 'nodemailer';
-import { sendDataBackup } from '../src/handlers/data-backup/send-data-backup.js';
+import { sendDataBackup } from '../src/handlers/data-backup/send-data-backup';
 
 export const config: Config = {
   path: ['/data-backup'],

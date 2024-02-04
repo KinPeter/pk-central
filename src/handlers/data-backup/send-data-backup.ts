@@ -1,13 +1,13 @@
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { EmailManager } from '../../utils/email-manager.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { EmailManager } from '../../utils/email-manager';
 import {
   MethodNotAllowedResponse,
   OkResponse,
   UnauthorizedInvalidAccessTokenErrorResponse,
   UnknownErrorResponse,
-} from '../../utils/response.js';
+} from '../../utils/response';
 import { Cycling, DataBackup, Flight, Note, PersonalData, PkStartSettings, Shortcut, Visit } from 'pk-common';
-import { AuthManager } from '../../utils/auth-manager.js';
+import { AuthManager } from '../../utils/auth-manager';
 
 export async function sendDataBackup(
   req: Request,

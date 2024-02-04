@@ -1,12 +1,12 @@
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { AuthManager } from '../../utils/auth-manager.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { AuthManager } from '../../utils/auth-manager';
 import {
   UnauthorizedInvalidAccessTokenErrorResponse,
   MethodNotAllowedResponse,
   OkResponse,
   UnknownErrorResponse,
-} from '../../utils/response.js';
-import { omitIds } from '../../utils/omit-ids.js';
+} from '../../utils/response';
+import { omitIds } from '../../utils/omit-ids';
 import { VisitDocument } from 'pk-common';
 
 export async function getAllVisits(

@@ -1,13 +1,13 @@
 import { Context } from '@netlify/functions';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
 import {
   MethodNotAllowedResponse,
   UnauthorizedErrorResponse,
   UnknownErrorResponse,
   UserNotFoundErrorResponse,
   ValidationErrorResponse,
-} from '../../utils/response.js';
-import { getAccessToken, verifyToken } from '../../utils/crypt-jwt.js';
+} from '../../utils/response';
+import { getAccessToken, verifyToken } from '../../utils/crypt-jwt';
 import { ApiError, magicLinkParamsSchema, User } from 'pk-common';
 
 export async function verifyMagicLink(req: Request, context: Context, dbManager: MongoDbManager): Promise<Response> {

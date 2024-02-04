@@ -1,9 +1,9 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, MethodNotAllowedResponse } from '../src/utils/response.js';
-import { MongoDbManager } from '../src/utils/mongo-db-manager.js';
-import { AuthManager } from '../src/utils/auth-manager.js';
-import { getSettings } from '../src/handlers/start-settings/get-settings.js';
-import { updateSettings } from '../src/handlers/start-settings/update-settings.js';
+import { CorsOkResponse, MethodNotAllowedResponse } from '../src/utils/response';
+import { MongoDbManager } from '../src/utils/mongo-db-manager';
+import { AuthManager } from '../src/utils/auth-manager';
+import { getSettings } from '../src/handlers/start-settings/get-settings';
+import { updateSettings } from '../src/handlers/start-settings/update-settings';
 
 export const config: Config = {
   path: ['/start-settings'],

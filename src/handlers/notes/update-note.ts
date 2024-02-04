@@ -1,5 +1,5 @@
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { AuthManager } from '../../utils/auth-manager.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { AuthManager } from '../../utils/auth-manager';
 import {
   ErrorResponse,
   NotFoundErrorResponse,
@@ -7,9 +7,9 @@ import {
   UnauthorizedInvalidAccessTokenErrorResponse,
   UnknownErrorResponse,
   ValidationErrorResponse,
-} from '../../utils/response.js';
+} from '../../utils/response';
 import { NoteRequest, Note, noteSchema, UUID, ValidationError } from 'pk-common';
-import { omitIdsForOne } from '../../utils/omit-ids.js';
+import { omitIdsForOne } from '../../utils/omit-ids';
 import * as yup from 'yup';
 
 export async function updateNote(

@@ -1,4 +1,4 @@
-import { omitIds, omitIdsForOne } from './omit-ids.js';
+import { omitIds, omitIdsForOne } from './omit-ids';
 
 describe('omitIds', () => {
   const array1 = [

@@ -1,8 +1,8 @@
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { AuthManager } from '../../utils/auth-manager.js';
-import { OkResponse, UnauthorizedInvalidAccessTokenErrorResponse, UnknownErrorResponse } from '../../utils/response.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { AuthManager } from '../../utils/auth-manager';
+import { OkResponse, UnauthorizedInvalidAccessTokenErrorResponse, UnknownErrorResponse } from '../../utils/response';
 import { Note } from 'pk-common';
-import { omitIds } from '../../utils/omit-ids.js';
+import { omitIds } from '../../utils/omit-ids';
 
 export async function getNotes(req: Request, dbManager: MongoDbManager, authManager: AuthManager): Promise<Response> {
   try {

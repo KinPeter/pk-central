@@ -1,5 +1,5 @@
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { AuthManager } from '../../utils/auth-manager.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { AuthManager } from '../../utils/auth-manager';
 import {
   MethodNotAllowedResponse,
   NotFoundErrorResponse,
@@ -7,8 +7,8 @@ import {
   UnauthorizedInvalidAccessTokenErrorResponse,
   UnknownErrorResponse,
   ValidationErrorResponse,
-} from '../../utils/response.js';
-import { omitIdsForOne } from '../../utils/omit-ids.js';
+} from '../../utils/response';
+import { omitIdsForOne } from '../../utils/omit-ids';
 import { choreSchema, Cycling, CyclingChoreRequest, UUID } from 'pk-common';
 
 export async function updateChore(

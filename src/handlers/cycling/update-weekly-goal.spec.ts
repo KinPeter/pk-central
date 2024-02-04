@@ -1,9 +1,9 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock';
 import { ApiError } from 'pk-common';
-import { cyclingData, invalidWeeklyGoalRequests } from '../../test-utils/test-data/cycling.js';
-import { updateWeeklyGoal } from './update-weekly-goal.js';
+import { cyclingData, invalidWeeklyGoalRequests } from '../../test-utils/test-data/cycling';
+import { updateWeeklyGoal } from './update-weekly-goal';
 
 describe('updateWeeklyGoal', () => {
   let db: MockDb;

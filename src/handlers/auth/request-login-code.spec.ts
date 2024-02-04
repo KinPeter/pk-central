@@ -1,8 +1,8 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
-import { MockEmailManager } from '../../test-utils/mock/email.mock.js';
-import { requestLoginCode } from './request-login-code.js';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { EmailManager } from '../../utils/email-manager.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MockEmailManager } from '../../test-utils/mock/email.mock';
+import { requestLoginCode } from './request-login-code';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { EmailManager } from '../../utils/email-manager';
 import { ApiError } from 'pk-common';
 
 describe('requestLoginCode', () => {

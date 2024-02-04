@@ -1,15 +1,15 @@
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { AuthManager } from '../../utils/auth-manager.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { AuthManager } from '../../utils/auth-manager';
 import {
   OkResponse,
   UnauthorizedInvalidAccessTokenErrorResponse,
   UnknownErrorResponse,
   ValidationErrorResponse,
-} from '../../utils/response.js';
+} from '../../utils/response';
 import { PkStartSettings, pkStartSettingsSchema } from 'pk-common';
-import { omitIdsForOne } from '../../utils/omit-ids.js';
+import { omitIdsForOne } from '../../utils/omit-ids';
 import { v4 as uuid } from 'uuid';
-import { toPkStartSettingsRequest } from '../../utils/request-mappers.js';
+import { toPkStartSettingsRequest } from '../../utils/request-mappers';
 
 export async function updateSettings(
   req: Request,

@@ -1,7 +1,7 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { getCycling } from './get-cycling.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { getCycling } from './get-cycling';
 import { ApiError } from 'pk-common';
 
 const result = { _id: 'm1', id: 'uuid1', userId: '123', weeklyGoal: 200 };

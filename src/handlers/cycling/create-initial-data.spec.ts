@@ -1,9 +1,9 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock';
 import { ApiError, Cycling } from 'pk-common';
-import { cyclingData } from '../../test-utils/test-data/cycling.js';
-import { createInitialData } from './create-initial-data.js';
+import { cyclingData } from '../../test-utils/test-data/cycling';
+import { createInitialData } from './create-initial-data';
 
 describe('createInitialData', () => {
   let db: MockDb;

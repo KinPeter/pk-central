@@ -1,7 +1,7 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { getLoginCode } from '../../utils/crypt-jwt.js';
-import { verifyMagicLink } from './verify-magic-link.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { getLoginCode } from '../../utils/crypt-jwt';
+import { verifyMagicLink } from './verify-magic-link';
 import { Context } from '@netlify/functions';
 import { ApiError } from 'pk-common';
 

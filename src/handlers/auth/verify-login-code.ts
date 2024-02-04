@@ -1,4 +1,4 @@
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
 import {
   MethodNotAllowedResponse,
   OkResponse,
@@ -6,8 +6,8 @@ import {
   UnknownErrorResponse,
   UserNotFoundErrorResponse,
   ValidationErrorResponse,
-} from '../../utils/response.js';
-import { getAccessToken, validateLoginCode } from '../../utils/crypt-jwt.js';
+} from '../../utils/response';
+import { getAccessToken, validateLoginCode } from '../../utils/crypt-jwt';
 import { ApiError, AuthData, loginVerifyRequestSchema, User } from 'pk-common';
 
 export async function verifyLoginCode(req: Request, dbManager: MongoDbManager): Promise<Response> {

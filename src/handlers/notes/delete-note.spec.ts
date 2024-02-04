@@ -1,9 +1,9 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock';
 import { ApiError, ValidationError } from 'pk-common';
-import { notes } from '../../test-utils/test-data/notes.js';
-import { deleteNote } from './delete-note.js';
+import { notes } from '../../test-utils/test-data/notes';
+import { deleteNote } from './delete-note';
 
 describe('deleteNote', () => {
   let db: MockDb;

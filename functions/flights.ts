@@ -1,8 +1,8 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, ErrorResponse } from '../src/utils/response.js';
-import { MongoDbManager } from '../src/utils/mongo-db-manager.js';
-import { AuthManager } from '../src/utils/auth-manager.js';
-import { getAllFlights } from '../src/handlers/flights/get-all-flights.js';
+import { CorsOkResponse, ErrorResponse } from '../src/utils/response';
+import { MongoDbManager } from '../src/utils/mongo-db-manager';
+import { AuthManager } from '../src/utils/auth-manager';
+import { getAllFlights } from '../src/handlers/flights/get-all-flights';
 
 export const config: Config = {
   path: ['/flights', '/flights/:operation'],

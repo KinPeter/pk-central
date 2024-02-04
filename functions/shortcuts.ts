@@ -1,11 +1,11 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, MethodNotAllowedResponse } from '../src/utils/response.js';
-import { MongoDbManager } from '../src/utils/mongo-db-manager.js';
-import { AuthManager } from '../src/utils/auth-manager.js';
-import { deleteShortcut } from '../src/handlers/shortcuts/delete-shortcut.js';
-import { getShortcuts } from '../src/handlers/shortcuts/get-shortcuts.js';
-import { createShortcut } from '../src/handlers/shortcuts/create-shortcut.js';
-import { updateShortcut } from '../src/handlers/shortcuts/update-shortcut.js';
+import { CorsOkResponse, MethodNotAllowedResponse } from '../src/utils/response';
+import { MongoDbManager } from '../src/utils/mongo-db-manager';
+import { AuthManager } from '../src/utils/auth-manager';
+import { deleteShortcut } from '../src/handlers/shortcuts/delete-shortcut';
+import { getShortcuts } from '../src/handlers/shortcuts/get-shortcuts';
+import { createShortcut } from '../src/handlers/shortcuts/create-shortcut';
+import { updateShortcut } from '../src/handlers/shortcuts/update-shortcut';
 
 export const config: Config = {
   path: ['/shortcuts', '/shortcuts/:id'],

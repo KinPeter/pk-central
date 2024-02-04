@@ -1,14 +1,14 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
-import { updateSettings } from './update-settings.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock';
+import { updateSettings } from './update-settings';
 import { ApiError, PkStartSettings } from 'pk-common';
 import {
   invalidRequestBodies,
   updatedSettings,
   validSettings,
   validSettingsRequest,
-} from '../../test-utils/test-data/start-settings.js';
+} from '../../test-utils/test-data/start-settings';
 
 describe('updateSettings', () => {
   let db: MockDb;

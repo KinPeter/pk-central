@@ -1,13 +1,13 @@
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { AuthManager } from '../../utils/auth-manager.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { AuthManager } from '../../utils/auth-manager';
 import {
   UnauthorizedInvalidAccessTokenErrorResponse,
   OkResponse,
   NotFoundErrorResponse,
   UnknownErrorResponse,
   MethodNotAllowedResponse,
-} from '../../utils/response.js';
-import { omitIdsForOne } from '../../utils/omit-ids.js';
+} from '../../utils/response';
+import { omitIdsForOne } from '../../utils/omit-ids';
 import { Cycling } from 'pk-common';
 
 export async function getCycling(req: Request, dbManager: MongoDbManager, authManager: AuthManager): Promise<Response> {

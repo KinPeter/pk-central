@@ -1,5 +1,5 @@
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { AuthManager } from '../../utils/auth-manager.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { AuthManager } from '../../utils/auth-manager';
 import {
   MethodNotAllowedResponse,
   NotFoundErrorResponse,
@@ -7,11 +7,11 @@ import {
   UnauthorizedInvalidAccessTokenErrorResponse,
   UnknownErrorResponse,
   ValidationErrorResponse,
-} from '../../utils/response.js';
-import { omitIdsForOne } from '../../utils/omit-ids.js';
+} from '../../utils/response';
+import { omitIdsForOne } from '../../utils/omit-ids';
 import { Cycling, CyclingChoreRequest, choreSchema } from 'pk-common';
 import { v4 as uuid } from 'uuid';
-import { toCyclingChoreRequest } from '../../utils/request-mappers.js';
+import { toCyclingChoreRequest } from '../../utils/request-mappers';
 
 export async function addChore(req: Request, dbManager: MongoDbManager, authManager: AuthManager): Promise<Response> {
   try {

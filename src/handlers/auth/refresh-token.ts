@@ -1,12 +1,12 @@
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { AuthManager } from '../../utils/auth-manager.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { AuthManager } from '../../utils/auth-manager';
 import {
   UnauthorizedInvalidAccessTokenErrorResponse,
   MethodNotAllowedResponse,
   OkResponse,
   UnknownErrorResponse,
-} from '../../utils/response.js';
-import { getAccessToken } from '../../utils/crypt-jwt.js';
+} from '../../utils/response';
+import { getAccessToken } from '../../utils/crypt-jwt';
 import { AuthData } from 'pk-common';
 
 export async function refreshToken(

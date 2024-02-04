@@ -1,11 +1,11 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, MethodNotAllowedResponse } from '../src/utils/response.js';
-import { MongoDbManager } from '../src/utils/mongo-db-manager.js';
-import { AuthManager } from '../src/utils/auth-manager.js';
-import { getNotes } from '../src/handlers/notes/get-notes.js';
-import { createNote } from '../src/handlers/notes/create-note.js';
-import { updateNote } from '../src/handlers/notes/update-note.js';
-import { deleteNote } from '../src/handlers/notes/delete-note.js';
+import { CorsOkResponse, MethodNotAllowedResponse } from '../src/utils/response';
+import { MongoDbManager } from '../src/utils/mongo-db-manager';
+import { AuthManager } from '../src/utils/auth-manager';
+import { getNotes } from '../src/handlers/notes/get-notes';
+import { createNote } from '../src/handlers/notes/create-note';
+import { updateNote } from '../src/handlers/notes/update-note';
+import { deleteNote } from '../src/handlers/notes/delete-note';
 
 export const config: Config = {
   path: ['/notes', '/notes/:id'],

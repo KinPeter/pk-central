@@ -1,9 +1,9 @@
-import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
+import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { ApiError } from 'pk-common';
-import { shortcuts } from '../../test-utils/test-data/shortcuts.js';
-import { getShortcuts } from './get-shortcuts.js';
+import { shortcuts } from '../../test-utils/test-data/shortcuts';
+import { getShortcuts } from './get-shortcuts';
 
 describe('getShortcuts', () => {
   let db: MockDb;

@@ -1,4 +1,4 @@
-import { EmailManager } from './email-manager.js';
+import { EmailManager } from './email-manager';
 import { DataBackup } from 'pk-common';
 
 describe('EmailManager', () => {

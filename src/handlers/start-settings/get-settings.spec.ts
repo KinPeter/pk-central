@@ -1,7 +1,7 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { getSettings } from './get-settings.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { getSettings } from './get-settings';
 
 const result = { _id: 'm1', id: 'uuid1', userId: 'user1', name: 'Peti' };
 

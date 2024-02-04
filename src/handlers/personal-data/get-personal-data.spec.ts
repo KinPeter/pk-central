@@ -1,9 +1,9 @@
-import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
+import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { ApiError } from 'pk-common';
-import { personalDataObjects } from '../../test-utils/test-data/personal-data.js';
-import { getPersonalData } from './get-personal-data.js';
+import { personalDataObjects } from '../../test-utils/test-data/personal-data';
+import { getPersonalData } from './get-personal-data';
 
 describe('getPersonalData', () => {
   let db: MockDb;

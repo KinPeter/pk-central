@@ -1,9 +1,9 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock';
 import { ApiError, ValidationError } from 'pk-common';
-import { personalDataObjects } from '../../test-utils/test-data/personal-data.js';
-import { deletePersonalData } from './delete-personal-data.js';
+import { personalDataObjects } from '../../test-utils/test-data/personal-data';
+import { deletePersonalData } from './delete-personal-data';
 
 describe('deletePersonalData', () => {
   let db: MockDb;

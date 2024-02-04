@@ -1,11 +1,11 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, MethodNotAllowedResponse } from '../src/utils/response.js';
-import { MongoDbManager } from '../src/utils/mongo-db-manager.js';
-import { AuthManager } from '../src/utils/auth-manager.js';
-import { getPersonalData } from '../src/handlers/personal-data/get-personal-data.js';
-import { createPersonalData } from '../src/handlers/personal-data/create-personal-data.js';
-import { updatePersonalData } from '../src/handlers/personal-data/update-personal-data.js';
-import { deletePersonalData } from '../src/handlers/personal-data/delete-personal-data.js';
+import { CorsOkResponse, MethodNotAllowedResponse } from '../src/utils/response';
+import { MongoDbManager } from '../src/utils/mongo-db-manager';
+import { AuthManager } from '../src/utils/auth-manager';
+import { getPersonalData } from '../src/handlers/personal-data/get-personal-data';
+import { createPersonalData } from '../src/handlers/personal-data/create-personal-data';
+import { updatePersonalData } from '../src/handlers/personal-data/update-personal-data';
+import { deletePersonalData } from '../src/handlers/personal-data/delete-personal-data';
 
 export const config: Config = {
   path: ['/personal-data', '/personal-data/:id'],

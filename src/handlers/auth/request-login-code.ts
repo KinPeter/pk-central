@@ -1,13 +1,13 @@
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { EmailManager } from '../../utils/email-manager.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { EmailManager } from '../../utils/email-manager';
 import {
   MethodNotAllowedResponse,
   OkResponse,
   UnknownErrorResponse,
   ValidationErrorResponse,
-} from '../../utils/response.js';
+} from '../../utils/response';
 import { v4 as uuid } from 'uuid';
-import { getLoginCode } from '../../utils/crypt-jwt.js';
+import { getLoginCode } from '../../utils/crypt-jwt';
 import { emailRequestSchema, User } from 'pk-common';
 
 export async function requestLoginCode(

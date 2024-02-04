@@ -1,4 +1,4 @@
-import { getAccessToken, getLoginCode, validateLoginCode, verifyToken } from './crypt-jwt.js';
+import { getAccessToken, getLoginCode, validateLoginCode, verifyToken } from './crypt-jwt';
 
 const expiredAccessToken =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJ1c2VySWQiOiJ1c2VyMTIzIiwiaWF0IjoxNzAzNTUzNTcxLCJleHAiOjE3MDM1NTM1ODF9.EEhOisV-61GzJDYkJnfJhr7urunIC0zEx1UGpHSwJW8';

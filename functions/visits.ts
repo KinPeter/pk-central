@@ -1,8 +1,8 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, ErrorResponse } from '../src/utils/response.js';
-import { MongoDbManager } from '../src/utils/mongo-db-manager.js';
-import { AuthManager } from '../src/utils/auth-manager.js';
-import { getAllVisits } from '../src/handlers/visits/get-all-visits.js';
+import { CorsOkResponse, ErrorResponse } from '../src/utils/response';
+import { MongoDbManager } from '../src/utils/mongo-db-manager';
+import { AuthManager } from '../src/utils/auth-manager';
+import { getAllVisits } from '../src/handlers/visits/get-all-visits';
 
 export const config: Config = {
   path: ['/visits', '/visits/:operation'],

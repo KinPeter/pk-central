@@ -1,9 +1,9 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock.js';
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock.js';
+import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { MockAuthManager } from '../../test-utils/mock/auth.mock';
 import { ApiError, Cycling } from 'pk-common';
-import { cyclingData, invalidChoreRequests, validChoreRequest } from '../../test-utils/test-data/cycling.js';
-import { updateChore } from './update-chore.js';
+import { cyclingData, invalidChoreRequests, validChoreRequest } from '../../test-utils/test-data/cycling';
+import { updateChore } from './update-chore';
 
 describe('updateChore', () => {
   let db: MockDb;

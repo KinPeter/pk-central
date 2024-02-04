@@ -1,5 +1,5 @@
 import { Db } from 'mongodb';
-import { verifyToken } from './crypt-jwt.js';
+import { verifyToken } from './crypt-jwt';
 import { User } from 'pk-common';
 
 export class AuthManager {

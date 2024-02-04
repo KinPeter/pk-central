@@ -1,14 +1,14 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, ErrorResponse, MethodNotAllowedResponse } from '../src/utils/response.js';
-import { MongoDbManager } from '../src/utils/mongo-db-manager.js';
-import { AuthManager } from '../src/utils/auth-manager.js';
-import { createInitialData } from '../src/handlers/cycling/create-initial-data.js';
-import { getCycling } from '../src/handlers/cycling/get-cycling.js';
-import { updateWeeklyGoal } from '../src/handlers/cycling/update-weekly-goal.js';
-import { updateMonthlyGoal } from '../src/handlers/cycling/update-monthly-goal.js';
-import { addChore } from '../src/handlers/cycling/add-chore.js';
-import { updateChore } from '../src/handlers/cycling/update-chore.js';
-import { deleteChore } from '../src/handlers/cycling/delete-chore.js';
+import { CorsOkResponse, ErrorResponse, MethodNotAllowedResponse } from '../src/utils/response';
+import { MongoDbManager } from '../src/utils/mongo-db-manager';
+import { AuthManager } from '../src/utils/auth-manager';
+import { createInitialData } from '../src/handlers/cycling/create-initial-data';
+import { getCycling } from '../src/handlers/cycling/get-cycling';
+import { updateWeeklyGoal } from '../src/handlers/cycling/update-weekly-goal';
+import { updateMonthlyGoal } from '../src/handlers/cycling/update-monthly-goal';
+import { addChore } from '../src/handlers/cycling/add-chore';
+import { updateChore } from '../src/handlers/cycling/update-chore';
+import { deleteChore } from '../src/handlers/cycling/delete-chore';
 
 export const config: Config = {
   path: ['/cycling', '/cycling/:operation', '/cycling/:operation/:id'],

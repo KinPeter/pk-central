@@ -1,13 +1,13 @@
-import { MongoDbManager } from '../../utils/mongo-db-manager.js';
-import { AuthManager } from '../../utils/auth-manager.js';
+import { MongoDbManager } from '../../utils/mongo-db-manager';
+import { AuthManager } from '../../utils/auth-manager';
 import {
   UnauthorizedInvalidAccessTokenErrorResponse,
   OkResponse,
   UnknownErrorResponse,
   MethodNotAllowedResponse,
   ErrorResponse,
-} from '../../utils/response.js';
-import { omitIdsForOne } from '../../utils/omit-ids.js';
+} from '../../utils/response';
+import { omitIdsForOne } from '../../utils/omit-ids';
 import { ApiError, Cycling } from 'pk-common';
 import { v4 as uuid } from 'uuid';
 

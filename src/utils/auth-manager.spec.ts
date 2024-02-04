@@ -1,6 +1,6 @@
-import { MockCollection, MockDb } from '../test-utils/mock/db.mock.js';
-import { getAccessToken } from './crypt-jwt.js';
-import { AuthManager } from './auth-manager.js';
+import { MockCollection, MockDb } from '../test-utils/mock/db.mock';
+import { getAccessToken } from './crypt-jwt';
+import { AuthManager } from './auth-manager';
 import { Db } from 'mongodb';
 
 describe('AuthManager', () => {
