@@ -1,8 +1,8 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock';
+import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { ApiError } from 'pk-common';
-import { invalidPersonalDataRequests, validPersonalDataRequests } from '../../test-utils/test-data/personal-data';
+import { invalidPersonalDataRequests, validPersonalDataRequests } from '../../../test-utils/test-data/personal-data';
 import { createPersonalData } from './create-personal-data';
 
 describe('createPersonalData', () => {

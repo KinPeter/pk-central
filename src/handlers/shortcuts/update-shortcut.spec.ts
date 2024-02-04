@@ -1,8 +1,8 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock';
+import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { ApiError, ValidationError } from 'pk-common';
-import { invalidShortcutRequests, shortcuts, validShortcutRequests } from '../../test-utils/test-data/shortcuts';
+import { invalidShortcutRequests, shortcuts, validShortcutRequests } from '../../../test-utils/test-data/shortcuts';
 import { updateShortcut } from './update-shortcut';
 
 describe('updateShortcut', () => {

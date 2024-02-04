@@ -1,8 +1,8 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock';
+import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { ApiError } from 'pk-common';
-import { invalidNoteRequests, validNoteRequests } from '../../test-utils/test-data/notes';
+import { invalidNoteRequests, validNoteRequests } from '../../../test-utils/test-data/notes';
 import { createNote } from './create-note';
 
 describe('createNote', () => {

@@ -1,8 +1,8 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock';
+import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { ApiError } from 'pk-common';
-import { cyclingData, invalidMonthlyGoalRequests } from '../../test-utils/test-data/cycling';
+import { cyclingData, invalidMonthlyGoalRequests } from '../../../test-utils/test-data/cycling';
 import { updateMonthlyGoal } from './update-monthly-goal';
 
 describe('updateMonthlyGoal', () => {

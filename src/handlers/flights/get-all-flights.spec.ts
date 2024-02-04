@@ -1,8 +1,8 @@
-import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
-import { MockAuthManager } from '../../test-utils/mock/auth.mock';
+import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
+import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { getAllFlights } from './get-all-flights';
-import { twoResults } from '../../test-utils/test-data/flights';
+import { twoResults } from '../../../test-utils/test-data/flights';
 
 const notAllowedMethods = ['POST', 'PUT', 'DELETE', 'PATCH'];
 

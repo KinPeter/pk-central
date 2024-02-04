@@ -1,4 +1,4 @@
-import { MockCollection, MockDb, MockDbManager } from '../../test-utils/mock/db.mock';
+import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { getLoginCode } from '../../utils/crypt-jwt';
 import { verifyMagicLink } from './verify-magic-link';
