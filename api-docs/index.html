@@ -1,0 +1,74 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="ie=edge" /><title>PK Central</title></head><body><p>{
+  "functions": [
+    {
+      "auth": {
+        "name": "Auth",
+        "description": "Endpoints related to users and authentication",
+        "types": "types/auth.ts",
+        "validators": "validators/auth.ts",
+        "endpoints": [
+          {
+            "login": {
+              "method": "POST",
+              "route": "/auth/login",
+              "description": "Initiate login to request a login code by email",
+              "request": "EmailRequest",
+              "response": "{ message: 'Check your inbox' }",
+              "authenticated": false
+            }
+          },
+          {
+            "verify-code": {
+              "method": "POST",
+              "route": "/auth/verify-code",
+              "description": "Verify login code to get an access token",
+              "request": "LoginVerifyRequest",
+              "response": "AuthData",
+              "authenticated": false
+            }
+          },
+          {
+            "verify-link": {
+              "method": "GET",
+              "route": "/auth/verify-link/:token/:redirectEnv",
+              "description": "Verify magic link to redirect client to get access token",
+              "request": null,
+              "response": null,
+              "authenticated": false
+            }
+          },
+          {
+            "refresh-token": {
+              "method": "POST",
+              "route": "/auth/token-refresh",
+              "description": "Get a new access token",
+              "request": null,
+              "response": null,
+              "authenticated": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "cycling": {
+        "name": "Cycling",
+        "description": "Endpoints for cycling data on PK Start",
+        "types": "types/cycling.ts",
+        "validators": "validators/cycling.ts",
+        "endpoints": [
+          {
+            "get": {
+              "method": "GET",
+              "route": "/cycling",
+              "description": "Get the cycling data of the current user",
+              "request": null,
+              "response": "Cycling",
+              "authenticated": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}<p/></body></html>

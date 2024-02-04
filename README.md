@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4392a538-26c9-440f-8182-b09de5e6177a/deploy-status)](https://app.netlify.com/sites/pk-central/deploys)
+
 # PK-Central
 
 Serverless functions based API
