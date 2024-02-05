@@ -71,3 +71,15 @@ export class UnknownErrorResponse extends ErrorResponse {
     console.log(JSON.stringify(error));
   }
 }
+
+export class UnknownOperationErrorResponse extends ErrorResponse {
+  constructor(operation: string) {
+    super(ApiError.UNKNOWN_OPERATION, 400, { operation });
+  }
+}
+
+export class ForbiddenOperationErrorResponse extends ErrorResponse {
+  constructor(operation?: string) {
+    super(ApiError.FORBIDDEN_OPERATION, 403, operation ? { operation } : undefined);
+  }
+}

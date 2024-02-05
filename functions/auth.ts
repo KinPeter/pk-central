@@ -1,5 +1,5 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, ErrorResponse } from '../src/utils/response';
+import { CorsOkResponse, UnknownOperationErrorResponse } from '../src/utils/response';
 import { MongoDbManager } from '../src/utils/mongo-db-manager';
 import { AuthManager } from '../src/utils/auth-manager';
 import { EmailManager } from '../src/utils/email-manager';
@@ -30,6 +30,6 @@ export default async (req: Request, context: Context) => {
     case 'token-refresh':
       return await refreshToken(req, dbManager, new AuthManager());
     default:
-      return new ErrorResponse(`Unknown operation: /auth/${operation}`, 400);
+      return new UnknownOperationErrorResponse(`/auth/${operation}`);
   }
 };

@@ -13,6 +13,8 @@ export enum ApiError {
   METHOD_NOT_ALLOWED = 'METHOD_NOT_ALLOWED',
   UNKNOWN_ERROR = 'UNKNOWN_ERROR',
   DATA_ALREADY_EXISTS = 'DATA_ALREADY_EXISTS',
+  UNKNOWN_OPERATION = 'UNKNOWN_OPERATION',
+  FORBIDDEN_OPERATION = 'FORBIDDEN_OPERATION',
 }
 
 export const ApiErrorMap: Record<ApiError, string> = {
@@ -30,6 +32,8 @@ export const ApiErrorMap: Record<ApiError, string> = {
   [ApiError.METHOD_NOT_ALLOWED]: 'HTTP Method not allowed',
   [ApiError.UNKNOWN_ERROR]: 'Something went wrong: server or database error',
   [ApiError.DATA_ALREADY_EXISTS]: 'Data already exists',
+  [ApiError.UNKNOWN_OPERATION]: 'Unknown operation',
+  [ApiError.FORBIDDEN_OPERATION]: 'Forbidden operation',
 };
 
 export enum ValidationError {

@@ -1,5 +1,5 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, ErrorResponse } from '../src/utils/response';
+import { CorsOkResponse, UnknownOperationErrorResponse } from '../src/utils/response';
 import { MongoDbManager } from '../src/utils/mongo-db-manager';
 import { AuthManager } from '../src/utils/auth-manager';
 import { getAllFlights } from '../src/handlers/flights/get-all-flights';
@@ -20,6 +20,6 @@ export default async (req: Request, context: Context) => {
     case 'all':
       return await getAllFlights(req, dbManager, authManager);
     default:
-      return new ErrorResponse(`Unknown operation: /flights/${operation}`, 400);
+      return new UnknownOperationErrorResponse(`/flights/${operation}`);
   }
 };

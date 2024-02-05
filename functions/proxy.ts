@@ -1,5 +1,5 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, ErrorResponse } from '../src/utils/response';
+import { CorsOkResponse, UnknownOperationErrorResponse } from '../src/utils/response';
 import { MongoDbManager } from '../src/utils/mongo-db-manager';
 import { AuthManager } from '../src/utils/auth-manager';
 import { getBirthdays } from '../src/handlers/proxy/get-birthdays';
@@ -25,6 +25,6 @@ export default async (req: Request, context: Context) => {
     case 'korean':
       return await getKorean(req, dbManager, authManager, httpClient);
     default:
-      return new ErrorResponse(`Unknown operation: /proxy/${operation}`, 400);
+      return new UnknownOperationErrorResponse(`/proxy/${operation}`);
   }
 };

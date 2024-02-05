@@ -1,5 +1,5 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, ErrorResponse } from '../src/utils/response';
+import { CorsOkResponse, UnknownOperationErrorResponse } from '../src/utils/response';
 import { MongoDbManager } from '../src/utils/mongo-db-manager';
 import { AuthManager } from '../src/utils/auth-manager';
 import { getAllVisits } from '../src/handlers/visits/get-all-visits';
@@ -20,6 +20,6 @@ export default async (req: Request, context: Context) => {
     case 'all':
       return await getAllVisits(req, dbManager, authManager);
     default:
-      return new ErrorResponse(`Unknown operation: /visits/${operation}`, 400);
+      return new UnknownOperationErrorResponse(`/visits/${operation}`);
   }
 };

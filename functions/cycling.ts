@@ -1,5 +1,5 @@
 import { Config, Context } from '@netlify/functions';
-import { CorsOkResponse, ErrorResponse, MethodNotAllowedResponse } from '../src/utils/response';
+import { CorsOkResponse, MethodNotAllowedResponse, UnknownOperationErrorResponse } from '../src/utils/response';
 import { MongoDbManager } from '../src/utils/mongo-db-manager';
 import { AuthManager } from '../src/utils/auth-manager';
 import { createInitialData } from '../src/handlers/cycling/create-initial-data';
@@ -43,6 +43,6 @@ export default async (req: Request, context: Context) => {
         return new MethodNotAllowedResponse(req.method);
       }
     default:
-      return new ErrorResponse(`Unknown operation: /cycling/${operation}`, 400);
+      return new UnknownOperationErrorResponse(`/cycling/${operation}`);
   }
 };
