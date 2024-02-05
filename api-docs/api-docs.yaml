@@ -240,7 +240,7 @@ functions:
         route: /proxy/korean
         description: Get korean word list of the current user
         request: null
-        response: KoreanDictItem
+        response: KoreanDictItem[]
         authenticated: True
 
   - name: Flights

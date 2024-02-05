@@ -4,9 +4,7 @@
 
 Serverless functions based API
 
-## Development
-
-### Netlify CLI
+## Netlify CLI
 
 - Run `npx netlify login` to log in by opening a browser, signing in to Netlify using GitHub and authorize the CLI.
 - Run `npx netlify link --id <site-ID>` to link the project, find the site ID on Netlify under site configuration.
@@ -14,13 +12,13 @@ Serverless functions based API
 
 Find out more at the [Netlify Docs](https://docs.netlify.com/cli/get-started/) or [Netlify CLI Docs](https://cli.netlify.com/)
 
-### Environment variables - PROD
+## Environment variables - PROD
 
 Environment variables are handled by Netlify, it is possible to set one by one or import from .env file on the Netlify UI under Site configuration / Environment variables.
 
 See the `.env.example` for currently used variables.
 
-### Environment variables for Local dev server
+## Environment variables for Local dev server
 
 When running the Netlify CLI local dev server it automatically reads the local `.env` file and uses the variables stored in that file (thus ignoring the variables stored on Netlify online). 
 To use the local MongoDB for development, set this variable:
@@ -28,7 +26,7 @@ To use the local MongoDB for development, set this variable:
 MONGO_DB_URI=mongodb://admin:admin@localhost:27017/
 ```
 
-### Local DEV MongoDB
+## Local DEV MongoDB
 
 MongoDB for development is configured to run in Docker.
 
@@ -44,7 +42,7 @@ mongodb://admin:admin@localhost:27017/
 To remove the volume and clear the DB data, the best way is to run `npm run clear:db` from the root, `docker-compose down -v` from the `dev-db/` directory.
 
 
-### Common types and utils
+## Common types and utils
 
 This repository contains type declarations and utils like validators that can be used by frontends or other clients.
 Everything under the `common/` folder will be part of the public NPM package published under the name `@kinpeter/pk-common`.
@@ -64,7 +62,7 @@ Don't forget to log in to NPM before publishing using the `npm login` command!
 
 [Link to the package on NPM](https://www.npmjs.com/package/@kinpeter/pk-common)
 
-### Maintaining the API Docs
+## Maintaining the API Docs
 
 On any change of the API (e.g. routes, parameters, types, validators) update the YAML file: `api-docs/api-docs.yaml` and run this command to generate a new HTML:
 ```shell
