@@ -38,6 +38,7 @@ describe('updatePersonalData', () => {
         dbManager as unknown as MongoDbManager,
         authManager
       );
+      expect(db.collection).toHaveBeenCalledWith('personal-data');
       expect(collection.findOneAndUpdate).toHaveBeenCalled();
       expect(response.status).toBe(200);
       const result = await response.json();

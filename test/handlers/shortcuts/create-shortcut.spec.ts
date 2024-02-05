@@ -29,6 +29,7 @@ describe('createShortcut', () => {
         body: JSON.stringify(body),
       });
       const response = await createShortcut(request, dbManager as unknown as MongoDbManager, authManager);
+      expect(db.collection).toHaveBeenCalledWith('shortcuts');
       expect(collection.insertOne).toHaveBeenCalled();
       expect(response.status).toBe(201);
       const result = await response.json();

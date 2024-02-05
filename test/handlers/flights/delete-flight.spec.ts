@@ -1,12 +1,12 @@
-import { describe, beforeEach, it, expect } from '@jest/globals';
+import { beforeEach, describe, expect, it } from '@jest/globals';
 import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { ApiError, ValidationError } from 'pk-common';
-import { notes } from '../../../test-utils/test-data/notes';
-import { deleteNote } from '../../../src/handlers/notes/delete-note';
+import { flights } from '../../../test-utils/test-data/flights';
+import { deleteFlight } from '../../../src/handlers/flights/delete-flight';
 
-describe('deleteNote', () => {
+describe('deleteFlight', () => {
   let db: MockDb;
   let collection: MockCollection;
   let dbManager: MockDbManager;
@@ -21,25 +21,25 @@ describe('deleteNote', () => {
     authManager.authenticateUser.mockResolvedValue({ id: '123' });
   });
 
-  it('should delete a note', async () => {
-    collection.findOneAndDelete.mockResolvedValue(notes[0]);
+  it('should delete a flight', async () => {
+    collection.findOneAndDelete.mockResolvedValue(flights[0]);
     const request = new Request('http://localhost:8888', {
       method: 'DELETE',
     });
-    const response = await deleteNote(request, notes[0].id, dbManager as unknown as MongoDbManager, authManager);
-    expect(db.collection).toHaveBeenCalledWith('notes');
-    expect(collection.findOneAndDelete).toHaveBeenCalledWith({ id: notes[0].id, userId: '123' });
+    const response = await deleteFlight(request, flights[0].id, dbManager as unknown as MongoDbManager, authManager);
+    expect(db.collection).toHaveBeenCalledWith('flights');
+    expect(collection.findOneAndDelete).toHaveBeenCalledWith({ id: flights[0].id, userId: '123' });
     expect(response.status).toBe(200);
     const result = await response.json();
-    expect(result.id).toEqual(notes[0].id);
+    expect(result.id).toEqual(flights[0].id);
   });
 
   it('should return bad request error for invalid uuid', async () => {
-    collection.findOneAndDelete.mockResolvedValue(notes[0]);
+    collection.findOneAndDelete.mockResolvedValue(flights[0]);
     const request = new Request('http://localhost:8888', {
       method: 'DELETE',
     });
-    const response = await deleteNote(request, 'not-a-uuid', dbManager as unknown as MongoDbManager, authManager);
+    const response = await deleteFlight(request, 'not-a-uuid', dbManager as unknown as MongoDbManager, authManager);
     expect(collection.findOneAndDelete).not.toHaveBeenCalled();
     expect(response.status).toBe(400);
     const result = await response.json();
@@ -51,7 +51,7 @@ describe('deleteNote', () => {
     const request = new Request('http://localhost:8888', {
       method: 'DELETE',
     });
-    const response = await deleteNote(request, notes[0].id, dbManager as unknown as MongoDbManager, authManager);
+    const response = await deleteFlight(request, flights[0].id, dbManager as unknown as MongoDbManager, authManager);
     expect(collection.findOneAndDelete).toHaveBeenCalled();
     expect(response.status).toBe(404);
     const result = await response.json();

@@ -3,10 +3,10 @@ import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { ApiError } from 'pk-common';
-import { invalidNoteRequests, validNoteRequests } from '../../../test-utils/test-data/notes';
-import { createNote } from '../../../src/handlers/notes/create-note';
+import { createFlight } from '../../../src/handlers/flights/create-flight';
+import { invalidFlightRequests, validFlightRequests } from '../../../test-utils/test-data/flights';
 
-describe('createNote', () => {
+describe('createFlight', () => {
   let db: MockDb;
   let collection: MockCollection;
   let dbManager: MockDbManager;
@@ -21,15 +21,15 @@ describe('createNote', () => {
     authManager.authenticateUser.mockResolvedValue({ id: '123' });
   });
 
-  validNoteRequests.forEach((body, index) => {
-    it(`should create new note #${index + 1}`, async () => {
+  validFlightRequests.forEach((body, index) => {
+    it(`should create new flight #${index + 1}`, async () => {
       collection.insertOne.mockResolvedValue(true);
       const request = new Request('http://localhost:8888', {
         method: 'POST',
         body: JSON.stringify(body),
       });
-      const response = await createNote(request, dbManager as unknown as MongoDbManager, authManager);
-      expect(db.collection).toHaveBeenCalledWith('notes');
+      const response = await createFlight(request, dbManager as unknown as MongoDbManager, authManager);
+      expect(db.collection).toHaveBeenCalledWith('flights');
       expect(collection.insertOne).toHaveBeenCalled();
       expect(response.status).toBe(201);
       const result = await response.json();
@@ -38,13 +38,13 @@ describe('createNote', () => {
     });
   });
 
-  invalidNoteRequests.forEach(body => {
-    it(`should return validation error for invalid request body: ${JSON.stringify(body)}`, async () => {
+  invalidFlightRequests.forEach((body, index) => {
+    it(`should return validation error for invalid request body #${index + 1}`, async () => {
       const request = new Request('http://localhost:8888', {
         method: 'POST',
         body: JSON.stringify(body),
       });
-      const response = await createNote(request, dbManager as unknown as MongoDbManager, authManager);
+      const response = await createFlight(request, dbManager as unknown as MongoDbManager, authManager);
       expect(collection.insertOne).not.toHaveBeenCalled();
       expect(response.status).toEqual(400);
       const data = await response.json();

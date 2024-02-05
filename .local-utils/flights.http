@@ -1,4 +1,104 @@
-### Get all flights
-GET {{baseUrl}}/flights/all
+### Get flights for user
+GET {{baseUrl}}/flights
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+### Add flight
+POST {{baseUrl}}/flights
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "date": "2012-01-16",
+  "flightNumber": "A3877",
+  "from": {
+    "city": "Rome",
+    "name": "Fiumicino",
+    "iata": "FCO",
+    "icao": "LHBP",
+    "lat": 47.43693,
+    "lng": 19.25559,
+    "country": "Italy"
+  },
+  "to": {
+    "city": "Athens",
+    "name": "Eleftherios Venizelos",
+    "iata": "ATH",
+    "icao": "LGAV",
+    "lat": 37.93636,
+    "lng": 23.94447,
+    "country": "Greece"
+  },
+  "departureTime": "10:45:00",
+  "arrivalTime": "13:45:00",
+  "duration": "02:00:00",
+  "airline": {
+    "name": "Aegean Airlines",
+    "iata": "A3",
+    "icao": "AEE"
+  },
+  "aircraft": {
+    "name": "Airbus A320",
+    "icao": "A320"
+  },
+  "registration": "SX-DVR",
+  "seatNumber": "18D",
+  "seatType": "Aisle",
+  "flightClass": "Economy",
+  "flightReason": "Leisure",
+  "note": "",
+  "distance": 1123
+}
+
+### Update flight
+PUT {{baseUrl}}/flights/fdb0aa3a-d7c7-42a6-abef-c604a417ff05
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "date": "2012-01-16",
+  "flightNumber": "XX1234",
+  "from": {
+    "city": "Rome",
+    "name": "Fiumicino",
+    "iata": "FCO",
+    "icao": "LHBP",
+    "lat": 47.43693,
+    "lng": 19.25559,
+    "country": "Italy"
+  },
+  "to": {
+    "city": "Seoul",
+    "name": "Incheon",
+    "iata": "ICN",
+    "icao": "LGAV",
+    "lat": 37.93636,
+    "lng": 23.94447,
+    "country": "Korea"
+  },
+  "departureTime": "10:45:00",
+  "arrivalTime": "13:45:00",
+  "duration": "02:00:00",
+  "airline": {
+    "name": "Aegean Airlines",
+    "iata": "A3",
+    "icao": "XXX"
+  },
+  "aircraft": {
+    "name": "Airbus A320",
+    "icao": "XXXX"
+  },
+  "registration": "THEDEVIL",
+  "seatNumber": "18D",
+  "seatType": "Aisle",
+  "flightClass": "Economy",
+  "flightReason": "Leisure",
+  "note": "",
+  "distance": 9999
+}
+
+### Delete flight
+DELETE {{baseUrl}}/flights/fdb0aa3a-d7c7-42a6-abef-c604a417ff05
+Content-Type: application/json
+Authorization: Bearer {{token}}
+

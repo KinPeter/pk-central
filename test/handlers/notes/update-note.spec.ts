@@ -29,6 +29,7 @@ describe('updateNote', () => {
         body: JSON.stringify(body),
       });
       const response = await updateNote(request, notes[0].id, dbManager as unknown as MongoDbManager, authManager);
+      expect(db.collection).toHaveBeenCalledWith('notes');
       expect(collection.findOneAndUpdate).toHaveBeenCalled();
       expect(response.status).toBe(200);
       const result = await response.json();

@@ -347,6 +347,7 @@ db.getCollection('flights').insertMany([
     distance: 268,
     id: 'efce815a-ceae-4521-8db6-3a88b1c5b7c9',
     userId: 'a06ef9a2-d1ff-417d-bce7-75188a6118c1',
+    createdAt: new Date(),
   },
   {
     date: '2023-12-16',
@@ -383,6 +384,7 @@ db.getCollection('flights').insertMany([
     distance: 1123,
     id: '0a9be75c-e673-4410-8600-abaf10053890',
     userId: 'a06ef9a2-d1ff-417d-bce7-75188a6118c1',
+    createdAt: new Date(),
   },
   {
     date: '2011-12-16',
@@ -419,6 +421,7 @@ db.getCollection('flights').insertMany([
     distance: 1123,
     id: '1b8be75c-e673-4410-8600-abaf10053111',
     userId: 'c13ef9a2-d1ff-417d-bce7-75188a6114d2',
+    createdAt: new Date(),
   },
 ])
 
@@ -432,6 +435,7 @@ db.getCollection('visits').insertMany([
     country: 'Norway',
     id: '17ebb676-c7b4-419c-b2a6-db8f89992e15',
     userId: 'a06ef9a2-d1ff-417d-bce7-75188a6118c1',
+    createdAt: new Date(),
   },
   {
     lat: 52.3702157,
@@ -440,6 +444,7 @@ db.getCollection('visits').insertMany([
     country: 'The Netherlands',
     id: '278cccc4-2051-4b9b-93ca-1389aff90a82',
     userId: 'a06ef9a2-d1ff-417d-bce7-75188a6118c1',
+    createdAt: new Date(),
   },
   {
     lat: 52.3702157,
@@ -448,5 +453,6 @@ db.getCollection('visits').insertMany([
     country: 'Other Netherlands',
     id: '167cccc4-2051-4b9b-93ca-1389aff90b39',
     userId: 'c13ef9a2-d1ff-417d-bce7-75188a6114d2',
+    createdAt: new Date(),
   },
 ])

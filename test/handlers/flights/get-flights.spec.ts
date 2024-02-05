@@ -1,13 +1,13 @@
-import { describe, beforeEach, it, expect } from '@jest/globals';
-import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
+import { describe, it, beforeEach, expect } from '@jest/globals';
+import { MockDb, MockCollection, MockCursor, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
-import { getAllFlights } from '../../../src/handlers/flights/get-all-flights';
-import { twoResults } from '../../../test-utils/test-data/flights';
+import { AuthManager } from '../../../src/utils/auth-manager';
+import { ApiError } from 'pk-common';
+import { getFlights } from '../../../src/handlers/flights/get-flights';
+import { flights } from '../../../test-utils/test-data/flights';
 
-const notAllowedMethods = ['POST', 'PUT', 'DELETE', 'PATCH'];
-
-describe('getAllFlights', () => {
+describe('getFlights', () => {
   let db: MockDb;
   let collection: MockCollection;
   let dbManager: MockDbManager;
@@ -26,11 +26,11 @@ describe('getAllFlights', () => {
   });
 
   it('should return flights without object and user ids', async () => {
-    cursor.toArray.mockResolvedValue(twoResults);
-    const response = await getAllFlights(
+    cursor.toArray.mockResolvedValue(flights);
+    const response = await getFlights(
       { method: 'GET' } as Request,
       dbManager as unknown as MongoDbManager,
-      authManager
+      authManager as AuthManager
     );
     expect(db.collection).toHaveBeenCalledWith('flights');
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
@@ -42,39 +42,34 @@ describe('getAllFlights', () => {
     expect(data[0].hasOwnProperty('userId')).toBeFalsy();
     expect(data[1].hasOwnProperty('_id')).toBeFalsy();
     expect(data[1].hasOwnProperty('userId')).toBeFalsy();
-    expect(data[0].date).toBe('2023-12-16');
-    expect(data[1].id).toBe('uuid2');
+    expect(data[0].date).toEqual('2023-12-16');
+    expect(data[1].id).toEqual('b2197832-6a6e-46c3-97a9-dd2a8de8a267');
   });
 
   it('should return empty array if no flights', async () => {
     cursor.toArray.mockResolvedValue([]);
-    const response = await getAllFlights(
+    const response = await getFlights(
       { method: 'GET' } as Request,
       dbManager as unknown as MongoDbManager,
       authManager
     );
+    expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
     const data = await response.json();
     expect(Array.isArray(data)).toBeTruthy();
     expect(data.length).toEqual(0);
   });
 
-  notAllowedMethods.forEach(method => {
-    it(`should not allow ${method} requests`, async () => {
-      const response = await getAllFlights({ method } as Request, dbManager as unknown as MongoDbManager, authManager);
-      expect(response.status).toEqual(405);
-    });
-  });
-
   it('should return server error if collection.find fails', async () => {
-    collection.find.mockImplementation(() => {
-      throw new Error();
-    });
-    const response = await getAllFlights(
+    collection.find.mockReturnValue(new Error());
+    const response = await getFlights(
       { method: 'GET' } as Request,
       dbManager as unknown as MongoDbManager,
       authManager
     );
+    expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(500);
+    const data = await response.json();
+    expect(data.error).toEqual(ApiError.UNKNOWN_ERROR);
   });
 });

@@ -33,6 +33,7 @@ describe('deleteShortcut', () => {
       authManager
     );
     expect(collection.findOneAndDelete).toHaveBeenCalledWith({ id: shortcuts[0].id, userId: '123' });
+    expect(db.collection).toHaveBeenCalledWith('shortcuts');
     expect(response.status).toBe(200);
     const result = await response.json();
     expect(result.id).toEqual(shortcuts[0].id);

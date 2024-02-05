@@ -253,8 +253,36 @@ functions:
   - name: Flights
     description: Endpoints related to Flights (Tripz)
     types: types/flights.ts
-    validators: null
+    validators: validators/flights.ts
     endpoints:
+      # GET Fetch all flights
+      - method: GET
+        route: /flights
+        description: Get all flights of the current user
+        request: null
+        response: Flight[]
+        authenticated: True
+      # POST Create a flight
+      - method: POST
+        route: /flights
+        description: Create a new flight
+        request: FlightRequest
+        response: Flight
+        authenticated: True
+      # PUT Update a flight
+      - method: PUT
+        route: /flights/:id
+        description: Update a flight
+        request: FlightRequest
+        response: Flight
+        authenticated: True
+      # DELETE Delete a flight
+      - method: DELETE
+        route: /flights/:id
+        description: Delete a flight
+        request: null
+        response: IdObject
+        authenticated: True
 
   - name: Visits
     description: Endpoints related to Visits (Tripz)

@@ -813,12 +813,81 @@ export interface KoreanDictItem {
 }
 </pre>
       </details>
-    <div class="function"><h2>Flights</h2><p>Endpoints related to Flights (Tripz)</p></div>
+    <div class="function"><h2>Flights</h2><p>Endpoints related to Flights (Tripz)</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/flights</span>
+          </summary>
+          <div class="details">
+            <p>Get all flights of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Flight[]</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/flights</span>
+          </summary>
+          <div class="details">
+            <p>Create a new flight</p>
+            <p class="info">
+              <span>Request body:<code class="request">FlightRequest</code></span>
+              <span>Returns:<code class="response">Flight</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint put">
+        <details>
+          <summary>
+            <span class="method">PUT</span>
+            <span class="route">/flights/:id</span>
+          </summary>
+          <div class="details">
+            <p>Update a flight</p>
+            <p class="info">
+              <span>Request body:<code class="request">FlightRequest</code></span>
+              <span>Returns:<code class="response">Flight</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint delete">
+        <details>
+          <summary>
+            <span class="method">DELETE</span>
+            <span class="route">/flights/:id</span>
+          </summary>
+          <div class="details">
+            <p>Delete a flight</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">IdObject</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
       <details class="code-block-details">
         <summary class="code-block-summary">Flights types</summary>
-        <pre>import { UUID } from './misc';
+        <pre>import { BaseEntity, UUID } from './misc';
 
-export interface Flight {
+export interface Flight extends BaseEntity {
+  userId?: UUID;
   date: string;
   flightNumber: string;
   from: Airport;
@@ -831,16 +900,13 @@ export interface Flight {
   aircraft: Aircraft;
   registration: string;
   seatNumber: string;
-  seatType: string;
-  flightClass: string;
-  flightReason: string;
+  seatType: SeatType;
+  flightClass: FlightClass;
+  flightReason: FlightReason;
   note: string;
 }
 
-export interface FlightDocument extends Flight {
-  id: UUID;
-  userId: UUID;
-}
+export type FlightRequest = Omit<Flight, 'createdAt' | 'id' | 'userId'>;
 
 export interface Airport {
   city: string;
@@ -862,6 +928,90 @@ export interface Aircraft {
   name: string;
   icao: string;
 }
+
+export enum SeatType {
+  AISLE = 'Aisle',
+  MIDDLE = 'Middle',
+  WINDOW = 'Window',
+}
+
+export enum FlightClass {
+  ECONOMY = 'Economy',
+  PREMIUM_ECONOMY = 'Premium Economy',
+  BUSINESS = 'Business',
+  FIRST = 'First',
+}
+
+export enum FlightReason {
+  LEISURE = 'Leisure',
+  BUSINESS = 'Business',
+  CREW = 'Crew',
+}
+</pre>
+      </details>
+    
+      <details class="code-block-details">
+        <summary class="code-block-summary">Flights validators</summary>
+        <pre>import * as yup from 'yup';
+import {
+  FlightClass,
+  FlightReason,
+  SeatType,
+  SIMPLE_DATE_REGEX_POSSIBLE_PAST,
+  SIMPLE_TIME_REGEX,
+  ValidationError,
+} from 'pk-common';
+
+export const airportSchema = yup.object({
+  city: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  name: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  country: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  iata: yup.string().strict().length(3, ValidationError.EXACT_LENGTH).required(ValidationError.STRING_REQUIRED),
+  icao: yup.string().strict().length(4, ValidationError.EXACT_LENGTH).required(ValidationError.STRING_REQUIRED),
+  lat: yup.number().strict().required(ValidationError.NUMBER_REQUIRED),
+  lng: yup.number().strict().required(ValidationError.NUMBER_REQUIRED),
+});
+
+export const airlineSchema = yup.object({
+  name: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  iata: yup.string().strict().length(2, ValidationError.EXACT_LENGTH).required(ValidationError.STRING_REQUIRED),
+  icao: yup.string().strict().length(3, ValidationError.EXACT_LENGTH).required(ValidationError.STRING_REQUIRED),
+});
+export const aircraftSchema = yup.object({
+  name: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  icao: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+});
+
+export const flightSchema = yup.object({
+  date: yup
+    .string()
+    .matches(SIMPLE_DATE_REGEX_POSSIBLE_PAST, ValidationError.INVALID_DATE)
+    .required(ValidationError.STRING_REQUIRED),
+  flightNumber: yup.string().strict().min(3, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  from: airportSchema.required(ValidationError.OBJECT_REQUIRED),
+  to: airportSchema.required(ValidationError.OBJECT_REQUIRED),
+  departureTime: yup
+    .string()
+    .matches(SIMPLE_TIME_REGEX, ValidationError.INVALID_TIME)
+    .required(ValidationError.STRING_REQUIRED),
+  arrivalTime: yup
+    .string()
+    .matches(SIMPLE_TIME_REGEX, ValidationError.INVALID_TIME)
+    .required(ValidationError.STRING_REQUIRED),
+  duration: yup
+    .string()
+    .matches(SIMPLE_TIME_REGEX, ValidationError.INVALID_TIME)
+    .required(ValidationError.STRING_REQUIRED),
+  distance: yup.number().strict().min(1, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
+  airline: airlineSchema.required(ValidationError.OBJECT_REQUIRED),
+  aircraft: aircraftSchema.required(ValidationError.OBJECT_REQUIRED),
+  registration: yup.string().strict().defined(ValidationError.STRING_REQUIRED).default(''),
+  seatNumber: yup.string().strict().defined(ValidationError.STRING_REQUIRED).default(''),
+  seatType: yup.string().strict().oneOf(Object.values(SeatType)).required(ValidationError.STRING_REQUIRED),
+  flightClass: yup.string().strict().oneOf(Object.values(FlightClass)).required(ValidationError.STRING_REQUIRED),
+  flightReason: yup.string().strict().oneOf(Object.values(FlightReason)).required(ValidationError.STRING_REQUIRED),
+  note: yup.string().strict().defined(ValidationError.STRING_REQUIRED).default(''),
+});
 </pre>
       </details>
     <div class="function"><h2>Visits</h2><p>Endpoints related to Visits (Tripz)</p></div>

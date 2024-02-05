@@ -32,6 +32,7 @@ describe('deletePersonalData', () => {
       dbManager as unknown as MongoDbManager,
       authManager
     );
+    expect(db.collection).toHaveBeenCalledWith('personal-data');
     expect(collection.findOneAndDelete).toHaveBeenCalledWith({ id: personalDataObjects[0].id, userId: '123' });
     expect(response.status).toBe(200);
     const result = await response.json();
