@@ -33,74 +33,6 @@ functions:
         response: null
         authenticated: True
 
-  - name: Cycling
-    description: Endpoints for cycling data on PK Start
-    types: types/cycling.ts
-    validators: validators/cycling.ts
-    endpoints:
-      # GET Fetch Cycling data
-      - method: GET
-        route: /cycling
-        description: Get the cycling data of the current user
-        request: null
-        response: Cycling
-        authenticated: True
-      # POST Initialize Cycling data
-      - method: POST
-        route: /cycling/initialize
-        description: Initialize cycling data for the current user
-        request: null
-        response: Cycling
-        authenticated: True
-      # PATCH Update weekly goal
-      - method: PATCH
-        route: /cycling/weekly-goal
-        description: Set weekly goal for the current user
-        request: SetWeeklyGoalRequest
-        response: Cycling
-        authenticated: True
-      # PATCH Update monthly goal
-      - method: PATCH
-        route: /cycling/monthly-goal
-        description: Set monthly goal for the current user
-        request: SetMonthlyGoalRequest
-        response: Cycling
-        authenticated: True
-      # POST Add chore
-      - method: POST
-        route: /cycling/chore
-        description: Create a new chore
-        request: CyclingChoreRequest
-        response: Cycling
-        authenticated: True
-      # PUT Update a chore
-      - method: PUT
-        route: /cycling/chore/:id
-        description: Update a chore
-        request: CyclingChoreRequest
-        response: Cycling
-        authenticated: True
-      # DELETE Delete a chore
-      - method: PUT
-        route: /cycling/chore/:id
-        description: Remove a chore
-        request: null
-        response: Cycling
-        authenticated: True
-
-  - name: Data backup
-    description: Endpoints for PK Central data backup
-    types: types/data-backup.ts
-    validators: null
-    endpoints:
-      # GET Send data backup
-      - method: GET
-        route: /data-backup
-        description: Sends an email with data backup of the current user
-        request: null
-        response: DataBackup
-        authenticated: True
-
   - name: Notes
     description: Endpoints related to Notes
     types: types/notes.ts
@@ -221,6 +153,94 @@ functions:
         description: Update PK Start settings of the current user
         request: PkStartSettingsRequest
         response: PkStartSettings
+        authenticated: True
+
+  - name: Cycling
+    description: Endpoints for cycling data on PK Start
+    types: types/cycling.ts
+    validators: validators/cycling.ts
+    endpoints:
+      # GET Fetch Cycling data
+      - method: GET
+        route: /cycling
+        description: Get the cycling data of the current user
+        request: null
+        response: Cycling
+        authenticated: True
+      # POST Initialize Cycling data
+      - method: POST
+        route: /cycling/initialize
+        description: Initialize cycling data for the current user
+        request: null
+        response: Cycling
+        authenticated: True
+      # PATCH Update weekly goal
+      - method: PATCH
+        route: /cycling/weekly-goal
+        description: Set weekly goal for the current user
+        request: SetWeeklyGoalRequest
+        response: Cycling
+        authenticated: True
+      # PATCH Update monthly goal
+      - method: PATCH
+        route: /cycling/monthly-goal
+        description: Set monthly goal for the current user
+        request: SetMonthlyGoalRequest
+        response: Cycling
+        authenticated: True
+      # POST Add chore
+      - method: POST
+        route: /cycling/chore
+        description: Create a new chore
+        request: CyclingChoreRequest
+        response: Cycling
+        authenticated: True
+      # PUT Update a chore
+      - method: PUT
+        route: /cycling/chore/:id
+        description: Update a chore
+        request: CyclingChoreRequest
+        response: Cycling
+        authenticated: True
+      # DELETE Delete a chore
+      - method: PUT
+        route: /cycling/chore/:id
+        description: Remove a chore
+        request: null
+        response: Cycling
+        authenticated: True
+
+  - name: Data backup
+    description: Endpoints for PK Central data backup
+    types: types/data-backup.ts
+    validators: null
+    endpoints:
+      # GET Send data backup
+      - method: GET
+        route: /data-backup
+        description: Sends an email with data backup of the current user
+        request: null
+        response: DataBackup
+        authenticated: True
+
+  - name: Proxy
+    description: Endpoints to access third party APIs or remote files
+    types: types/proxy.ts
+    validators: null
+    endpoints:
+      # GET Fetch birthdays list
+      - method: GET
+        route: /proxy/birthdays
+        description: Get birthdays list of the current user
+        request: null
+        response: BirthdayItem[]
+        authenticated: True
+      # GET Fetch korean word list
+      - method: GET
+        route: /proxy/korean
+        description: Get korean word list of the current user
+        request: null
+        response: KoreanDictItem
         authenticated: True
 
   - name: Flights

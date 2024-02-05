@@ -1,0 +1,9 @@
+### Get birthdays data for user
+GET {{baseUrl}}/proxy/birthdays
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Get korean data for user
+GET {{baseUrl}}/proxy/korean
+Content-Type: application/json
+Authorization: Bearer {{token}}

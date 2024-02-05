@@ -125,211 +125,6 @@ export const magicLinkParamsSchema = yup.object({
 });
 </pre>
       </details>
-    <div class="function"><h2>Cycling</h2><p>Endpoints for cycling data on PK Start</p>
-      <div class="endpoint get">
-        <details>
-          <summary>
-            <span class="method">GET</span>
-            <span class="route">/cycling</span>
-          </summary>
-          <div class="details">
-            <p>Get the cycling data of the current user</p>
-            <p class="info">
-              <span>Request body:<code class="request">None</code></span>
-              <span>Returns:<code class="response">Cycling</code></span>
-              <span>Authenticated:<span class="authenticated">Yes</span></span>
-            </p>
-          </div>
-        </details>
-      </div>
-    
-      <div class="endpoint post">
-        <details>
-          <summary>
-            <span class="method">POST</span>
-            <span class="route">/cycling/initialize</span>
-          </summary>
-          <div class="details">
-            <p>Initialize cycling data for the current user</p>
-            <p class="info">
-              <span>Request body:<code class="request">None</code></span>
-              <span>Returns:<code class="response">Cycling</code></span>
-              <span>Authenticated:<span class="authenticated">Yes</span></span>
-            </p>
-          </div>
-        </details>
-      </div>
-    
-      <div class="endpoint patch">
-        <details>
-          <summary>
-            <span class="method">PATCH</span>
-            <span class="route">/cycling/weekly-goal</span>
-          </summary>
-          <div class="details">
-            <p>Set weekly goal for the current user</p>
-            <p class="info">
-              <span>Request body:<code class="request">SetWeeklyGoalRequest</code></span>
-              <span>Returns:<code class="response">Cycling</code></span>
-              <span>Authenticated:<span class="authenticated">Yes</span></span>
-            </p>
-          </div>
-        </details>
-      </div>
-    
-      <div class="endpoint patch">
-        <details>
-          <summary>
-            <span class="method">PATCH</span>
-            <span class="route">/cycling/monthly-goal</span>
-          </summary>
-          <div class="details">
-            <p>Set monthly goal for the current user</p>
-            <p class="info">
-              <span>Request body:<code class="request">SetMonthlyGoalRequest</code></span>
-              <span>Returns:<code class="response">Cycling</code></span>
-              <span>Authenticated:<span class="authenticated">Yes</span></span>
-            </p>
-          </div>
-        </details>
-      </div>
-    
-      <div class="endpoint post">
-        <details>
-          <summary>
-            <span class="method">POST</span>
-            <span class="route">/cycling/chore</span>
-          </summary>
-          <div class="details">
-            <p>Create a new chore</p>
-            <p class="info">
-              <span>Request body:<code class="request">CyclingChoreRequest</code></span>
-              <span>Returns:<code class="response">Cycling</code></span>
-              <span>Authenticated:<span class="authenticated">Yes</span></span>
-            </p>
-          </div>
-        </details>
-      </div>
-    
-      <div class="endpoint put">
-        <details>
-          <summary>
-            <span class="method">PUT</span>
-            <span class="route">/cycling/chore/:id</span>
-          </summary>
-          <div class="details">
-            <p>Update a chore</p>
-            <p class="info">
-              <span>Request body:<code class="request">CyclingChoreRequest</code></span>
-              <span>Returns:<code class="response">Cycling</code></span>
-              <span>Authenticated:<span class="authenticated">Yes</span></span>
-            </p>
-          </div>
-        </details>
-      </div>
-    
-      <div class="endpoint put">
-        <details>
-          <summary>
-            <span class="method">PUT</span>
-            <span class="route">/cycling/chore/:id</span>
-          </summary>
-          <div class="details">
-            <p>Remove a chore</p>
-            <p class="info">
-              <span>Request body:<code class="request">None</code></span>
-              <span>Returns:<code class="response">Cycling</code></span>
-              <span>Authenticated:<span class="authenticated">Yes</span></span>
-            </p>
-          </div>
-        </details>
-      </div>
-    </div>
-      <details class="code-block-details">
-        <summary class="code-block-summary">Cycling types</summary>
-        <pre>import { BaseEntity, UUID } from './misc';
-
-export interface CyclingChore {
-  id: UUID;
-  name: string;
-  kmInterval: number;
-  lastKm: number;
-}
-
-export interface Cycling extends BaseEntity {
-  userId: UUID;
-  weeklyGoal: number | null;
-  monthlyGoal: number | null;
-  chores: CyclingChore[] | null;
-}
-
-export type SetWeeklyGoalRequest = Pick<Cycling, 'weeklyGoal'>;
-export type SetMonthlyGoalRequest = Pick<Cycling, 'monthlyGoal'>;
-export type CyclingChoreRequest = Omit<CyclingChore, 'id'>;
-</pre>
-      </details>
-    
-      <details class="code-block-details">
-        <summary class="code-block-summary">Cycling validators</summary>
-        <pre>import * as yup from 'yup';
-import { ValidationError } from '../enums';
-
-export const weeklyGoalSchema = yup.object({
-  weeklyGoal: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
-});
-
-export const monthlyGoalSchema = yup.object({
-  monthlyGoal: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
-});
-
-export const choreSchema = yup.object({
-  kmInterval: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
-  lastKm: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
-  name: yup.string().strict().min(2, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
-});
-</pre>
-      </details>
-    <div class="function"><h2>Data backup</h2><p>Endpoints for PK Central data backup</p>
-      <div class="endpoint get">
-        <details>
-          <summary>
-            <span class="method">GET</span>
-            <span class="route">/data-backup</span>
-          </summary>
-          <div class="details">
-            <p>Sends an email with data backup of the current user</p>
-            <p class="info">
-              <span>Request body:<code class="request">None</code></span>
-              <span>Returns:<code class="response">DataBackup</code></span>
-              <span>Authenticated:<span class="authenticated">Yes</span></span>
-            </p>
-          </div>
-        </details>
-      </div>
-    </div>
-      <details class="code-block-details">
-        <summary class="code-block-summary">Data backup types</summary>
-        <pre>import { User } from './auth';
-import { Note } from './notes';
-import { Shortcut } from './shortcuts';
-import { PersonalData } from './personal-data';
-import { Cycling } from './cycling';
-import { PkStartSettings } from './start-settings';
-import { Flight } from './flights';
-import { Visit } from './visits';
-
-export interface DataBackup {
-  user: User;
-  startSettings: PkStartSettings;
-  notes: Note[];
-  shortcuts: Shortcut[];
-  personalData: PersonalData[];
-  cycling: Cycling;
-  flights: Flight[];
-  visits: Visit[];
-}
-</pre>
-      </details>
     <div class="function"><h2>Notes</h2><p>Endpoints related to Notes</p>
       <div class="endpoint get">
         <details>
@@ -746,6 +541,259 @@ export const pkStartSettingsSchema = yup.object({
     .nullable()
     .defined(ValidationError.NULLABLE_FIELD_REQUIRED),
 });
+</pre>
+      </details>
+    <div class="function"><h2>Cycling</h2><p>Endpoints for cycling data on PK Start</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/cycling</span>
+          </summary>
+          <div class="details">
+            <p>Get the cycling data of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/cycling/initialize</span>
+          </summary>
+          <div class="details">
+            <p>Initialize cycling data for the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint patch">
+        <details>
+          <summary>
+            <span class="method">PATCH</span>
+            <span class="route">/cycling/weekly-goal</span>
+          </summary>
+          <div class="details">
+            <p>Set weekly goal for the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">SetWeeklyGoalRequest</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint patch">
+        <details>
+          <summary>
+            <span class="method">PATCH</span>
+            <span class="route">/cycling/monthly-goal</span>
+          </summary>
+          <div class="details">
+            <p>Set monthly goal for the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">SetMonthlyGoalRequest</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/cycling/chore</span>
+          </summary>
+          <div class="details">
+            <p>Create a new chore</p>
+            <p class="info">
+              <span>Request body:<code class="request">CyclingChoreRequest</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint put">
+        <details>
+          <summary>
+            <span class="method">PUT</span>
+            <span class="route">/cycling/chore/:id</span>
+          </summary>
+          <div class="details">
+            <p>Update a chore</p>
+            <p class="info">
+              <span>Request body:<code class="request">CyclingChoreRequest</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint put">
+        <details>
+          <summary>
+            <span class="method">PUT</span>
+            <span class="route">/cycling/chore/:id</span>
+          </summary>
+          <div class="details">
+            <p>Remove a chore</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Cycling</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Cycling types</summary>
+        <pre>import { BaseEntity, UUID } from './misc';
+
+export interface CyclingChore {
+  id: UUID;
+  name: string;
+  kmInterval: number;
+  lastKm: number;
+}
+
+export interface Cycling extends BaseEntity {
+  userId: UUID;
+  weeklyGoal: number | null;
+  monthlyGoal: number | null;
+  chores: CyclingChore[] | null;
+}
+
+export type SetWeeklyGoalRequest = Pick<Cycling, 'weeklyGoal'>;
+export type SetMonthlyGoalRequest = Pick<Cycling, 'monthlyGoal'>;
+export type CyclingChoreRequest = Omit<CyclingChore, 'id'>;
+</pre>
+      </details>
+    
+      <details class="code-block-details">
+        <summary class="code-block-summary">Cycling validators</summary>
+        <pre>import * as yup from 'yup';
+import { ValidationError } from '../enums';
+
+export const weeklyGoalSchema = yup.object({
+  weeklyGoal: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
+});
+
+export const monthlyGoalSchema = yup.object({
+  monthlyGoal: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
+});
+
+export const choreSchema = yup.object({
+  kmInterval: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
+  lastKm: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
+  name: yup.string().strict().min(2, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+});
+</pre>
+      </details>
+    <div class="function"><h2>Data backup</h2><p>Endpoints for PK Central data backup</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/data-backup</span>
+          </summary>
+          <div class="details">
+            <p>Sends an email with data backup of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">DataBackup</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Data backup types</summary>
+        <pre>import { User } from './auth';
+import { Note } from './notes';
+import { Shortcut } from './shortcuts';
+import { PersonalData } from './personal-data';
+import { Cycling } from './cycling';
+import { PkStartSettings } from './start-settings';
+import { Flight } from './flights';
+import { Visit } from './visits';
+
+export interface DataBackup {
+  user: User;
+  startSettings: PkStartSettings;
+  notes: Note[];
+  shortcuts: Shortcut[];
+  personalData: PersonalData[];
+  cycling: Cycling;
+  flights: Flight[];
+  visits: Visit[];
+}
+</pre>
+      </details>
+    <div class="function"><h2>Proxy</h2><p>Endpoints to access third party APIs or remote files</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/proxy/birthdays</span>
+          </summary>
+          <div class="details">
+            <p>Get birthdays list of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">BirthdayItem[]</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/proxy/korean</span>
+          </summary>
+          <div class="details">
+            <p>Get korean word list of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">KoreanDictItem</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Proxy types</summary>
+        <pre>export interface BirthdayItem {
+  name: string;
+  date: string;
+}
+
+export interface KoreanDictItem {
+  kor: string;
+  hun: string;
+}
 </pre>
       </details>
     <div class="function"><h2>Flights</h2><p>Endpoints related to Flights (Tripz)</p></div>

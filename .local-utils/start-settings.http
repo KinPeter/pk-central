@@ -14,7 +14,7 @@ Authorization: Bearer {{token}}
   "locationApiKey": null,
   "shortcutIconBaseUrl": "https://other.p-kin.com/start-tile-icons/",
   "birthdaysUrl": null,
-  "koreanUrl": "https://docs.google.com/asd123aaa",
+  "koreanUrl": null,
   "stravaClientId": null,
   "stravaClientSecret": null,
   "stravaRedirectUri": null
