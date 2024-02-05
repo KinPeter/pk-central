@@ -1,6 +1,7 @@
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { EmailManager } from '../../utils/email-manager';
 import {
+  ForbiddenOperationErrorResponse,
   MethodNotAllowedResponse,
   OkResponse,
   UnknownErrorResponse,
@@ -29,6 +30,12 @@ export async function requestLoginCode(
     const { db } = await dbManager.getMongoDb();
 
     const { email } = body;
+
+    const emailsAllowed = process.env.EMAILS_ALLOWED?.split(',');
+    if (emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
+      return new ForbiddenOperationErrorResponse('Sign up');
+    }
+
     const users = db.collection<User>('users');
     const existingUser = await users.findOne({ email });
     let user: User;

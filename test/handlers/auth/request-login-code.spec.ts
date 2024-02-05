@@ -5,6 +5,7 @@ import { requestLoginCode } from '../../../src/handlers/auth/request-login-code'
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { EmailManager } from '../../../src/utils/email-manager';
 import { ApiError } from 'pk-common';
+import * as process from 'process';
 
 describe('requestLoginCode', () => {
   let db: MockDb;
@@ -90,6 +91,45 @@ describe('requestLoginCode', () => {
       expect(response.status).toEqual(400);
       const data = await response.json();
       expect(data.error).toContain(ApiError.REQUEST_VALIDATION_FAILED);
+    });
+  });
+
+  describe('Restriction for emails', () => {
+    beforeEach(() => {
+      collection.findOne.mockResolvedValue(null);
+      collection.insertOne.mockResolvedValue(true);
+      collection.updateOne.mockResolvedValue(true);
+      emailManager.sendSignupNotification.mockResolvedValue(true);
+    });
+
+    it('should let user sign up if email is in allowed list', async () => {
+      process.env.EMAILS_ALLOWED = 'test@test.com,main@test.com';
+      const request = new Request('http://localhost:8888', {
+        method: 'POST',
+        body: JSON.stringify({ email: 'test@test.com' }),
+      });
+      const response = await requestLoginCode(
+        request,
+        dbManager as unknown as MongoDbManager,
+        emailManager as unknown as EmailManager
+      );
+      expect(response.status).toBe(200);
+    });
+
+    it('should not let user sign up if email is not in allowed list', async () => {
+      process.env.EMAILS_ALLOWED = 'other@test.com,main@test.com';
+      const request = new Request('http://localhost:8888', {
+        method: 'POST',
+        body: JSON.stringify({ email: 'test@test.com' }),
+      });
+      const response = await requestLoginCode(
+        request,
+        dbManager as unknown as MongoDbManager,
+        emailManager as unknown as EmailManager
+      );
+      expect(response.status).toBe(403);
+      const data = await response.json();
+      expect(data.error).toContain(ApiError.FORBIDDEN_OPERATION);
     });
   });
 });
