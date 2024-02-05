@@ -6,13 +6,21 @@ Content-Type: application/json
   "email": "kinpeter85@gmail.com"
 }
 
+### Get instant login code DEV ENV ONLY!
+POST {{baseUrl}}/auth/instant-login-code
+Content-Type: application/json
+
+{
+  "email": "main@test.com"
+}
+
 ### Verify login code
 POST {{baseUrl}}/auth/verify-code
 Content-Type: application/json
 
 {
   "email": "main@test.com",
-  "loginCode": "509950"
+  "loginCode": "255944"
 }
 
 ### Verify magic link

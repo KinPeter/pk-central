@@ -8,6 +8,7 @@ import { requestLoginCode } from '../src/handlers/auth/request-login-code';
 import { verifyLoginCode } from '../src/handlers/auth/verify-login-code';
 import { verifyMagicLink } from '../src/handlers/auth/verify-magic-link';
 import { refreshToken } from '../src/handlers/auth/refresh-token';
+import { instantLoginCode } from '../src/handlers/auth/instant-login-code';
 
 export const config: Config = {
   path: ['/auth/:operation', '/auth/:operation/:token/:redirectEnv'],
@@ -29,6 +30,9 @@ export default async (req: Request, context: Context) => {
       return await verifyMagicLink(req, context, dbManager);
     case 'token-refresh':
       return await refreshToken(req, dbManager, new AuthManager());
+    case 'instant-login-code':
+      // FOR TESTING PURPOSES ONLY! WORKS ON DEV ENV ONLY!
+      return await instantLoginCode(req, dbManager);
     default:
       return new UnknownOperationErrorResponse(`/auth/${operation}`);
   }
