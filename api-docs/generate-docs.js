@@ -2,6 +2,7 @@ import YAML from 'yaml';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { encode } from 'html-entities';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,7 +47,7 @@ docs.functions.forEach(fn => {
     fnContent += `
       <details class="code-block-details">
         <summary class="code-block-summary">${fn.name} types</summary>
-        <pre>${typeFile}</pre>
+        <pre>${encode(typeFile)}</pre>
       </details>
     `;
   }
