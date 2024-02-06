@@ -1014,22 +1014,102 @@ export const flightSchema = yup.object({
 });
 </pre>
       </details>
-    <div class="function"><h2>Visits</h2><p>Endpoints related to Visits (Tripz)</p></div>
+    <div class="function"><h2>Visits</h2><p>Endpoints related to Visits (Tripz)</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/visits</span>
+          </summary>
+          <div class="details">
+            <p>Get all visits of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Visit[]</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/visits</span>
+          </summary>
+          <div class="details">
+            <p>Create a new visit</p>
+            <p class="info">
+              <span>Request body:<code class="request">VisitRequest</code></span>
+              <span>Returns:<code class="response">Visit</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint put">
+        <details>
+          <summary>
+            <span class="method">PUT</span>
+            <span class="route">/visits/:id</span>
+          </summary>
+          <div class="details">
+            <p>Update a visit</p>
+            <p class="info">
+              <span>Request body:<code class="request">VisitRequest</code></span>
+              <span>Returns:<code class="response">Visit</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint delete">
+        <details>
+          <summary>
+            <span class="method">DELETE</span>
+            <span class="route">/visits/:id</span>
+          </summary>
+          <div class="details">
+            <p>Delete a visit</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">IdObject</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
       <details class="code-block-details">
         <summary class="code-block-summary">Visits types</summary>
-        <pre>import { UUID } from './misc';
+        <pre>import { BaseEntity, UUID } from './misc';
 
-export interface Visit {
+export interface Visit extends BaseEntity {
+  userId?: UUID;
   city: string;
   country: string;
   lat: number;
   lng: number;
 }
 
-export interface VisitDocument extends Visit {
-  id: UUID;
-  userId: UUID;
-}
+export type VisitRequest = Omit<Visit, 'id' | 'userId' | 'createdAt'>;
+</pre>
+      </details>
+    
+      <details class="code-block-details">
+        <summary class="code-block-summary">Visits validators</summary>
+        <pre>import * as yup from 'yup';
+import { ValidationError } from '../enums';
+
+export const visitSchema = yup.object({
+  city: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  country: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  lat: yup.number().strict().required(ValidationError.NUMBER_REQUIRED),
+  lng: yup.number().strict().required(ValidationError.NUMBER_REQUIRED),
+});
 </pre>
       </details>
     </body></html>

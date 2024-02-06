@@ -1,4 +1,33 @@
-### Get all visits
-GET {{baseUrl}}/visits/all
+### Get visits for user
+GET {{baseUrl}}/visits
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Add visit
+POST {{baseUrl}}/visits
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "lat": 48.2081743,
+  "lng": 16.3738189,
+  "city": "Vienna",
+  "country": "Austria"
+}
+
+### Update visit
+PUT {{baseUrl}}/visits/ad3f590a-d46e-4345-861a-325b5b34c30e
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "lat": 48.2081743,
+  "lng": 16.3738189,
+  "city": "Becs",
+  "country": "Austria"
+}
+
+### Delete visit
+DELETE {{baseUrl}}/visits/ad3f590a-d46e-4345-861a-325b5b34c30e
 Content-Type: application/json
 Authorization: Bearer {{token}}

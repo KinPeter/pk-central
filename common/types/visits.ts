@@ -1,13 +1,11 @@
-import { UUID } from './misc';
+import { BaseEntity, UUID } from './misc';
 
-export interface Visit {
+export interface Visit extends BaseEntity {
+  userId?: UUID;
   city: string;
   country: string;
   lat: number;
   lng: number;
 }
 
-export interface VisitDocument extends Visit {
-  id: UUID;
-  userId: UUID;
-}
+export type VisitRequest = Omit<Visit, 'id' | 'userId' | 'createdAt'>;

@@ -287,5 +287,33 @@ functions:
   - name: Visits
     description: Endpoints related to Visits (Tripz)
     types: types/visits.ts
-    validators: null
+    validators: validators/visits.ts
     endpoints:
+      # GET Fetch all visits
+      - method: GET
+        route: /visits
+        description: Get all visits of the current user
+        request: null
+        response: Visit[]
+        authenticated: True
+      # POST Create a visit
+      - method: POST
+        route: /visits
+        description: Create a new visit
+        request: VisitRequest
+        response: Visit
+        authenticated: True
+      # PUT Update a visit
+      - method: PUT
+        route: /visits/:id
+        description: Update a visit
+        request: VisitRequest
+        response: Visit
+        authenticated: True
+      # DELETE Delete a visit
+      - method: DELETE
+        route: /visits/:id
+        description: Delete a visit
+        request: null
+        response: IdObject
+        authenticated: True
