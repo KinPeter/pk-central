@@ -16,6 +16,7 @@ describe('requestLoginCode', () => {
     process.env.JWT_SECRET = 'secret';
     process.env.LOGIN_CODE_EXPIRY = '15';
     process.env.TOKEN_EXPIRY = '7';
+    process.env.EMAILS_ALLOWED = 'test@test.com';
     db = new MockDb();
     collection = new MockCollection();
     dbManager = new MockDbManager(db, collection);

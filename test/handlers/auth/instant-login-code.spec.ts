@@ -14,6 +14,7 @@ describe('instantLoginCode', () => {
     process.env.LOGIN_CODE_EXPIRY = '15';
     process.env.TOKEN_EXPIRY = '7';
     process.env.PK_ENV = 'dev';
+    process.env.EMAILS_ALLOWED = 'test@test.com';
     db = new MockDb();
     collection = new MockCollection();
     dbManager = new MockDbManager(db, collection);
