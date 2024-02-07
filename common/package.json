@@ -1,8 +1,11 @@
 {
   "name": "@kinpeter/pk-common",
-  "version": "1.0.4",
+  "version": "1.0.13",
   "main": "index.ts",
   "author": "Peter Kin",
+  "scripts": {
+    "do-not-postinstall": "tsc"
+  },
   "dependencies": {
     "yup": "^1.3.3"
   }

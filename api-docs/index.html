@@ -60,7 +60,7 @@
             <p>Get a new access token</p>
             <p class="info">
               <span>Request body:<code class="request">None</code></span>
-              <span>Returns:<code class="response">null</code></span>
+              <span>Returns:<code class="response">AuthData</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
           </div>
@@ -663,10 +663,10 @@ export const pkStartSettingsSchema = yup.object({
         </details>
       </div>
     
-      <div class="endpoint put">
+      <div class="endpoint delete">
         <details>
           <summary>
-            <span class="method">PUT</span>
+            <span class="method">DELETE</span>
             <span class="route">/cycling/chore/:id</span>
           </summary>
           <div class="details">
@@ -953,14 +953,9 @@ export enum FlightReason {
       <details class="code-block-details">
         <summary class="code-block-summary">Flights validators</summary>
         <pre>import * as yup from 'yup';
-import {
-  FlightClass,
-  FlightReason,
-  SeatType,
-  SIMPLE_DATE_REGEX_POSSIBLE_PAST,
-  SIMPLE_TIME_REGEX,
-  ValidationError,
-} from 'pk-common';
+import { ValidationError } from '../enums';
+import { SIMPLE_DATE_REGEX_POSSIBLE_PAST, SIMPLE_TIME_REGEX } from '../utils';
+import { FlightClass, FlightReason, SeatType } from '../types';
 
 export const airportSchema = yup.object({
   city: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),

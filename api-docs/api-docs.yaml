@@ -30,7 +30,7 @@ functions:
         route: /auth/token-refresh
         description: Get a new access token
         request: null
-        response: null
+        response: AuthData
         authenticated: True
       # POST Request instant Login Code
       - method: POST
@@ -210,7 +210,7 @@ functions:
         response: Cycling
         authenticated: True
       # DELETE Delete a chore
-      - method: PUT
+      - method: DELETE
         route: /cycling/chore/:id
         description: Remove a chore
         request: null
