@@ -5,7 +5,6 @@ import { requestLoginCode } from '../../../src/handlers/auth/request-login-code'
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { EmailManager } from '../../../src/utils/email-manager';
 import { ApiError } from 'pk-common';
-import * as process from 'process';
 
 describe('requestLoginCode', () => {
   let db: MockDb;
