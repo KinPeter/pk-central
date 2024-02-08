@@ -18,6 +18,7 @@ export function toPkStartSettingsRequest(body: Partial<PkStartSettings>): PkStar
     stravaRedirectUri: body.stravaRedirectUri ?? null,
     locationApiKey: body.locationApiKey ?? null,
     weatherApiKey: body.weatherApiKey ?? null,
+    unsplashApiKey: body.unsplashApiKey ?? null,
   };
 }
 

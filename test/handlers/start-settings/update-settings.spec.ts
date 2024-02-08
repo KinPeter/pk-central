@@ -40,7 +40,7 @@ describe('updateSettings', () => {
     expect(collection.findOneAndUpdate).not.toHaveBeenCalled();
     expect(response.status).toBe(200);
     const settings = (await response.json()) as PkStartSettings;
-    expect(Object.keys(settings).length).toEqual(10);
+    expect(Object.keys(settings).length).toEqual(11);
     expect(settings.name).toEqual('testuser');
     expect(settings.weatherApiKey).toEqual('WeatherApiKey123');
     expect(settings.birthdaysUrl).toBeNull();
@@ -66,7 +66,7 @@ describe('updateSettings', () => {
     expect(collection.findOneAndUpdate).toHaveBeenCalled();
     expect(response.status).toBe(200);
     const settings = (await response.json()) as PkStartSettings;
-    expect(Object.keys(settings).length).toEqual(10);
+    expect(Object.keys(settings).length).toEqual(11);
     expect(settings.koreanUrl).toBeNull();
     expect(settings.name).toEqual('testuser');
     expect(settings.weatherApiKey).toEqual('WeatherApiKey123');

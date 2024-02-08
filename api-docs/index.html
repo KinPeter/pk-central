@@ -518,6 +518,7 @@ export interface PkStartSettings {
   name: string | null;
   weatherApiKey: string | null;
   locationApiKey: string | null;
+  unsplashApiKey: string | null;
   shortcutIconBaseUrl: string | null;
   birthdaysUrl: string | null;
   koreanUrl: string | null;
@@ -539,6 +540,7 @@ export const pkStartSettingsSchema = yup.object({
   name: yup.string().strict().nullable().required(ValidationError.NULLABLE_FIELD_REQUIRED),
   weatherApiKey: yup.string().strict().nullable().required(ValidationError.NULLABLE_FIELD_REQUIRED),
   locationApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
+  unsplashApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
   shortcutIconBaseUrl: yup
     .string()
     .url(ValidationError.INVALID_URL)

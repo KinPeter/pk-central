@@ -6,6 +6,7 @@ export interface PkStartSettings {
   name: string | null;
   weatherApiKey: string | null;
   locationApiKey: string | null;
+  unsplashApiKey: string | null;
   shortcutIconBaseUrl: string | null;
   birthdaysUrl: string | null;
   koreanUrl: string | null;

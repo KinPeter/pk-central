@@ -53,19 +53,19 @@ const db = (await mongoClient.connect()).db(process.env.MONGO_DB_NAME);
 // console.log(`Number of visits: ${visitDocs.length}`);
 // const insertVisitsResult = await visitsCollection.insertMany(visitDocs);
 // console.log(`${insertVisitsResult.insertedCount} documents were inserted to ${visitsCollection.collectionName}.`);
-
+process.env.USER_ID = '14f55908-6647-414e-b29f-d4b075c5d8e1';
 /**
  * Start
  */
-// const { settings } = startData.user;
-// const settingsCollection = db.collection('start-settings');
-// const settingsResult = await settingsCollection.insertOne({
-//   id: uuid(),
-//   userId: process.env.USER_ID,
-//   name: startData.user.name,
-//   ...settings,
-// });
-// console.log(`${settingsResult.insertedId ? 1 : 0} documents were inserted to start-settings.`);
+const { settings } = startData.user;
+const settingsCollection = db.collection('start-settings');
+const settingsResult = await settingsCollection.insertOne({
+  id: uuid(),
+  userId: process.env.USER_ID,
+  name: startData.user.name,
+  ...settings,
+});
+console.log(`${settingsResult.insertedId ? 1 : 0} documents were inserted to start-settings.`);
 
 const { shortcuts, notes, personalData, cycling } = startData;
 
