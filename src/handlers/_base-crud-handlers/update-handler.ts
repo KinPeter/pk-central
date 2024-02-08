@@ -20,6 +20,7 @@ export async function updateItemHandler(
   authManager: AuthManager,
   collectionName: string,
   requestSchema: ObjectSchema<any>,
+  requestMapper: (body: any) => any,
   itemName: string
 ): Promise<Response> {
   try {
@@ -41,7 +42,7 @@ export async function updateItemHandler(
 
     const result = await collection.findOneAndUpdate(
       { id, userId: user.id },
-      { $set: { ...requestBody } },
+      { $set: { ...requestMapper(requestBody) } },
       { returnDocument: 'after' }
     );
     if (!result) return new NotFoundErrorResponse(itemName);

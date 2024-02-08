@@ -15,7 +15,8 @@ export async function createItemHandler(
   dbManager: MongoDbManager,
   authManager: AuthManager,
   collectionName: string,
-  requestSchema: ObjectSchema<any>
+  requestSchema: ObjectSchema<any>,
+  requestMapper: (body: any) => any
 ): Promise<Response> {
   try {
     const { db } = await dbManager.getMongoDb();
@@ -37,7 +38,7 @@ export async function createItemHandler(
       id: uuid(),
       userId: user.id,
       createdAt: new Date(),
-      ...requestBody,
+      ...requestMapper(requestBody),
     };
 
     await collection.insertOne(newItem);
