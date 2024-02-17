@@ -1,0 +1,3 @@
+### Get trips by user ID
+GET {{baseUrl}}/public/trips/{{userId}}
+Content-Type: application/json

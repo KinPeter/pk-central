@@ -317,3 +317,16 @@ functions:
         request: null
         response: IdObject
         authenticated: True
+
+  - name: Public
+    description: Public, non-authenticated endpoints
+    types: types/public.ts
+    validators: null
+    endpoints:
+      # GET Fetch all trips by user ID
+      - method: GET
+        route: /public/trips/:id
+        description: Get all trips by user ID
+        request: null
+        response: Trips
+        authenticated: False

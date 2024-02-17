@@ -1109,4 +1109,33 @@ export const visitSchema = yup.object({
 });
 </pre>
       </details>
+    <div class="function"><h2>Public</h2><p>Public, non-authenticated endpoints</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/public/trips/:id</span>
+          </summary>
+          <div class="details">
+            <p>Get all trips by user ID</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Trips</code></span>
+              <span>Authenticated:<span class="authenticated">No</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Public types</summary>
+        <pre>import { Flight } from &apos;./flights&apos;;
+import { Visit } from &apos;./visits&apos;;
+
+export interface Trips {
+  flights: Flight[];
+  visits: Visit[];
+}
+</pre>
+      </details>
     </body></html>

@@ -10,3 +10,4 @@ export * from './cycling';
 export * from './flights';
 export * from './visits';
 export * from './data-backup';
+export * from './public';

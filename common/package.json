@@ -1,6 +1,6 @@
 {
   "name": "@kinpeter/pk-common",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "main": "index.ts",
   "author": "Peter Kin",
   "scripts": {
