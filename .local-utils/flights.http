@@ -9,45 +9,45 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "date": "2012-01-16",
-  "flightNumber": "A3877",
+  "date": "2024-03-08",
+  "flightNumber": "TK20",
   "from": {
-    "city": "Rome",
-    "name": "Fiumicino",
-    "iata": "FCO",
-    "icao": "LHBP",
-    "lat": 47.43693,
-    "lng": 19.25559,
-    "country": "Italy"
+    "city": "Istanbul",
+    "name": "Istanbul Airport",
+    "iata": "IST",
+    "icao": "LTFM",
+    "lat": 41.2629,
+    "lng": 28.74242,
+    "country": "Turkey"
   },
   "to": {
-    "city": "Athens",
-    "name": "Eleftherios Venizelos",
-    "iata": "ATH",
-    "icao": "LGAV",
-    "lat": 37.93636,
-    "lng": 23.94447,
-    "country": "Greece"
+    "city": "Seoul",
+    "name": "Incheon",
+    "iata": "ICN",
+    "icao": "RKSI",
+    "lat": 37.4492,
+    "lng": 126.45095,
+    "country": "Korea"
   },
-  "departureTime": "10:45:00",
-  "arrivalTime": "13:45:00",
-  "duration": "02:00:00",
+  "departureTime": "17:10:00",
+  "arrivalTime": "08:55:00",
+  "duration": "09:45:00",
   "airline": {
-    "name": "Aegean Airlines",
-    "iata": "A3",
-    "icao": "AEE"
+    "name": "Turkish Airlines",
+    "iata": "TK",
+    "icao": "THY"
   },
   "aircraft": {
-    "name": "Airbus A320",
-    "icao": "A320"
+    "name": "Boeing 777-300ER",
+    "icao": "B77W"
   },
-  "registration": "SX-DVR",
-  "seatNumber": "18D",
+  "registration": "TC-LJB",
+  "seatNumber": "24H",
   "seatType": "Aisle",
   "flightClass": "Economy",
   "flightReason": "Leisure",
   "note": "",
-  "distance": 1123
+  "distance": 7925
 }
 
 ### Update flight
