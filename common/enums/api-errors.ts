@@ -5,6 +5,7 @@ export enum ApiError {
   INVALID_LOGIN_CODE = 'INVALID_LOGIN_CODE',
   EXPIRED_LOGIN_CODE = 'EXPIRED_LOGIN_CODE',
   INVALID_MAGIC_LINK = 'INVALID_MAGIC_LINK',
+  INVALID_PASSWORD = 'INVALID_PASSWORD',
   UNABLE_TO_SEND = 'UNABLE_TO_SEND',
   USER_NOT_FOUND = 'USER_NOT_FOUND',
   ITEM_NOT_FOUND = 'ITEM_NOT_FOUND',
@@ -15,6 +16,7 @@ export enum ApiError {
   DATA_ALREADY_EXISTS = 'DATA_ALREADY_EXISTS',
   UNKNOWN_OPERATION = 'UNKNOWN_OPERATION',
   FORBIDDEN_OPERATION = 'FORBIDDEN_OPERATION',
+  CONFLICT = 'CONFLICT',
 }
 
 export const ApiErrorMap: Record<ApiError, string> = {
@@ -24,6 +26,7 @@ export const ApiErrorMap: Record<ApiError, string> = {
   [ApiError.INVALID_LOGIN_CODE]: 'Unauthorized: Login code is invalid',
   [ApiError.EXPIRED_LOGIN_CODE]: 'Unauthorized: Login code is expired',
   [ApiError.INVALID_MAGIC_LINK]: 'Unauthorized: Magic link is invalid or expired',
+  [ApiError.INVALID_PASSWORD]: 'Unauthorized: Invalid password',
   [ApiError.UNABLE_TO_SEND]: 'Could not send email',
   [ApiError.USER_NOT_FOUND]: 'User not found',
   [ApiError.ITEM_NOT_FOUND]: 'Item not found',
@@ -34,6 +37,7 @@ export const ApiErrorMap: Record<ApiError, string> = {
   [ApiError.DATA_ALREADY_EXISTS]: 'Data already exists',
   [ApiError.UNKNOWN_OPERATION]: 'Unknown operation',
   [ApiError.FORBIDDEN_OPERATION]: 'Forbidden operation',
+  [ApiError.CONFLICT]: 'Conflict',
 };
 
 export enum ValidationError {

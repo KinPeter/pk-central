@@ -6,6 +6,8 @@ export interface User {
   loginCode?: string;
   loginCodeExpires?: Date;
   salt?: string;
+  passwordHash?: string;
+  passwordSalt?: string;
 }
 
 export interface JwtPayload {
@@ -26,4 +28,8 @@ export interface EmailRequest {
 
 export interface LoginVerifyRequest extends EmailRequest {
   loginCode: string;
+}
+
+export interface PasswordAuthRequest extends EmailRequest {
+  password: string;
 }

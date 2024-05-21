@@ -83,3 +83,9 @@ export class ForbiddenOperationErrorResponse extends ErrorResponse {
     super(ApiError.FORBIDDEN_OPERATION, 403, operation ? { operation } : undefined);
   }
 }
+
+export class ConflictErrorResponse extends ErrorResponse {
+  constructor(message?: string) {
+    super(message ?? ApiError.CONFLICT, 409);
+  }
+}

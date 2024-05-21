@@ -16,10 +16,10 @@ function getMagicLinkToken(userId: string): { token: string } {
   return { token };
 }
 
-async function getHashed(loginCode: string): Promise<{ hashedLoginCode: string; salt: string }> {
+export async function getHashed(rawString: string): Promise<{ hashedString: string; salt: string }> {
   const salt = await bcrypt.genSalt();
-  const hashedLoginCode = await bcrypt.hash(loginCode, salt);
-  return { hashedLoginCode, salt };
+  const hashedString = await bcrypt.hash(rawString, salt);
+  return { hashedString, salt };
 }
 
 export async function getLoginCode(userId: string): Promise<{
@@ -31,7 +31,7 @@ export async function getLoginCode(userId: string): Promise<{
 }> {
   const { loginCode, loginCodeExpires } = generateLoginCode();
   const { token: magicLinkToken } = getMagicLinkToken(userId);
-  const { hashedLoginCode, salt } = await getHashed(loginCode);
+  const { hashedString: hashedLoginCode, salt } = await getHashed(loginCode);
 
   return {
     loginCode,
@@ -62,6 +62,11 @@ export async function validateLoginCode(
   if (hash !== hashedLoginCode) return 'invalid';
   if (new Date() >= new Date(loginCodeExpires)) return 'expired';
   return 'valid';
+}
+
+export async function validatePassword(password: string, hashedPassword: string, salt: string): Promise<boolean> {
+  const hash = await bcrypt.hash(password, salt);
+  return hash === hashedPassword;
 }
 
 export function verifyToken(token: string): JwtPayload | null {
