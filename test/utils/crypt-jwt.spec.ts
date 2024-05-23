@@ -1,5 +1,11 @@
 import { describe, beforeEach, it, expect } from '@jest/globals';
-import { getAccessToken, getLoginCode, validateLoginCode, verifyToken } from '../../src/utils/crypt-jwt';
+import {
+  getAccessToken,
+  getLoginCode,
+  validateLoginCode,
+  validatePassword,
+  verifyToken,
+} from '../../src/utils/crypt-jwt';
 
 const expiredAccessToken =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJ1c2VySWQiOiJ1c2VyMTIzIiwiaWF0IjoxNzAzNTUzNTcxLCJleHAiOjE3MDM1NTM1ODF9.EEhOisV-61GzJDYkJnfJhr7urunIC0zEx1UGpHSwJW8';
@@ -65,6 +71,21 @@ describe('Crypt & JWT', () => {
     it('should return null for expired magic link token', () => {
       const payload = verifyToken(expiredMagicLinkToken);
       expect(payload).toBeNull();
+    });
+  });
+
+  describe('validatePassword', () => {
+    const hash = '$2b$10$ESG91CanqubPddsEsRulTuePxQ3/Tnmj9Pe.hlFIcWJcJiuy2By8a';
+    const salt = '$2b$10$ESG91CanqubPddsEsRulTu';
+
+    it('should return true for valid password', async () => {
+      const result = await validatePassword('password', hash, salt);
+      expect(result).toBe(true);
+    });
+
+    it('should return false for invalid password', async () => {
+      const result = await validatePassword('notpassword', hash, salt);
+      expect(result).toBe(false);
     });
   });
 });
