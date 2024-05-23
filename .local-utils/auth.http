@@ -3,7 +3,7 @@ POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "email": "kinpeter85@gmail.com"
+  "email": "test@test.com"
 }
 
 ### Get instant login code DEV ENV ONLY!
@@ -25,6 +25,34 @@ Content-Type: application/json
 
 ### Verify magic link
 GET {{baseUrl}}/auth/verify-link/{{token}}/dev
+
+### Password login
+POST {{baseUrl}}/auth/password-login
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "password"
+}
+
+### Password signup
+POST {{baseUrl}}/auth/password-signup
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "password"
+}
+
+### Set Password
+PUT {{baseUrl}}/auth/set-password
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "email": "test@test.com",
+  "password": "password2"
+}
 
 ### Refresh token
 POST {{baseUrl}}/auth/token-refresh

@@ -25,6 +25,27 @@ functions:
         request: null
         response: null
         authenticated: False
+      # POST Password login
+      - method: POST
+        route: /auth/password-login
+        description: Login using email and password
+        request: PasswordAuthRequest
+        response: AuthData
+        authenticated: False
+      # POST Password signup
+      - method: POST
+        route: /auth/password-signup
+        description: Sign up with email and password
+        request: PasswordAuthRequest
+        response: IdObject
+        authenticated: False
+      # PUT Set password
+      - method: PUT
+        route: /auth/set-password
+        description: Set a new or update password for an existing user
+        request: PasswordAuthRequest
+        response: IdObject
+        authenticated: True
       # POST Refresh Token
       - method: POST
         route: /auth/token-refresh

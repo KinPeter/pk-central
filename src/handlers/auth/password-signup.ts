@@ -48,7 +48,7 @@ export async function passwordSignup(
     console.log('Created new user:', email, id);
     emailManager.sendSignupNotification(email).then(); // no need to await this
 
-    return new OkResponse<IdObject>({ id });
+    return new OkResponse<IdObject>({ id }, 201);
   } catch (e) {
     console.log(e);
     return new UnknownErrorResponse(e);

@@ -9,10 +9,13 @@ import { verifyLoginCode } from '../src/handlers/auth/verify-login-code';
 import { verifyMagicLink } from '../src/handlers/auth/verify-magic-link';
 import { refreshToken } from '../src/handlers/auth/refresh-token';
 import { instantLoginCode } from '../src/handlers/auth/instant-login-code';
+import { passwordLogin } from '../src/handlers/auth/password-login';
+import { passwordSignup } from '../src/handlers/auth/password-signup';
+import { setPassword } from '../src/handlers/auth/set-password';
 
 export const config: Config = {
   path: ['/auth/:operation', '/auth/:operation/:token/:redirectEnv'],
-  method: ['GET', 'POST', 'OPTIONS'],
+  method: ['GET', 'POST', 'PUT', 'OPTIONS'],
 };
 
 export default async (req: Request, context: Context) => {
@@ -30,6 +33,12 @@ export default async (req: Request, context: Context) => {
       return await verifyMagicLink(req, context, dbManager);
     case 'token-refresh':
       return await refreshToken(req, dbManager, new AuthManager());
+    case 'password-login':
+      return await passwordLogin(req, dbManager);
+    case 'password-signup':
+      return await passwordSignup(req, dbManager, new EmailManager(createTransport));
+    case 'set-password':
+      return await setPassword(req, dbManager, new AuthManager());
     case 'instant-login-code':
       // FOR TESTING PURPOSES ONLY! WORKS ON DEV ENV ONLY!
       return await instantLoginCode(req, dbManager);
