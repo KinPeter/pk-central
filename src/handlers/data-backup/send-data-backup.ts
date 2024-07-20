@@ -13,7 +13,7 @@ export async function sendDataBackup(
   req: Request,
   dbManager: MongoDbManager,
   authManager: AuthManager,
-  emailManager: EmailManager
+  emailManager?: EmailManager
 ): Promise<Response> {
   try {
     if (req.method !== 'GET') return new MethodNotAllowedResponse(req.method);
@@ -51,9 +51,12 @@ export async function sendDataBackup(
     const visitsCursor = visitsCollection.find({ userId: user.id });
     result.visits = await visitsCursor.toArray();
 
-    await emailManager.sendDataBackup(name, user.email, result);
-
-    return new OkResponse({ message: 'Check your inbox' });
+    if (emailManager) {
+      await emailManager.sendDataBackup(name, user.email, result);
+      return new OkResponse({ message: 'Check your inbox' });
+    } else {
+      return new OkResponse<DataBackup>(result);
+    }
   } catch (e) {
     console.log(e);
     return new UnknownErrorResponse(e);

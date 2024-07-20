@@ -243,10 +243,17 @@ functions:
     types: types/data-backup.ts
     validators: null
     endpoints:
-      # GET Send data backup
+      # GET Send data backup email
       - method: GET
-        route: /data-backup
+        route: /data-backup/email
         description: Sends an email with data backup of the current user
+        request: null
+        response: DataBackup
+        authenticated: True
+      # GET Fetch data backup in response
+      - method: GET
+        route: /data-backup/data
+        description: Get data backup object of the current user
         request: null
         response: DataBackup
         authenticated: True
