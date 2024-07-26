@@ -31,7 +31,7 @@ POST {{baseUrl}}/auth/password-login
 Content-Type: application/json
 
 {
-  "email": "test@test.com",
+  "email": "main@test.com",
   "password": "password"
 }
 

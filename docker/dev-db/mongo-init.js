@@ -25,6 +25,8 @@ db.getCollection('users').insertMany([
     loginCode: '$2b$10$RnNHkTXygMXChtKP0feIt.dl4r0ZAGHrZo193qGtGJ3edeGgE3OQm', // 509950
     loginCodeExpires: new Date(2147483647000),
     salt: '$2b$10$RnNHkTXygMXChtKP0feIt.',
+    passwordHash: '$2b$10$ESG91CanqubPddsEsRulTuePxQ3/Tnmj9Pe.hlFIcWJcJiuy2By8a', // password
+    passwordSalt: '$2b$10$ESG91CanqubPddsEsRulTu',
   },
   {
     id: 'c13ef9a2-d1ff-417d-bce7-75188a6114d2',
@@ -33,6 +35,8 @@ db.getCollection('users').insertMany([
     loginCode: '$2b$10$RnNHkTXygMXChtKP0feIt.dl4r0ZAGHrZo193qGtGJ3edeGgE3OQm', // 509950
     loginCodeExpires: new Date(2147483647000),
     salt: '$2b$10$RnNHkTXygMXChtKP0feIt.',
+    passwordHash: '$2b$10$ESG91CanqubPddsEsRulTuePxQ3/Tnmj9Pe.hlFIcWJcJiuy2By8a', // password
+    passwordSalt: '$2b$10$ESG91CanqubPddsEsRulTu',
   },
 ])
 
