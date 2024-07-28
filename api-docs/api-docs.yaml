@@ -291,6 +291,13 @@ functions:
         request: null
         response: Airline
         authenticated: True
+      # GET Fetch city and country for coordinates
+      - method: GET
+        route: /proxy/city/:coords
+        description: Get city and country for coordinates, lat and lng should be separated by comma, e.g. 12.3456,87.76543
+        request: null
+        response: VisitRequest
+        authenticated: True
 
   - name: Flights
     description: Endpoints related to Flights (Tripz)

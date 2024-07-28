@@ -17,3 +17,8 @@ Authorization: Bearer {{token}}
 GET {{baseUrl}}/proxy/airline/bt
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+### Get city and country data by coordinates
+GET {{baseUrl}}/proxy/city/-12.076589,-77.036133
+Content-Type: application/json
+Authorization: Bearer {{token}}

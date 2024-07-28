@@ -65,3 +65,10 @@ export const airlineResponse = {
   iata: 'TK',
   icao: 'THY',
 };
+
+export const cityResponse = {
+  city: 'Seoul',
+  country: 'South Korea',
+  lat: 23.222,
+  lng: 10,
+};
