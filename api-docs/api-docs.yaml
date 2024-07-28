@@ -284,6 +284,13 @@ functions:
         request: null
         response: Airport
         authenticated: True
+      # GET Fetch airline data by IATA code
+      - method: GET
+        route: /proxy/airline/:iata
+        description: Get airline data by IATA code
+        request: null
+        response: Airline
+        authenticated: True
 
   - name: Flights
     description: Endpoints related to Flights (Tripz)

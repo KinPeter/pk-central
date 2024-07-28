@@ -6,6 +6,7 @@ import { getBirthdays } from '../src/handlers/proxy/get-birthdays';
 import { getKorean } from '../src/handlers/proxy/get-korean';
 import { HttpClient } from '../src/utils/http-client';
 import { getAirport } from '../src/handlers/proxy/get-airport';
+import { getAirline } from '../src/handlers/proxy/get-airline';
 
 export const config: Config = {
   path: ['/proxy/:operation', '/proxy/:operation/:query'],
@@ -27,6 +28,8 @@ export default async (req: Request, context: Context) => {
       return await getKorean(req, dbManager, authManager, httpClient);
     case 'airport':
       return await getAirport(req, query, dbManager, authManager, httpClient);
+    case 'airline':
+      return await getAirline(req, query, dbManager, authManager, httpClient);
     default:
       return new UnknownOperationErrorResponse(`/proxy/${operation}`);
   }

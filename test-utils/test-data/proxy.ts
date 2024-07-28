@@ -33,6 +33,16 @@ export const airlabsAirportData = {
   ],
 };
 
+export const airlabsAirlineData = {
+  response: [
+    {
+      name: 'Turkish Airlines',
+      iata_code: 'TK',
+      icao_code: 'THY',
+    },
+  ],
+};
+
 export const locationIqLocationData = {
   address: {
     city: 'Seoul',
@@ -48,4 +58,10 @@ export const airportResponse = {
   lat: 23.222,
   lng: 10,
   name: 'Incheon Airport',
+};
+
+export const airlineResponse = {
+  name: 'Turkish Airlines',
+  iata: 'TK',
+  icao: 'THY',
 };

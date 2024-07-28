@@ -14,6 +14,14 @@ export interface AirlabsAirportResponse {
   }>;
 }
 
+export interface AirlabsAirlineResponse {
+  response: Array<{
+    name: string;
+    iata_code: string;
+    icao_code: string;
+  }>;
+}
+
 export interface LocationIqReverseResponse {
   lat: string;
   lon: string;

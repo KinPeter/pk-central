@@ -12,3 +12,8 @@ Authorization: Bearer {{token}}
 GET {{baseUrl}}/proxy/airport/tll
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+### Get airline data by iata code
+GET {{baseUrl}}/proxy/airline/bt
+Content-Type: application/json
+Authorization: Bearer {{token}}
