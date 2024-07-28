@@ -792,10 +792,27 @@ export const choreSchema = yup.object({
         <details>
           <summary>
             <span class="method">GET</span>
-            <span class="route">/data-backup</span>
+            <span class="route">/data-backup/email</span>
           </summary>
           <div class="details">
             <p>Sends an email with data backup of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">DataBackup</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/data-backup/data</span>
+          </summary>
+          <div class="details">
+            <p>Get data backup object of the current user</p>
             <p class="info">
               <span>Request body:<code class="request">None</code></span>
               <span>Returns:<code class="response">DataBackup</code></span>
@@ -857,6 +874,23 @@ export interface DataBackup {
             <p class="info">
               <span>Request body:<code class="request">None</code></span>
               <span>Returns:<code class="response">KoreanDictItem[]</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/proxy/airport/:iata</span>
+          </summary>
+          <div class="details">
+            <p>Get airport data by IATA code</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Airport</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
           </div>

@@ -26,6 +26,17 @@ To use the local MongoDB for development, set this variable:
 MONGO_DB_URI=mongodb://admin:admin@localhost:27017/
 ```
 
+## Third party API keys
+
+For some endpoints third party API keys are expected to be stored in the database in a collection named `shared-keys`. There has to be only one document, an object containing these properties:
+
+```json
+{
+  "airlabsApiKey": "api key",
+  "locationIqApiKey": "api key"
+}
+```
+
 ## Local DEV MongoDB
 
 MongoDB for development is configured to run in Docker.

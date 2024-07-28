@@ -5,16 +5,17 @@ import { AuthManager } from '../src/utils/auth-manager';
 import { getBirthdays } from '../src/handlers/proxy/get-birthdays';
 import { getKorean } from '../src/handlers/proxy/get-korean';
 import { HttpClient } from '../src/utils/http-client';
+import { getAirport } from '../src/handlers/proxy/get-airport';
 
 export const config: Config = {
-  path: ['/proxy/:operation'],
+  path: ['/proxy/:operation', '/proxy/:operation/:query'],
   method: ['GET', 'OPTIONS'],
 };
 
 export default async (req: Request, context: Context) => {
   if (req.method === 'OPTIONS') return new CorsOkResponse();
 
-  const { operation } = context.params;
+  const { operation, query } = context.params;
   const dbManager = new MongoDbManager();
   const authManager = new AuthManager();
   const httpClient = new HttpClient(fetch);
@@ -24,6 +25,8 @@ export default async (req: Request, context: Context) => {
       return await getBirthdays(req, dbManager, authManager, httpClient);
     case 'korean':
       return await getKorean(req, dbManager, authManager, httpClient);
+    case 'airport':
+      return await getAirport(req, query, dbManager, authManager, httpClient);
     default:
       return new UnknownOperationErrorResponse(`/proxy/${operation}`);
   }

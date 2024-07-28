@@ -19,3 +19,33 @@ export const koreanResponse = [
     hun: 'matek',
   },
 ];
+
+export const airlabsAirportData = {
+  response: [
+    {
+      name: 'Incheon Airport',
+      iata_code: 'ICN',
+      icao_code: 'IIII',
+      lat: 23.222,
+      lng: 10,
+      country_code: 'KR',
+    },
+  ],
+};
+
+export const locationIqLocationData = {
+  address: {
+    city: 'Seoul',
+    country_code: 'kr',
+  },
+};
+
+export const airportResponse = {
+  city: 'Seoul',
+  country: 'South Korea',
+  iata: 'ICN',
+  icao: 'IIII',
+  lat: 23.222,
+  lng: 10,
+  name: 'Incheon Airport',
+};

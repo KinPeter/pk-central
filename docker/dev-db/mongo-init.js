@@ -462,3 +462,10 @@ db.getCollection('visits').insertMany([
     createdAt: new Date(),
   },
 ])
+
+db.createCollection('shared-keys')
+
+db.getCollection('shared-keys').insertOne({
+  airlabsApiKey: 'TBA',
+  locationIqApiKey: 'TBA',
+})

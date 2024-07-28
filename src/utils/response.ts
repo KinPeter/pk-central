@@ -1,5 +1,5 @@
-import { ValidationError } from 'yup';
-import { ApiError } from 'pk-common';
+import { ValidationError as YupValidationError } from 'yup';
+import { ApiError, ValidationError } from 'pk-common';
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
@@ -30,8 +30,9 @@ export class ErrorResponse extends Response {
 }
 
 export class ValidationErrorResponse extends ErrorResponse {
-  constructor(error: ValidationError) {
-    super(ApiError.REQUEST_VALIDATION_FAILED, 400, error.errors);
+  constructor(error: YupValidationError | ValidationError) {
+    const payload = error instanceof YupValidationError ? error.errors : { reason: error };
+    super(ApiError.REQUEST_VALIDATION_FAILED, 400, payload);
   }
 }
 

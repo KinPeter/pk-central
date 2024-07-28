@@ -7,3 +7,8 @@ Authorization: Bearer {{token}}
 GET {{baseUrl}}/proxy/korean
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+### Get airport data by iata code
+GET {{baseUrl}}/proxy/airport/tll
+Content-Type: application/json
+Authorization: Bearer {{token}}
