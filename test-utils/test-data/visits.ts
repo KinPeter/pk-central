@@ -9,6 +9,7 @@ export const visits = [
     lng: 132.792228,
     city: 'Tobe',
     country: 'Japan',
+    year: '2017',
   },
   {
     id: 'b2197832-6a6e-46c3-97a9-dd2a8de8a267',
@@ -18,10 +19,18 @@ export const visits = [
     lng: 27.7104213,
     city: 'Sunny Beach',
     country: 'Bulgaria',
+    year: '2007',
   },
 ];
 
 export const validVisitRequests: VisitRequest[] = [
+  {
+    lat: 48.2081743,
+    lng: 16.3738189,
+    city: 'Vienna',
+    country: 'Austria',
+    year: '2008',
+  },
   {
     lat: 48.2081743,
     lng: 16.3738189,
@@ -64,5 +73,19 @@ export const invalidVisitRequests = [
     lng: 16.3738189,
     city: 123,
     country: 'Austria',
+  },
+  {
+    lat: 48.2081743,
+    lng: 16.3738189,
+    city: 'Vienna',
+    country: 'Austria',
+    year: 'ASDF',
+  },
+  {
+    lat: 48.2081743,
+    lng: 16.3738189,
+    city: 'Vienna',
+    country: 'Austria',
+    year: 123,
   },
 ];

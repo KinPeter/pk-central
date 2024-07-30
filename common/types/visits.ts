@@ -4,6 +4,7 @@ export interface Visit extends BaseEntity {
   userId?: UUID;
   city: string;
   country: string;
+  year?: string;
   lat: number;
   lng: number;
 }

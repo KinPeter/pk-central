@@ -71,6 +71,7 @@ export function toVisitRequest(body: Partial<Visit>): VisitRequest {
     country: body.country!,
     lat: body.lat!,
     lng: body.lng!,
+    year: body.year,
   };
 }
 

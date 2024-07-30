@@ -12,11 +12,12 @@ Authorization: Bearer {{token}}
   "lat": 48.2081743,
   "lng": 16.3738189,
   "city": "Vienna",
-  "country": "Austria"
+  "country": "Austria",
+  "year": "2024"
 }
 
 ### Update visit
-PUT {{baseUrl}}/visits/ad3f590a-d46e-4345-861a-325b5b34c30e
+PUT {{baseUrl}}/visits/f13e71dc-e108-471a-838f-15e81e208588
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -24,7 +25,8 @@ Authorization: Bearer {{token}}
   "lat": 48.2081743,
   "lng": 16.3738189,
   "city": "Becs",
-  "country": "Austria"
+  "country": "Austria",
+  "year": "2007"
 }
 
 ### Delete visit
