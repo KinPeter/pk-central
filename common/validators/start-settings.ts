@@ -2,8 +2,8 @@ import * as yup from 'yup';
 import { ValidationError } from '../enums';
 
 export const pkStartSettingsSchema = yup.object({
-  name: yup.string().strict().nullable().required(ValidationError.NULLABLE_FIELD_REQUIRED),
-  weatherApiKey: yup.string().strict().nullable().required(ValidationError.NULLABLE_FIELD_REQUIRED),
+  name: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
+  weatherApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
   locationApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
   unsplashApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
   shortcutIconBaseUrl: yup
