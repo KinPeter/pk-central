@@ -1,18 +1,18 @@
 import { describe, it, expect, jest, beforeEach } from '@jest/globals';
-import { EmailManager, TransportCreatorFn } from '../../src/utils/email-manager';
 import { DataBackup } from 'pk-common';
+import { NodeMailerManager, TransportCreatorFn } from '../../src/utils/node-mailer-manager';
 
-describe('EmailManager', () => {
+describe('NodeMailerManager', () => {
   let createTransportFn: jest.Mock;
   let transporterSpy: { sendMail: jest.Mock };
-  let emailManager: EmailManager;
+  let emailManager: NodeMailerManager;
 
   beforeEach(() => {
     process.env.NOTIFICATION_EMAIL = 'test@test.com';
     createTransportFn = jest.fn();
     transporterSpy = { sendMail: jest.fn() };
     createTransportFn.mockReturnValue(transporterSpy);
-    emailManager = new EmailManager(createTransportFn as unknown as TransportCreatorFn);
+    emailManager = new NodeMailerManager(createTransportFn as unknown as TransportCreatorFn);
   });
 
   it('should call createTransport function when sending a login code email', () => {
