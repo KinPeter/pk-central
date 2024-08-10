@@ -16,6 +16,14 @@ class EmailData {
   ) {}
 }
 
+function encodeUnicodeToBase64(str: string) {
+  return btoa(
+    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+      return String.fromCharCode(Number('0x' + p1));
+    })
+  );
+}
+
 export class PkMailerManager extends EmailUtils implements EmailManager {
   constructor(private http: HttpClient) {
     super();
@@ -42,7 +50,7 @@ export class PkMailerManager extends EmailUtils implements EmailManager {
     const subject = `Data backup for PK Central`;
     const { html, text } = this.getDataBackupTemplates(name);
     const filename = `pk-central-backup-${date}.json`;
-    const content = JSON.stringify(backup);
+    const content = encodeUnicodeToBase64(JSON.stringify(backup));
     const data = new EmailData(email, subject, text, html, content, filename);
     return await this.sendMail(data);
   }
