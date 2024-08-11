@@ -58,12 +58,12 @@ export class PkMailerManager extends EmailUtils implements EmailManager {
   private async sendMail(data: EmailData): Promise<any> {
     try {
       console.log(`Sending email to ${data.to} via ${process.env.MAILER_URL}`);
-      this.http.post(process.env.MAILER_URL!, data).then();
-      return { message: 'Attempted to send email' };
+      const res = await this.http.post(process.env.MAILER_URL!, data);
+      return { message: 'Attempted to send email', response: JSON.stringify(res) };
     } catch (error: any) {
       console.error('Error in sendMail:');
       console.error(error);
-      throw new Error(`Unable to send email: ${error.message}`);
+      throw new Error(`Unable to send email: ${JSON.stringify(error)}`);
     }
   }
 }
