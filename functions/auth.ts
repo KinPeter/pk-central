@@ -10,8 +10,8 @@ import { instantLoginCode } from '../src/handlers/auth/instant-login-code';
 import { passwordLogin } from '../src/handlers/auth/password-login';
 import { passwordSignup } from '../src/handlers/auth/password-signup';
 import { setPassword } from '../src/handlers/auth/set-password';
-import { PkMailerManager } from '../src/utils/pk-mailer-manager';
-import { HttpClient } from '../src/utils/http-client';
+import { NodeMailerManager } from '../src/utils/node-mailer-manager';
+import { createTransport } from 'nodemailer';
 
 export const config: Config = {
   path: ['/auth/:operation', '/auth/:operation/:token/:redirectEnv'],
@@ -23,11 +23,10 @@ export default async (req: Request, context: Context) => {
 
   const { operation } = context.params;
   const dbManager = new MongoDbManager();
-  const httpClient = new HttpClient(fetch);
 
   switch (operation) {
     case 'login':
-      return await requestLoginCode(req, dbManager, new PkMailerManager(httpClient));
+      return await requestLoginCode(req, dbManager, new NodeMailerManager(createTransport));
     case 'verify-code':
       return await verifyLoginCode(req, dbManager);
     case 'verify-link':
@@ -37,7 +36,7 @@ export default async (req: Request, context: Context) => {
     case 'password-login':
       return await passwordLogin(req, dbManager);
     case 'password-signup':
-      return await passwordSignup(req, dbManager, new PkMailerManager(httpClient));
+      return await passwordSignup(req, dbManager, new NodeMailerManager(createTransport));
     case 'set-password':
       return await setPassword(req, dbManager, new AuthManager());
     case 'instant-login-code':
