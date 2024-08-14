@@ -9,7 +9,6 @@ class EmailData {
   constructor(
     public to: string,
     public subject: string,
-    public text: string,
     public html: string,
     public attachmentContent?: string,
     public attachmentFilename?: string
@@ -32,15 +31,15 @@ export class PkMailerManager extends EmailUtils implements EmailManager {
 
   public async sendLoginCode(email: string, loginCode: string, magicLinkToken: string): Promise<any> {
     const subject = `${loginCode} - Log in to PK-Central`;
-    const { html, text } = this.getLoginCodeTemplates(loginCode, magicLinkToken);
-    const data = new EmailData(email, subject, text, html);
+    const { html } = this.getLoginCodeTemplates(loginCode, magicLinkToken);
+    const data = new EmailData(email, subject, html);
     return await this.sendMail(data);
   }
 
   public async sendSignupNotification(email: string): Promise<any> {
     const subject = 'A user signed up to PK-Central';
-    const { html, text } = this.getSignupNotificationTemplates(email);
-    const data = new EmailData(email, subject, text, html);
+    const { html } = this.getSignupNotificationTemplates(email);
+    const data = new EmailData(email, subject, html);
     return await this.sendMail(data);
   }
 
@@ -48,10 +47,11 @@ export class PkMailerManager extends EmailUtils implements EmailManager {
     const now = new Date();
     const date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
     const subject = `Data backup for PK Central`;
-    const { html, text } = this.getDataBackupTemplates(name);
+    const { html } = this.getDataBackupTemplates(name);
     const filename = `pk-central-backup-${date}.json`;
-    const content = encodeUnicodeToBase64(JSON.stringify(backup));
-    const data = new EmailData(email, subject, text, html, content, filename);
+    // const content = encodeUnicodeToBase64(JSON.stringify(backup));
+    const content = JSON.stringify(backup);
+    const data = new EmailData(email, subject, html, content, filename);
     return await this.sendMail(data);
   }
 
