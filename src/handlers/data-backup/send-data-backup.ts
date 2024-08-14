@@ -52,8 +52,8 @@ export async function sendDataBackup(
     result.visits = await visitsCursor.toArray();
 
     if (emailManager) {
-      await emailManager.sendDataBackup(name, user.email, result);
-      return new OkResponse({ message: 'Check your inbox' });
+      const res = await emailManager.sendDataBackup(name, user.email, result);
+      return new OkResponse({ message: 'Check your inbox', response: res });
     } else {
       return new OkResponse<DataBackup>(result);
     }

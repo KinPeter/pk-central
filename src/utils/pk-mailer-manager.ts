@@ -2,6 +2,7 @@ import { EmailManager } from './email-manager';
 import { DataBackup } from 'pk-common';
 import { EmailUtils } from './email-utils';
 import { HttpClient } from './http-client';
+import * as process from 'node:process';
 
 class EmailData {
   public apiKey = process.env.MAILER_API_KEY;
@@ -13,14 +14,6 @@ class EmailData {
     public attachmentContent?: string,
     public attachmentFilename?: string
   ) {}
-}
-
-function encodeUnicodeToBase64(str: string) {
-  return btoa(
-    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => {
-      return String.fromCharCode(Number('0x' + p1));
-    })
-  );
 }
 
 export class PkMailerManager extends EmailUtils implements EmailManager {
@@ -49,7 +42,6 @@ export class PkMailerManager extends EmailUtils implements EmailManager {
     const subject = `Data backup for PK Central`;
     const { html } = this.getDataBackupTemplates(name);
     const filename = `pk-central-backup-${date}.json`;
-    // const content = encodeUnicodeToBase64(JSON.stringify(backup));
     const content = JSON.stringify(backup);
     const data = new EmailData(email, subject, html, content, filename);
     return await this.sendMail(data);
@@ -58,16 +50,8 @@ export class PkMailerManager extends EmailUtils implements EmailManager {
   private async sendMail(data: EmailData): Promise<any> {
     try {
       console.log(`Sending email to ${data.to} via ${process.env.MAILER_URL}`);
-      this.http
-        .post(process.env.MAILER_URL!, data)
-        .then(res => {
-          console.log(JSON.stringify(res));
-        })
-        .catch(error => {
-          console.error('Error in sendMail:');
-          console.error(error);
-        });
-      return { message: 'Attempted to send email' };
+      const res = await this.http.post(process.env.MAILER_URL!, data);
+      return { message: 'Attempted to send email', response: JSON.stringify(res) };
     } catch (error: any) {
       console.error('Error in sendMail:');
       console.error(error);
