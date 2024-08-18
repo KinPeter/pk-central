@@ -88,6 +88,7 @@ export const flights: Flight[] = [
     distance: 1123,
     id: 'b2197832-6a6e-46c3-97a9-dd2a8de8a267',
     userId: '123',
+    isPlanned: true,
   },
 ];
 
@@ -173,6 +174,7 @@ export const validFlightRequests: FlightRequest[] = [
     flightReason: FlightReason.LEISURE,
     note: '',
     distance: 1123,
+    isPlanned: true,
   },
 ];
 export const invalidFlightRequests = [
@@ -690,5 +692,47 @@ export const invalidFlightRequests = [
     flightReason: FlightReason.LEISURE,
     note: '',
     distance: '1123',
+  },
+  {
+    date: '2023-12-16',
+    flightNumber: 'A3877',
+    from: {
+      city: 'Budapest',
+      name: 'Franz Liszt International',
+      iata: 'BUD',
+      icao: 'LHBP',
+      lat: 47.43693,
+      lng: 19.25559,
+      country: 'Hungary',
+    },
+    to: {
+      city: 'Athens',
+      name: 'Eleftherios Venizelos',
+      iata: 'ATH',
+      icao: 'LGAV',
+      lat: 37.93636,
+      lng: 23.94447,
+      country: 'Greece',
+    },
+    departureTime: '10:45:00',
+    arrivalTime: '13:45:00',
+    duration: '02:00:00',
+    airline: {
+      name: 'Aegean Airlines',
+      iata: 'A3',
+      icao: 'AEE',
+    },
+    aircraft: {
+      name: 'Airbus A320',
+      icao: 'A320',
+    },
+    registration: '',
+    seatNumber: '',
+    seatType: SeatType.AISLE,
+    flightClass: FlightClass.ECONOMY,
+    flightReason: FlightReason.LEISURE,
+    note: '',
+    distance: 1123,
+    isPlanned: 'not-true',
   },
 ];

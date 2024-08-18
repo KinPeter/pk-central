@@ -18,6 +18,7 @@ export interface Flight extends BaseEntity {
   flightClass: FlightClass;
   flightReason: FlightReason;
   note: string;
+  isPlanned?: boolean;
 }
 
 export type FlightRequest = Omit<Flight, 'createdAt' | 'id' | 'userId'>;

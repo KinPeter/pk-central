@@ -116,5 +116,6 @@ export function toFlightRequest(body: Partial<Flight>): FlightRequest {
     registration: body.registration!,
     seatNumber: body.seatNumber!,
     seatType: body.seatType!,
+    isPlanned: body.isPlanned ?? false,
   };
 }

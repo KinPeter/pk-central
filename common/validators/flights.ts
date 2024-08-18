@@ -52,4 +52,5 @@ export const flightSchema = yup.object({
   flightClass: yup.string().strict().oneOf(Object.values(FlightClass)).required(ValidationError.STRING_REQUIRED),
   flightReason: yup.string().strict().oneOf(Object.values(FlightReason)).required(ValidationError.STRING_REQUIRED),
   note: yup.string().strict().defined(ValidationError.STRING_REQUIRED).default(''),
+  isPlanned: yup.boolean().optional().default(undefined),
 });

@@ -598,8 +598,8 @@ export type PkStartSettingsRequest = Omit&lt;PkStartSettings, &apos;id&apos; | &
 import { ValidationError } from '../enums';
 
 export const pkStartSettingsSchema = yup.object({
-  name: yup.string().strict().nullable().required(ValidationError.NULLABLE_FIELD_REQUIRED),
-  weatherApiKey: yup.string().strict().nullable().required(ValidationError.NULLABLE_FIELD_REQUIRED),
+  name: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
+  weatherApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
   locationApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
   unsplashApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
   shortcutIconBaseUrl: yup
@@ -1035,6 +1035,7 @@ export interface Flight extends BaseEntity {
   flightClass: FlightClass;
   flightReason: FlightReason;
   note: string;
+  isPlanned?: boolean;
 }
 
 export type FlightRequest = Omit&lt;Flight, &apos;createdAt&apos; | &apos;id&apos; | &apos;userId&apos;&gt;;
@@ -1137,6 +1138,7 @@ export const flightSchema = yup.object({
   flightClass: yup.string().strict().oneOf(Object.values(FlightClass)).required(ValidationError.STRING_REQUIRED),
   flightReason: yup.string().strict().oneOf(Object.values(FlightReason)).required(ValidationError.STRING_REQUIRED),
   note: yup.string().strict().defined(ValidationError.STRING_REQUIRED).default(''),
+  isPlanned: yup.boolean().optional().default(undefined),
 });
 </pre>
       </details>
