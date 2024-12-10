@@ -6,10 +6,9 @@ import {
   OkResponse,
   UnauthorizedInvalidAccessTokenErrorResponse,
   UnknownErrorResponse,
-  ValidationErrorResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { choreSchema, Cycling, CyclingChoreRequest, UUID } from 'pk-common';
+import { Cycling, UUID } from 'pk-common';
 
 export async function deleteChore(
   req: Request,

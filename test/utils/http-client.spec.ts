@@ -69,7 +69,7 @@ describe('HttpClient', () => {
       await httpClient.get('url');
       expect(requestSpy).toHaveBeenCalledWith('GET', 'url', undefined, undefined);
       expect(fetchSpy).toHaveBeenCalledWith('url', { method: 'GET' });
-    } catch (e: any) {
+    } catch (_e: any) {
       expect(true).toBeTruthy(); // expect to get here in the catch block
     }
   });

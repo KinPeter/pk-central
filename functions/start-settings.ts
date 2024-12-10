@@ -10,7 +10,7 @@ export const config: Config = {
   method: ['GET', 'PUT', 'OPTIONS'],
 };
 
-export default async (req: Request, context: Context) => {
+export default async (req: Request, _context: Context) => {
   if (req.method === 'OPTIONS') return new CorsOkResponse();
 
   const dbManager = new MongoDbManager();
