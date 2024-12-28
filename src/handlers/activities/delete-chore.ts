@@ -9,6 +9,7 @@ import {
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { Activities, UUID } from 'pk-common';
+import { DbCollection } from '../../utils/collections';
 
 export async function deleteChore(
   req: Request,
@@ -23,7 +24,7 @@ export async function deleteChore(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const collection = db.collection<Activities>('activities');
+    const collection = db.collection<Activities>(DbCollection.ACTIVITIES);
     const existingData = await collection.findOne({ userId: user.id });
     if (!existingData) return new NotFoundErrorResponse('Activities data for user');
     if (!existingData.chores?.length) return new NotFoundErrorResponse('Chores for user');

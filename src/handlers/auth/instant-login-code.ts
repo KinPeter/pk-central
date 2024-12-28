@@ -9,6 +9,7 @@ import {
 import { v4 as uuid } from 'uuid';
 import { getLoginCode } from '../../utils/crypt-jwt';
 import { emailRequestSchema, User } from 'pk-common';
+import { DbCollection } from '../../utils/collections';
 
 export async function instantLoginCode(req: Request, dbManager: MongoDbManager): Promise<Response> {
   try {
@@ -33,7 +34,7 @@ export async function instantLoginCode(req: Request, dbManager: MongoDbManager):
       return new ForbiddenOperationErrorResponse('Sign up');
     }
 
-    const users = db.collection<User>('users');
+    const users = db.collection<User>(DbCollection.USERS);
     const existingUser = await users.findOne({ email });
     let user: User;
 

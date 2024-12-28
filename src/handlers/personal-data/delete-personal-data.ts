@@ -2,6 +2,7 @@ import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { AuthManager } from '../../utils/auth-manager';
 import { UUID } from 'pk-common';
 import { deleteItemHandler } from '../_base-crud-handlers/delete-handler';
+import { DbCollection } from '../../utils/collections';
 
 export async function deletePersonalData(
   req: Request,
@@ -9,5 +10,5 @@ export async function deletePersonalData(
   dbManager: MongoDbManager,
   authManager: AuthManager
 ): Promise<Response> {
-  return await deleteItemHandler(req, id, dbManager, authManager, 'personal-data', 'Personal data');
+  return await deleteItemHandler(req, id, dbManager, authManager, DbCollection.PERSONAL_DATA, 'Personal data');
 }

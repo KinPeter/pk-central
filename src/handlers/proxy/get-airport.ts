@@ -11,6 +11,7 @@ import { Airport, ValidationError } from 'pk-common';
 import { AuthManager } from '../../utils/auth-manager';
 import { FetchResponseType, HttpClient } from '../../utils/http-client';
 import { AirlabsAirportResponse, LocationIqReverseResponse, SharedKeys } from '../../utils/third-parties';
+import { DbCollection } from '../../utils/collections';
 
 export async function getAirport(
   req: Request,
@@ -27,7 +28,7 @@ export async function getAirport(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const sharedKeysCollection = db.collection<SharedKeys>('shared-keys');
+    const sharedKeysCollection = db.collection<SharedKeys>(DbCollection.SHARED_KEYS);
     const keys = await sharedKeysCollection.findOne();
     const airlabsApiKey = keys?.airlabsApiKey;
     const locationApiKey = keys?.locationIqApiKey;

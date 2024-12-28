@@ -12,6 +12,7 @@ import { omitIdsForOne } from '../../utils/omit-ids';
 import { Activities, CyclingChoreRequest, choreSchema } from 'pk-common';
 import { v4 as uuid } from 'uuid';
 import { toCyclingChoreRequest } from '../../utils/request-mappers';
+import { DbCollection } from '../../utils/collections';
 
 export async function addChore(req: Request, dbManager: MongoDbManager, authManager: AuthManager): Promise<Response> {
   try {
@@ -29,7 +30,7 @@ export async function addChore(req: Request, dbManager: MongoDbManager, authMana
       return new ValidationErrorResponse(e);
     }
 
-    const collection = db.collection<Activities>('activities');
+    const collection = db.collection<Activities>(DbCollection.ACTIVITIES);
     const existingData = await collection.findOne({ userId: user.id });
     if (!existingData) return new NotFoundErrorResponse('Activities data for user');
 

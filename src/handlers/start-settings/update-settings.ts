@@ -10,6 +10,7 @@ import { PkStartSettings, pkStartSettingsSchema } from 'pk-common';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { v4 as uuid } from 'uuid';
 import { toPkStartSettingsRequest } from '../../utils/request-mappers';
+import { DbCollection } from '../../utils/collections';
 
 export async function updateSettings(
   req: Request,
@@ -29,7 +30,7 @@ export async function updateSettings(
       return new ValidationErrorResponse(e);
     }
 
-    const collection = db.collection<PkStartSettings>('start-settings');
+    const collection = db.collection<PkStartSettings>(DbCollection.START_SETTINGS);
     const existingSettings = await collection.findOne({ userId: user.id });
     let settings: PkStartSettings;
     const doc: Partial<PkStartSettings> = toPkStartSettingsRequest(requestBody);

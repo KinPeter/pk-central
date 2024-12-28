@@ -9,6 +9,7 @@ import {
 } from '../../utils/response';
 import { getHashed } from '../../utils/crypt-jwt';
 import { IdObject, passwordAuthRequestSchema, User } from 'pk-common';
+import { DbCollection } from '../../utils/collections';
 
 export async function setPassword(
   req: Request,
@@ -29,7 +30,7 @@ export async function setPassword(
     const { email, password } = body;
 
     const { db } = await dbManager.getMongoDb();
-    const users = db.collection<User>('users');
+    const users = db.collection<User>(DbCollection.USERS);
     const user = await authManager.authenticateUser(req, db);
     if (!user || user.email !== email) return new UnauthorizedInvalidAccessTokenErrorResponse();
 

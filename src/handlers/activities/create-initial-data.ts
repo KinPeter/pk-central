@@ -10,6 +10,7 @@ import {
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { ApiError, Activities } from 'pk-common';
 import { v4 as uuid } from 'uuid';
+import { DbCollection } from '../../utils/collections';
 
 export async function createInitialData(
   req: Request,
@@ -23,7 +24,7 @@ export async function createInitialData(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const collection = db.collection<Activities>('activities');
+    const collection = db.collection<Activities>(DbCollection.ACTIVITIES);
     const existingData = await collection.findOne({ userId: user.id });
     if (existingData) return new ErrorResponse(ApiError.DATA_ALREADY_EXISTS, 400);
 

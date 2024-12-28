@@ -18,6 +18,7 @@ import {
   Visit,
 } from 'pk-common';
 import { AuthManager } from '../../utils/auth-manager';
+import { DbCollection } from '../../utils/collections';
 
 export async function sendDataBackup(
   req: Request,
@@ -34,33 +35,33 @@ export async function sendDataBackup(
 
     const result = { user } as DataBackup;
 
-    const settingsCollection = db.collection<PkStartSettings>('start-settings');
+    const settingsCollection = db.collection<PkStartSettings>(DbCollection.START_SETTINGS);
     result.startSettings = (await settingsCollection.findOne({ userId: user.id })) ?? ({} as PkStartSettings);
     const name = result.startSettings?.name ?? 'User';
 
-    const activitiesCollection = db.collection<Activities>('activities');
+    const activitiesCollection = db.collection<Activities>(DbCollection.ACTIVITIES);
     result.activities = (await activitiesCollection.findOne({ userId: user.id })) ?? ({} as Activities);
 
-    const cyclingCollection = db.collection<Cycling>('cycling');
+    const cyclingCollection = db.collection<Cycling>(DbCollection.CYCLING);
     result.cycling = (await cyclingCollection.findOne({ userId: user.id })) ?? ({} as Cycling);
 
-    const flightsCollection = db.collection<Flight>('flights');
+    const flightsCollection = db.collection<Flight>(DbCollection.FLIGHTS);
     const flightsCursor = flightsCollection.find({ userId: user.id });
     result.flights = await flightsCursor.toArray();
 
-    const notesCollection = db.collection<Note>('notes');
+    const notesCollection = db.collection<Note>(DbCollection.NOTES);
     const notesCursor = notesCollection.find({ userId: user.id });
     result.notes = await notesCursor.toArray();
 
-    const personalDataCollection = db.collection<PersonalData>('personal-data');
+    const personalDataCollection = db.collection<PersonalData>(DbCollection.PERSONAL_DATA);
     const personalDataCursor = personalDataCollection.find({ userId: user.id });
     result.personalData = await personalDataCursor.toArray();
 
-    const shortcutsCollection = db.collection<Shortcut>('shortcuts');
+    const shortcutsCollection = db.collection<Shortcut>(DbCollection.SHORTCUTS);
     const shortcutsCursor = shortcutsCollection.find({ userId: user.id });
     result.shortcuts = await shortcutsCursor.toArray();
 
-    const visitsCollection = db.collection<Visit>('visits');
+    const visitsCollection = db.collection<Visit>(DbCollection.VISITS);
     const visitsCursor = visitsCollection.find({ userId: user.id });
     result.visits = await visitsCursor.toArray();
 

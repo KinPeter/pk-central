@@ -31,6 +31,7 @@ describe('updateChore', () => {
     const response = await updateChore(request, 'c1', dbManager as unknown as MongoDbManager, authManager);
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.findOneAndUpdate).toHaveBeenCalled();
+    expect(db.collection).toHaveBeenCalledWith('activities');
     expect(response.status).toBe(200);
     const result = (await response.json()) as Activities;
     expect(result.chores?.length).toEqual(1);

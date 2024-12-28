@@ -28,6 +28,7 @@ describe('passwordLogin', () => {
       body: JSON.stringify({ email: 'test@test.com', password: 'password' }),
     });
     const response = await passwordLogin(request, dbManager as unknown as MongoDbManager);
+    expect(db.collection).toHaveBeenCalledWith('users');
     expect(response.status).toEqual(200);
     const data = await response.json();
     expect(typeof data.token).toBe('string');

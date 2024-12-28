@@ -28,6 +28,7 @@ describe('deleteChore', () => {
       method: 'DELETE',
     });
     const response = await deleteChore(request, 'c1', dbManager as unknown as MongoDbManager, authManager);
+    expect(db.collection).toHaveBeenCalledWith('cycling');
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.findOneAndUpdate).toHaveBeenCalled();
     expect(response.status).toBe(200);

@@ -29,6 +29,7 @@ describe('updateChore', () => {
       body: JSON.stringify(validChoreRequest),
     });
     const response = await updateChore(request, 'c1', dbManager as unknown as MongoDbManager, authManager);
+    expect(db.collection).toHaveBeenCalledWith('cycling');
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.findOneAndUpdate).toHaveBeenCalled();
     expect(response.status).toBe(200);

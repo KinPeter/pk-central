@@ -9,6 +9,7 @@ import {
 } from '../../utils/response';
 import { getAccessToken, validateLoginCode } from '../../utils/crypt-jwt';
 import { ApiError, AuthData, loginVerifyRequestSchema, User } from 'pk-common';
+import { DbCollection } from '../../utils/collections';
 
 export async function verifyLoginCode(req: Request, dbManager: MongoDbManager): Promise<Response> {
   try {
@@ -26,7 +27,7 @@ export async function verifyLoginCode(req: Request, dbManager: MongoDbManager): 
 
     const { email, loginCode } = body;
 
-    const users = db.collection<User>('users');
+    const users = db.collection<User>(DbCollection.USERS);
     const user = await users.findOne({ email });
     if (!user) return new UserNotFoundErrorResponse();
 

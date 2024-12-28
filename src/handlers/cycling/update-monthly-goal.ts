@@ -10,6 +10,7 @@ import {
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { Cycling, SetMonthlyGoalRequest, monthlyGoalSchema } from 'pk-common';
+import { DbCollection } from '../../utils/collections';
 
 export async function updateMonthlyGoal(
   req: Request,
@@ -31,7 +32,7 @@ export async function updateMonthlyGoal(
       return new ValidationErrorResponse(e);
     }
 
-    const collection = db.collection<Cycling>('cycling');
+    const collection = db.collection<Cycling>(DbCollection.CYCLING);
     const cyclingData = await collection.findOneAndUpdate(
       { userId: user.id },
       { $set: { monthlyGoal: requestBody.monthlyGoal } },

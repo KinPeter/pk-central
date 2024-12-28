@@ -3,6 +3,7 @@ import { AuthManager } from '../../utils/auth-manager';
 import { flightSchema, UUID } from 'pk-common';
 import { updateItemHandler } from '../_base-crud-handlers/update-handler';
 import { toFlightRequest } from '../../utils/request-mappers';
+import { DbCollection } from '../../utils/collections';
 
 export async function updateFlight(
   req: Request,
@@ -10,5 +11,14 @@ export async function updateFlight(
   dbManager: MongoDbManager,
   authManager: AuthManager
 ): Promise<Response> {
-  return await updateItemHandler(req, id, dbManager, authManager, 'flights', flightSchema, toFlightRequest, 'Flight');
+  return await updateItemHandler(
+    req,
+    id,
+    dbManager,
+    authManager,
+    DbCollection.FLIGHTS,
+    flightSchema,
+    toFlightRequest,
+    'Flight'
+  );
 }

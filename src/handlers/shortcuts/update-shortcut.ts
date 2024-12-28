@@ -3,6 +3,7 @@ import { AuthManager } from '../../utils/auth-manager';
 import { shortcutSchema, UUID } from 'pk-common';
 import { updateItemHandler } from '../_base-crud-handlers/update-handler';
 import { toShortcutRequest } from '../../utils/request-mappers';
+import { DbCollection } from '../../utils/collections';
 
 export async function updateShortcut(
   req: Request,
@@ -15,7 +16,7 @@ export async function updateShortcut(
     id,
     dbManager,
     authManager,
-    'shortcuts',
+    DbCollection.SHORTCUTS,
     shortcutSchema,
     toShortcutRequest,
     'Shortcut'

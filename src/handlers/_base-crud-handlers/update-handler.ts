@@ -12,13 +12,14 @@ import { UUID, ValidationError } from 'pk-common';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import * as yup from 'yup';
 import { ObjectSchema } from 'yup';
+import { DbCollection } from '../../utils/collections';
 
 export async function updateItemHandler(
   req: Request,
   id: UUID,
   dbManager: MongoDbManager,
   authManager: AuthManager,
-  collectionName: string,
+  collectionName: DbCollection,
   requestSchema: ObjectSchema<any>,
   requestMapper: (body: any) => any,
   itemName: string

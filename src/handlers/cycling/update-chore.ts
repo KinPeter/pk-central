@@ -10,6 +10,7 @@ import {
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { choreSchema, Cycling, CyclingChoreRequest, UUID } from 'pk-common';
+import { DbCollection } from '../../utils/collections';
 
 export async function updateChore(
   req: Request,
@@ -32,7 +33,7 @@ export async function updateChore(
       return new ValidationErrorResponse(e);
     }
 
-    const collection = db.collection<Cycling>('cycling');
+    const collection = db.collection<Cycling>(DbCollection.CYCLING);
     const existingCyclingData = await collection.findOne({ userId: user.id });
     if (!existingCyclingData) return new NotFoundErrorResponse('Cycling data for user');
     if (!existingCyclingData.chores?.length) return new NotFoundErrorResponse('Chores for user');

@@ -9,12 +9,13 @@ import {
 import { v4 as uuid } from 'uuid';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { ObjectSchema } from 'yup';
+import { DbCollection } from '../../utils/collections';
 
 export async function createItemHandler(
   req: Request,
   dbManager: MongoDbManager,
   authManager: AuthManager,
-  collectionName: string,
+  collectionName: DbCollection,
   requestSchema: ObjectSchema<any>,
   requestMapper: (body: any) => any
 ): Promise<Response> {

@@ -28,6 +28,7 @@ describe('updateGoals', () => {
       body: JSON.stringify(requestBody),
     });
     const response = await updateGoals(request, dbManager as unknown as MongoDbManager, authManager);
+    expect(db.collection).toHaveBeenCalledWith('activities');
     expect(collection.findOneAndUpdate).toHaveBeenCalled();
     expect(collection.findOneAndUpdate.mock.calls.slice(-1)[0]).toContainEqual({ userId: '123' });
     expect(response.status).toBe(200);

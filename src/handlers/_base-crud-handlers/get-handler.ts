@@ -2,12 +2,13 @@ import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { AuthManager } from '../../utils/auth-manager';
 import { OkResponse, UnauthorizedInvalidAccessTokenErrorResponse, UnknownErrorResponse } from '../../utils/response';
 import { omitIds } from '../../utils/omit-ids';
+import { DbCollection } from '../../utils/collections';
 
 export async function getItemsHandler(
   req: Request,
   dbManager: MongoDbManager,
   authManager: AuthManager,
-  collectionName: string
+  collectionName: DbCollection
 ): Promise<Response> {
   try {
     const { db } = await dbManager.getMongoDb();

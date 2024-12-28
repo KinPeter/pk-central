@@ -9,6 +9,7 @@ import {
 } from '../../utils/response';
 import { ApiError, AuthData, passwordAuthRequestSchema, User } from 'pk-common';
 import { getAccessToken, validatePassword } from '../../utils/crypt-jwt';
+import { DbCollection } from '../../utils/collections';
 
 export async function passwordLogin(req: Request, dbManager: MongoDbManager): Promise<Response> {
   try {
@@ -26,7 +27,7 @@ export async function passwordLogin(req: Request, dbManager: MongoDbManager): Pr
 
     const { email, password } = body;
 
-    const users = db.collection<User>('users');
+    const users = db.collection<User>(DbCollection.USERS);
     const user = await users.findOne({ email });
 
     if (!user) return new UserNotFoundErrorResponse();

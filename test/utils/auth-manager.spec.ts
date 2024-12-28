@@ -24,6 +24,7 @@ describe('AuthManager', () => {
       const { token } = getAccessToken('test@test.com', '123');
       const request = new Request('http://localhost:8888', { headers: { Authorization: `Bearer ${token}` } });
       const user = await authManager.authenticateUser(request, db as unknown as Db);
+      expect(db.collection).toHaveBeenCalledWith('users');
       expect(user?.id).toEqual('123');
       expect(user?.email).toEqual('test@test.com');
     });
@@ -32,6 +33,7 @@ describe('AuthManager', () => {
       collection.findOne.mockResolvedValue({ id: '123', email: 'test@test.com' });
       const request = new Request('http://localhost:8888', { headers: { Authorization: `Bearer invalidToken` } });
       const user = await authManager.authenticateUser(request, db as unknown as Db);
+      expect(db.collection).not.toHaveBeenCalled();
       expect(collection.findOne).not.toHaveBeenCalled();
       expect(user).toBeNull();
     });
@@ -41,6 +43,7 @@ describe('AuthManager', () => {
       const { token } = getAccessToken('test2@test.com', '123');
       const request = new Request('http://localhost:8888', { headers: { Authorization: `Bearer ${token}` } });
       const user = await authManager.authenticateUser(request, db as unknown as Db);
+      expect(db.collection).toHaveBeenCalledWith('users');
       expect(collection.findOne).toHaveBeenCalled();
       expect(user).toBeNull();
     });

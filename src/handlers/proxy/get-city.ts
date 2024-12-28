@@ -11,6 +11,7 @@ import { COORDINATES_QUERY_REGEX, ValidationError, VisitRequest } from 'pk-commo
 import { AuthManager } from '../../utils/auth-manager';
 import { FetchResponseType, HttpClient } from '../../utils/http-client';
 import { LocationIqReverseResponse, SharedKeys } from '../../utils/third-parties';
+import { DbCollection } from '../../utils/collections';
 
 export async function getCity(
   req: Request,
@@ -32,7 +33,7 @@ export async function getCity(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const sharedKeysCollection = db.collection<SharedKeys>('shared-keys');
+    const sharedKeysCollection = db.collection<SharedKeys>(DbCollection.SHARED_KEYS);
     const keys = await sharedKeysCollection.findOne();
     const locationApiKey = keys?.locationIqApiKey;
     if (!locationApiKey) return new NotFoundErrorResponse('Location IQ API key');

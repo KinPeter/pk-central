@@ -9,6 +9,7 @@ import {
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { Activities } from 'pk-common';
+import { DbCollection } from '../../utils/collections';
 
 export async function getActivities(
   req: Request,
@@ -22,7 +23,7 @@ export async function getActivities(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const collection = db.collection<Activities>('activities');
+    const collection = db.collection<Activities>(DbCollection.ACTIVITIES);
     const data = await collection.findOne({ userId: user.id });
     if (!data) return new NotFoundErrorResponse('Activities for user');
 

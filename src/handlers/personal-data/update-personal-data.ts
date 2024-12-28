@@ -3,6 +3,7 @@ import { AuthManager } from '../../utils/auth-manager';
 import { personalDataSchema, UUID } from 'pk-common';
 import { updateItemHandler } from '../_base-crud-handlers/update-handler';
 import { toPersonalDataRequest } from '../../utils/request-mappers';
+import { DbCollection } from '../../utils/collections';
 
 export async function updatePersonalData(
   req: Request,
@@ -15,7 +16,7 @@ export async function updatePersonalData(
     id,
     dbManager,
     authManager,
-    'personal-data',
+    DbCollection.PERSONAL_DATA,
     personalDataSchema,
     toPersonalDataRequest,
     'Personal data'

@@ -9,6 +9,7 @@ import {
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { Cycling } from 'pk-common';
+import { DbCollection } from '../../utils/collections';
 
 export async function getCycling(req: Request, dbManager: MongoDbManager, authManager: AuthManager): Promise<Response> {
   try {
@@ -18,7 +19,7 @@ export async function getCycling(req: Request, dbManager: MongoDbManager, authMa
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const collection = db.collection<Cycling>('cycling');
+    const collection = db.collection<Cycling>(DbCollection.CYCLING);
     const cyclingData = await collection.findOne({ userId: user.id });
     if (!cyclingData) return new NotFoundErrorResponse('Cycling for user');
 

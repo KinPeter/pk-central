@@ -11,6 +11,7 @@ import {
 import { v4 as uuid } from 'uuid';
 import { getHashed } from '../../utils/crypt-jwt';
 import { ApiError, IdObject, passwordAuthRequestSchema, User } from 'pk-common';
+import { DbCollection } from '../../utils/collections';
 
 export async function passwordSignup(
   req: Request,
@@ -30,7 +31,7 @@ export async function passwordSignup(
 
     const { email, password } = body;
     const { db } = await dbManager.getMongoDb();
-    const users = db.collection<User>('users');
+    const users = db.collection<User>(DbCollection.USERS);
     const existingUser = await users.findOne({ email });
 
     if (existingUser) {

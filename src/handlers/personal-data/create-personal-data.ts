@@ -3,6 +3,7 @@ import { AuthManager } from '../../utils/auth-manager';
 import { personalDataSchema } from 'pk-common';
 import { createItemHandler } from '../_base-crud-handlers/create-handler';
 import { toPersonalDataRequest } from '../../utils/request-mappers';
+import { DbCollection } from '../../utils/collections';
 
 export async function createPersonalData(
   req: Request,
@@ -13,7 +14,7 @@ export async function createPersonalData(
     req,
     dbManager,
     authManager,
-    'personal-data',
+    DbCollection.PERSONAL_DATA,
     personalDataSchema,
     toPersonalDataRequest
   );

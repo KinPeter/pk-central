@@ -35,6 +35,7 @@ describe('updateSettings', () => {
       body: JSON.stringify(validSettingsRequest),
     });
     const response = await updateSettings(request, dbManager as unknown as MongoDbManager, authManager);
+    expect(db.collection).toHaveBeenCalledWith('start-settings');
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.insertOne).toHaveBeenCalled();
     expect(collection.findOneAndUpdate).not.toHaveBeenCalled();

@@ -9,13 +9,14 @@ import {
 } from '../../utils/response';
 import { UUID, ValidationError } from 'pk-common';
 import * as yup from 'yup';
+import { DbCollection } from '../../utils/collections';
 
 export async function deleteItemHandler(
   req: Request,
   id: UUID,
   dbManager: MongoDbManager,
   authManager: AuthManager,
-  collectionName: string,
+  collectionName: DbCollection,
   itemName: string
 ): Promise<Response> {
   try {

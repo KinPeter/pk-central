@@ -9,6 +9,7 @@ import {
 import { PkStartSettings } from 'pk-common';
 import { AuthManager } from '../../utils/auth-manager';
 import { FetchResponseType, HttpClient } from '../../utils/http-client';
+import { DbCollection } from '../../utils/collections';
 
 export async function getBirthdays(
   req: Request,
@@ -23,7 +24,7 @@ export async function getBirthdays(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const settingsCollection = db.collection<PkStartSettings>('start-settings');
+    const settingsCollection = db.collection<PkStartSettings>(DbCollection.START_SETTINGS);
     const settings = await settingsCollection.findOne({ userId: user.id });
     const birthdaysUrl = settings?.birthdaysUrl;
     if (!birthdaysUrl) return new NotFoundErrorResponse('Birthdays URL');

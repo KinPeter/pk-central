@@ -29,6 +29,7 @@ describe('createInitialData', () => {
       body: undefined,
     });
     const response = await createInitialData(request, dbManager as unknown as MongoDbManager, authManager);
+    expect(db.collection).toHaveBeenCalledWith('cycling');
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.insertOne).toHaveBeenCalled();
     expect(response.status).toBe(201);

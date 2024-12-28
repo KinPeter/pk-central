@@ -37,6 +37,7 @@ describe('passwordSignup', () => {
       dbManager as unknown as MongoDbManager,
       emailManager as unknown as EmailManager
     );
+    expect(db.collection).toHaveBeenCalledWith('users');
     expect(collection.findOne).toHaveBeenCalledWith({ email: 'test@test.com' });
     expect(collection.insertOne).toHaveBeenCalled();
     expect(collection.updateOne).not.toHaveBeenCalled();

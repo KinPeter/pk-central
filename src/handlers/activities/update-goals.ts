@@ -10,6 +10,7 @@ import {
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { Activities, SetGoalsRequest, goalsSchema } from 'pk-common';
+import { DbCollection } from '../../utils/collections';
 
 export async function updateGoals(
   req: Request,
@@ -31,7 +32,7 @@ export async function updateGoals(
       return new ValidationErrorResponse(e);
     }
 
-    const collection = db.collection<Activities>('activities');
+    const collection = db.collection<Activities>(DbCollection.ACTIVITIES);
     const data = await collection.findOneAndUpdate(
       { userId: user.id },
       {

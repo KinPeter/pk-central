@@ -11,6 +11,7 @@ import { Airline, ValidationError } from 'pk-common';
 import { AuthManager } from '../../utils/auth-manager';
 import { FetchResponseType, HttpClient } from '../../utils/http-client';
 import { AirlabsAirlineResponse, SharedKeys } from '../../utils/third-parties';
+import { DbCollection } from '../../utils/collections';
 
 export async function getAirline(
   req: Request,
@@ -27,7 +28,7 @@ export async function getAirline(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const sharedKeysCollection = db.collection<SharedKeys>('shared-keys');
+    const sharedKeysCollection = db.collection<SharedKeys>(DbCollection.SHARED_KEYS);
     const keys = await sharedKeysCollection.findOne();
     const airlabsApiKey = keys?.airlabsApiKey;
     if (!airlabsApiKey) return new NotFoundErrorResponse('Airlabs API key');

@@ -30,6 +30,7 @@ describe('instantLoginCode', () => {
       body: JSON.stringify({ email: 'test@test.com' }),
     });
     const response = await instantLoginCode(request, dbManager as unknown as MongoDbManager);
+    expect(db.collection).toHaveBeenCalledWith('users');
     expect(collection.findOne).toHaveBeenCalledWith({ email: 'test@test.com' });
     expect(collection.insertOne).toHaveBeenCalled();
     expect(collection.updateOne).toHaveBeenCalled();

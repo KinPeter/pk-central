@@ -3,6 +3,7 @@ import { AuthManager } from '../../utils/auth-manager';
 import { noteSchema, UUID } from 'pk-common';
 import { updateItemHandler } from '../_base-crud-handlers/update-handler';
 import { toNoteRequest } from '../../utils/request-mappers';
+import { DbCollection } from '../../utils/collections';
 
 export async function updateNote(
   req: Request,
@@ -10,5 +11,14 @@ export async function updateNote(
   dbManager: MongoDbManager,
   authManager: AuthManager
 ): Promise<Response> {
-  return await updateItemHandler(req, id, dbManager, authManager, 'notes', noteSchema, toNoteRequest, 'Note');
+  return await updateItemHandler(
+    req,
+    id,
+    dbManager,
+    authManager,
+    DbCollection.NOTES,
+    noteSchema,
+    toNoteRequest,
+    'Note'
+  );
 }

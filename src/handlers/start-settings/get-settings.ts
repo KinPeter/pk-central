@@ -8,6 +8,7 @@ import {
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { PkStartSettings } from 'pk-common';
+import { DbCollection } from '../../utils/collections';
 
 export async function getSettings(
   req: Request,
@@ -19,7 +20,7 @@ export async function getSettings(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const collection = db.collection<PkStartSettings>('start-settings');
+    const collection = db.collection<PkStartSettings>(DbCollection.START_SETTINGS);
     const settings = await collection.findOne({ userId: user.id });
     if (!settings) return new NotFoundErrorResponse('Start settings for user');
 

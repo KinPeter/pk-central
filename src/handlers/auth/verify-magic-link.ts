@@ -9,6 +9,7 @@ import {
 } from '../../utils/response';
 import { getAccessToken, verifyToken } from '../../utils/crypt-jwt';
 import { ApiError, magicLinkParamsSchema, User } from 'pk-common';
+import { DbCollection } from '../../utils/collections';
 
 export async function verifyMagicLink(req: Request, context: Context, dbManager: MongoDbManager): Promise<Response> {
   try {
@@ -28,7 +29,7 @@ export async function verifyMagicLink(req: Request, context: Context, dbManager:
 
     const { db } = await dbManager.getMongoDb();
 
-    const users = db.collection<User>('users');
+    const users = db.collection<User>(DbCollection.USERS);
     const user = await users.findOne({ id });
     if (!user) return new UserNotFoundErrorResponse();
 
