@@ -623,7 +623,7 @@ export const pkStartSettingsSchema = yup.object({
 });
 </pre>
       </details>
-    <div class="function"><h2>Cycling</h2><p>Endpoints for cycling data on PK Start</p>
+    <div class="function"><h2>Cycling [DEPRECATED]</h2><p>Endpoints for cycling data on PK Start [DEPRECATED] - Use the Activities API instead</p>
       <div class="endpoint get">
         <details>
           <summary>
@@ -744,15 +744,9 @@ export const pkStartSettingsSchema = yup.object({
       </div>
     </div>
       <details class="code-block-details">
-        <summary class="code-block-summary">Cycling types</summary>
+        <summary class="code-block-summary">Cycling [DEPRECATED] types</summary>
         <pre>import { BaseEntity, UUID } from &apos;./misc&apos;;
-
-export interface CyclingChore {
-  id: UUID;
-  name: string;
-  kmInterval: number;
-  lastKm: number;
-}
+import { CyclingChore } from &apos;./activities&apos;;
 
 export interface Cycling extends BaseEntity {
   userId: UUID;
@@ -763,12 +757,11 @@ export interface Cycling extends BaseEntity {
 
 export type SetWeeklyGoalRequest = Pick&lt;Cycling, &apos;weeklyGoal&apos;&gt;;
 export type SetMonthlyGoalRequest = Pick&lt;Cycling, &apos;monthlyGoal&apos;&gt;;
-export type CyclingChoreRequest = Omit&lt;CyclingChore, &apos;id&apos;&gt;;
 </pre>
       </details>
     
       <details class="code-block-details">
-        <summary class="code-block-summary">Cycling validators</summary>
+        <summary class="code-block-summary">Cycling [DEPRECATED] validators</summary>
         <pre>import * as yup from 'yup';
 import { ValidationError } from '../enums';
 
@@ -779,11 +772,155 @@ export const weeklyGoalSchema = yup.object({
 export const monthlyGoalSchema = yup.object({
   monthlyGoal: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
 });
+</pre>
+      </details>
+    <div class="function"><h2>Activities</h2><p>Endpoints for activities data on PK Start</p>
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/activities</span>
+          </summary>
+          <div class="details">
+            <p>Get the activities data of the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Activities</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/activities/initialize</span>
+          </summary>
+          <div class="details">
+            <p>Initialize activities data for the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Activities</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint patch">
+        <details>
+          <summary>
+            <span class="method">PATCH</span>
+            <span class="route">/activities/goals</span>
+          </summary>
+          <div class="details">
+            <p>Set weekly and monthly goals for the current user</p>
+            <p class="info">
+              <span>Request body:<code class="request">SetGoalsRequest</code></span>
+              <span>Returns:<code class="response">Activities</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/activities/chore</span>
+          </summary>
+          <div class="details">
+            <p>Create a new chore</p>
+            <p class="info">
+              <span>Request body:<code class="request">CyclingChoreRequest</code></span>
+              <span>Returns:<code class="response">Activities</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint put">
+        <details>
+          <summary>
+            <span class="method">PUT</span>
+            <span class="route">/activities/chore/:id</span>
+          </summary>
+          <div class="details">
+            <p>Update a chore</p>
+            <p class="info">
+              <span>Request body:<code class="request">CyclingChoreRequest</code></span>
+              <span>Returns:<code class="response">Activities</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint delete">
+        <details>
+          <summary>
+            <span class="method">DELETE</span>
+            <span class="route">/activities/chore/:id</span>
+          </summary>
+          <div class="details">
+            <p>Remove a chore</p>
+            <p class="info">
+              <span>Request body:<code class="request">None</code></span>
+              <span>Returns:<code class="response">Activities</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+      <details class="code-block-details">
+        <summary class="code-block-summary">Activities types</summary>
+        <pre>import { BaseEntity, UUID } from &apos;./misc&apos;;
+
+export interface CyclingChore {
+  id: UUID;
+  name: string;
+  kmInterval: number;
+  lastKm: number;
+}
+
+export interface Activities extends BaseEntity {
+  userId: UUID;
+  cyclingWeeklyGoal: number | null;
+  cyclingMonthlyGoal: number | null;
+  walkWeeklyGoal: number | null;
+  walkMonthlyGoal: number | null;
+  chores: CyclingChore[] | null;
+}
+
+export type SetGoalsRequest = Pick&lt;
+  Activities,
+  &apos;cyclingWeeklyGoal&apos; | &apos;cyclingMonthlyGoal&apos; | &apos;walkWeeklyGoal&apos; | &apos;walkMonthlyGoal&apos;
+&gt;;
+export type CyclingChoreRequest = Omit&lt;CyclingChore, &apos;id&apos;&gt;;
+</pre>
+      </details>
+    
+      <details class="code-block-details">
+        <summary class="code-block-summary">Activities validators</summary>
+        <pre>import * as yup from 'yup';
+import { ValidationError } from '../enums';
 
 export const choreSchema = yup.object({
   kmInterval: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
   lastKm: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
   name: yup.string().strict().min(2, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+});
+
+export const goalsSchema = yup.object({
+  cyclingWeeklyGoal: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
+  cyclingMonthlyGoal: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
+  walkWeeklyGoal: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
+  walkMonthlyGoal: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
 });
 </pre>
       </details>
@@ -832,6 +969,7 @@ import { Cycling } from &apos;./cycling&apos;;
 import { PkStartSettings } from &apos;./start-settings&apos;;
 import { Flight } from &apos;./flights&apos;;
 import { Visit } from &apos;./visits&apos;;
+import { Activities } from &apos;./activities&apos;;
 
 export interface DataBackup {
   user: User;
@@ -840,6 +978,7 @@ export interface DataBackup {
   shortcuts: Shortcut[];
   personalData: PersonalData[];
   cycling: Cycling;
+  activities: Activities;
   flights: Flight[];
   visits: Visit[];
 }

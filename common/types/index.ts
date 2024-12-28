@@ -1,5 +1,6 @@
 export * from './misc';
 export * from './auth';
+export * from './activities';
 export * from './start-settings';
 export * from './shortcuts';
 export * from './notes';

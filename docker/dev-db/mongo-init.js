@@ -315,6 +315,45 @@ db.getCollection('cycling').insertMany([
   },
 ])
 
+db.createCollection('activities')
+
+db.getCollection('activities').insertMany([
+  {
+    id: '98c09625-3396-4f5b-87d1-2967b823ad33',
+    createdAt: new Date(),
+    userId: 'a06ef9a2-d1ff-417d-bce7-75188a6118c1',
+    walkWeeklyGoal: 30,
+    walkMonthlyGoal: 100,
+    cyclingWeeklyGoal: 60,
+    cyclingMonthlyGoal: 300,
+    chores: [
+      {
+        id: '61673674-c6b1-4c0d-84c5-79f4c5efea34',
+        name: 'chain cleaning',
+        kmInterval: 300,
+        lastKm: 4926.2,
+      },
+    ],
+  },
+  {
+    id: '34c09625-3396-4f5b-87d1-2967b823af43',
+    createdAt: new Date(),
+    userId: 'c13ef9a2-d1ff-417d-bce7-75188a6114d2',
+    walkWeeklyGoal: 9,
+    walkMonthlyGoal: 29,
+    cyclingWeeklyGoal: 99,
+    cyclingMonthlyGoal: 999,
+    chores: [
+      {
+        id: '32373674-c6b1-4c0d-84c5-79f4c5efee72',
+        name: 'other chain cleaning',
+        kmInterval: 300,
+        lastKm: 4926.2,
+      },
+    ],
+  },
+])
+
 db.createCollection('flights')
 
 db.getCollection('flights').insertMany([

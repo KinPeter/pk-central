@@ -183,8 +183,8 @@ functions:
         response: PkStartSettings
         authenticated: True
 
-  - name: Cycling
-    description: Endpoints for cycling data on PK Start
+  - name: Cycling [DEPRECATED]
+    description: Endpoints for cycling data on PK Start [DEPRECATED] - Use the Activities API instead
     types: types/cycling.ts
     validators: validators/cycling.ts
     endpoints:
@@ -236,6 +236,54 @@ functions:
         description: Remove a chore
         request: null
         response: Cycling
+        authenticated: True
+
+  - name: Activities
+    description: Endpoints for activities data on PK Start
+    types: types/activities.ts
+    validators: validators/activities.ts
+    endpoints:
+      # GET Fetch activities data
+      - method: GET
+        route: /activities
+        description: Get the activities data of the current user
+        request: null
+        response: Activities
+        authenticated: True
+      # POST Initialize activities data
+      - method: POST
+        route: /activities/initialize
+        description: Initialize activities data for the current user
+        request: null
+        response: Activities
+        authenticated: True
+      # PATCH Update goals
+      - method: PATCH
+        route: /activities/goals
+        description: Set weekly and monthly goals for the current user
+        request: SetGoalsRequest
+        response: Activities
+        authenticated: True
+      # POST Add chore
+      - method: POST
+        route: /activities/chore
+        description: Create a new chore
+        request: CyclingChoreRequest
+        response: Activities
+        authenticated: True
+      # PUT Update a chore
+      - method: PUT
+        route: /activities/chore/:id
+        description: Update a chore
+        request: CyclingChoreRequest
+        response: Activities
+        authenticated: True
+      # DELETE Delete a chore
+      - method: DELETE
+        route: /activities/chore/:id
+        description: Remove a chore
+        request: null
+        response: Activities
         authenticated: True
 
   - name: Data backup

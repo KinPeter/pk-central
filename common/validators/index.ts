@@ -1,4 +1,5 @@
 export * from './auth';
+export * from './activities';
 export * from './start-settings';
 export * from './cycling';
 export * from './notes';

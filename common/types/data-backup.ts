@@ -6,6 +6,7 @@ import { Cycling } from './cycling';
 import { PkStartSettings } from './start-settings';
 import { Flight } from './flights';
 import { Visit } from './visits';
+import { Activities } from './activities';
 
 export interface DataBackup {
   user: User;
@@ -14,6 +15,7 @@ export interface DataBackup {
   shortcuts: Shortcut[];
   personalData: PersonalData[];
   cycling: Cycling;
+  activities: Activities;
   flights: Flight[];
   visits: Visit[];
 }

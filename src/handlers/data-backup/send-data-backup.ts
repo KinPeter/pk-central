@@ -6,7 +6,17 @@ import {
   UnauthorizedInvalidAccessTokenErrorResponse,
   UnknownErrorResponse,
 } from '../../utils/response';
-import { Cycling, DataBackup, Flight, Note, PersonalData, PkStartSettings, Shortcut, Visit } from 'pk-common';
+import {
+  Cycling,
+  Activities,
+  DataBackup,
+  Flight,
+  Note,
+  PersonalData,
+  PkStartSettings,
+  Shortcut,
+  Visit,
+} from 'pk-common';
 import { AuthManager } from '../../utils/auth-manager';
 
 export async function sendDataBackup(
@@ -27,6 +37,9 @@ export async function sendDataBackup(
     const settingsCollection = db.collection<PkStartSettings>('start-settings');
     result.startSettings = (await settingsCollection.findOne({ userId: user.id })) ?? ({} as PkStartSettings);
     const name = result.startSettings?.name ?? 'User';
+
+    const activitiesCollection = db.collection<Activities>('activities');
+    result.activities = (await activitiesCollection.findOne({ userId: user.id })) ?? ({} as Activities);
 
     const cyclingCollection = db.collection<Cycling>('cycling');
     result.cycling = (await cyclingCollection.findOne({ userId: user.id })) ?? ({} as Cycling);

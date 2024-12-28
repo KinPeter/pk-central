@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 
 const backupPath = path.resolve(__dirname, 'pk-central-backup.json');
 
-const { user, startSettings, cycling, flights, notes, personalData, shortcuts, visits } = JSON.parse(
+const { user, startSettings, cycling, flights, notes, personalData, shortcuts, visits, activities } = JSON.parse(
   fs.readFileSync(backupPath, { encoding: 'utf-8' })
 );
 
@@ -85,6 +85,16 @@ const cyclingCollection = db.collection('cycling');
 delete cycling._id;
 const cyclingResult = await cyclingCollection.insertOne(cycling);
 console.log(`${cyclingResult.insertedId ? 1 : 0} documents were inserted to ${cyclingCollection.collectionName}.`);
+
+/**
+ * Activities
+ */
+const activitiesCollection = db.collection('activities');
+delete activities._id;
+const activitiesResult = await activitiesCollection.insertOne(activities);
+console.log(
+  `${activitiesResult.insertedId ? 1 : 0} documents were inserted to ${activitiesCollection.collectionName}.`
+);
 
 /**
  * Close connection
