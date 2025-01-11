@@ -1,4 +1,4 @@
-import { DataBackup } from 'pk-common';
+import { DataBackup } from '../../common';
 
 export interface EmailManager {
   sendLoginCode(email: string, loginCode: string, magicLinkToken: string): Promise<any>;

@@ -3,7 +3,7 @@ import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { getActivities } from '../../../src/handlers/activities/get-activities';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 
 const result = { _id: 'm1', id: 'uuid1', userId: '123', walkWeeklyGoal: 200 };
 

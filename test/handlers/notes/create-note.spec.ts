@@ -2,7 +2,7 @@ import { describe, beforeEach, it, expect } from '@jest/globals';
 import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 import { invalidNoteRequests, validNoteRequests } from '../../../test-utils/test-data/notes';
 import { createNote } from '../../../src/handlers/notes/create-note';
 

@@ -7,7 +7,7 @@ import {
   UserNotFoundErrorResponse,
   ValidationErrorResponse,
 } from '../../utils/response';
-import { ApiError, AuthData, passwordAuthRequestSchema, User } from 'pk-common';
+import { ApiError, AuthData, passwordAuthRequestSchema, User } from '../../../common';
 import { getAccessToken, validatePassword } from '../../utils/crypt-jwt';
 import { DbCollection } from '../../utils/collections';
 

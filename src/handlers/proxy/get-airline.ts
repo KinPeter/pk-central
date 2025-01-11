@@ -7,7 +7,7 @@ import {
   UnknownErrorResponse,
   ValidationErrorResponse,
 } from '../../utils/response';
-import { Airline, ValidationError } from 'pk-common';
+import { Airline, ValidationError } from '../../../common';
 import { AuthManager } from '../../utils/auth-manager';
 import { FetchResponseType, HttpClient } from '../../utils/http-client';
 import { AirlabsAirlineResponse, SharedKeys } from '../../utils/third-parties';

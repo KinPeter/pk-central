@@ -3,7 +3,7 @@ import { MockDb, MockCollection, MockCursor, MockDbManager } from '../../../test
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { AuthManager } from '../../../src/utils/auth-manager';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 import { getFlights } from '../../../src/handlers/flights/get-flights';
 import { flights } from '../../../test-utils/test-data/flights';
 

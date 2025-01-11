@@ -9,7 +9,7 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { Activities, CyclingChoreRequest, choreSchema } from 'pk-common';
+import { Activities, type CyclingChoreRequest, choreSchema } from '../../../common';
 import { v4 as uuid } from 'uuid';
 import { toCyclingChoreRequest } from '../../utils/request-mappers';
 import { DbCollection } from '../../utils/collections';

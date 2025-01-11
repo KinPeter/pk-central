@@ -8,7 +8,7 @@ import {
   MethodNotAllowedResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { Cycling } from 'pk-common';
+import { Cycling } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function getCycling(req: Request, dbManager: MongoDbManager, authManager: AuthManager): Promise<Response> {

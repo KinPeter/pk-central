@@ -6,7 +6,7 @@ import {
   UnauthorizedInvalidAccessTokenErrorResponse,
   UnknownErrorResponse,
 } from '../../utils/response';
-import { PkStartSettings } from 'pk-common';
+import { PkStartSettings } from '../../../common';
 import { AuthManager } from '../../utils/auth-manager';
 import { FetchResponseType, HttpClient } from '../../utils/http-client';
 import { DbCollection } from '../../utils/collections';

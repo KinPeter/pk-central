@@ -10,7 +10,7 @@ import {
 } from '../../utils/response';
 import { v4 as uuid } from 'uuid';
 import { getHashed } from '../../utils/crypt-jwt';
-import { ApiError, IdObject, passwordAuthRequestSchema, User } from 'pk-common';
+import { ApiError, IdObject, passwordAuthRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function passwordSignup(

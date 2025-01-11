@@ -1,4 +1,4 @@
-import { UUID } from './misc';
+import type { UUID } from './misc';
 
 export interface User {
   id: UUID;

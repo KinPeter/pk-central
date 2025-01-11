@@ -8,7 +8,7 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { getHashed } from '../../utils/crypt-jwt';
-import { IdObject, passwordAuthRequestSchema, User } from 'pk-common';
+import { IdObject, passwordAuthRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function setPassword(

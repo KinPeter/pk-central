@@ -1,4 +1,4 @@
-import { PersonalData, PersonalDataRequest } from 'pk-common';
+import { PersonalData, type PersonalDataRequest } from '../../common';
 
 export const personalDataObjects: PersonalData[] = [
   {

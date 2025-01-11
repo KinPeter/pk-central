@@ -8,10 +8,8 @@
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
     "strict": true /* Enable all strict type-checking options. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-    "baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
-    "paths": {
-      "pk-common": ["common/index.ts"]
-    } /* Specify a set of entries that re-map imports to additional lookup locations. */
+    "baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */
+    /* Specify a set of entries that re-map imports to additional lookup locations. */
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */

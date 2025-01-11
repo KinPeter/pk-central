@@ -3,7 +3,7 @@ import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/
 import { MockEmailManager } from '../../../test-utils/mock/email.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { EmailManager } from '../../../src/utils/email-manager';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 import { passwordSignup } from '../../../src/handlers/auth/password-signup';
 
 describe('passwordSignup', () => {

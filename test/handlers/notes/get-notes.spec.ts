@@ -5,7 +5,7 @@ import { notes } from '../../../test-utils/test-data/notes';
 import { getNotes } from '../../../src/handlers/notes/get-notes';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { AuthManager } from '../../../src/utils/auth-manager';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 
 describe('getNotes', () => {
   let db: MockDb;

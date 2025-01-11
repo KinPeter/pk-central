@@ -2,7 +2,7 @@ import { describe, beforeEach, it, expect } from '@jest/globals';
 import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 import { shortcuts } from '../../../test-utils/test-data/shortcuts';
 import { getShortcuts } from '../../../src/handlers/shortcuts/get-shortcuts';
 

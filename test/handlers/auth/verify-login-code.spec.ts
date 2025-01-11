@@ -3,7 +3,7 @@ import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { verifyLoginCode } from '../../../src/handlers/auth/verify-login-code';
 import { getLoginCode } from '../../../src/utils/crypt-jwt';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 
 describe('verifyLoginCode', () => {
   let db: MockDb;

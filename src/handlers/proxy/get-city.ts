@@ -7,7 +7,7 @@ import {
   UnknownErrorResponse,
   ValidationErrorResponse,
 } from '../../utils/response';
-import { COORDINATES_QUERY_REGEX, ValidationError, VisitRequest } from 'pk-common';
+import { COORDINATES_QUERY_REGEX, ValidationError, type VisitRequest } from '../../../common';
 import { AuthManager } from '../../utils/auth-manager';
 import { FetchResponseType, HttpClient } from '../../utils/http-client';
 import { LocationIqReverseResponse, SharedKeys } from '../../utils/third-parties';

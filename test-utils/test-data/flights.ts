@@ -1,4 +1,4 @@
-import { Flight, FlightClass, FlightReason, FlightRequest, SeatType } from 'pk-common';
+import { Flight, FlightClass, FlightReason, type FlightRequest, SeatType } from '../../common';
 
 export const flights: Flight[] = [
   {

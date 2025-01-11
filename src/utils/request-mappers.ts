@@ -13,7 +13,7 @@ import {
   VisitRequest,
   Flight,
   FlightRequest,
-} from 'pk-common';
+} from '../../common';
 
 export function toPkStartSettingsRequest(body: Partial<PkStartSettings>): PkStartSettingsRequest {
   return {

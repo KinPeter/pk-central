@@ -1,4 +1,4 @@
-import { UUID, ValidationError } from 'pk-common';
+import { type UUID, ValidationError } from '../../../common';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import * as yup from 'yup';
 import { ErrorResponse, MethodNotAllowedResponse, OkResponse, UnknownErrorResponse } from '../../utils/response';

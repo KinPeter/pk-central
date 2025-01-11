@@ -1,4 +1,4 @@
-import { Cycling, CyclingChoreRequest } from 'pk-common';
+import { Cycling, type CyclingChoreRequest } from '../../common';
 
 export const cyclingData: Cycling = {
   userId: '123',

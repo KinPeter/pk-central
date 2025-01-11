@@ -8,7 +8,7 @@ import {
 } from '../../utils/response';
 import { v4 as uuid } from 'uuid';
 import { getLoginCode } from '../../utils/crypt-jwt';
-import { emailRequestSchema, User } from 'pk-common';
+import { emailRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function instantLoginCode(req: Request, dbManager: MongoDbManager): Promise<Response> {

@@ -1,5 +1,5 @@
 import { describe, it, expect, jest, beforeEach } from '@jest/globals';
-import { DataBackup } from 'pk-common';
+import { DataBackup } from '../../common';
 import { NodeMailerManager, TransportCreatorFn } from '../../src/utils/node-mailer-manager';
 
 describe('NodeMailerManager', () => {

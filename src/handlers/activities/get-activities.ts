@@ -8,7 +8,7 @@ import {
   MethodNotAllowedResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { Activities } from 'pk-common';
+import { Activities } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function getActivities(

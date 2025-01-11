@@ -1,4 +1,4 @@
-import { Activities, CyclingChoreRequest, SetGoalsRequest } from 'pk-common';
+import { Activities, type CyclingChoreRequest, type SetGoalsRequest } from '../../common';
 
 export const activitiesData: Activities = {
   userId: '123',

@@ -2,7 +2,7 @@ import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { AuthManager } from '../../utils/auth-manager';
 import { OkResponse, UnauthorizedInvalidAccessTokenErrorResponse, UnknownErrorResponse } from '../../utils/response';
 import { omitIds } from '../../utils/omit-ids';
-import { DbCollection } from '../../utils/collections';
+import type { DbCollection } from '../../utils/collections';
 
 export async function getItemsHandler(
   req: Request,

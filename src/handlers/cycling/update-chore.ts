@@ -9,7 +9,7 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { choreSchema, Cycling, CyclingChoreRequest, UUID } from 'pk-common';
+import { choreSchema, Cycling, type CyclingChoreRequest, type UUID } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function updateChore(

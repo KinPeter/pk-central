@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from '@jest/globals';
 import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
-import { ApiError, LOGIN_CODE_REGEX } from 'pk-common';
+import { ApiError, LOGIN_CODE_REGEX } from '../../../common';
 import { instantLoginCode } from '../../../src/handlers/auth/instant-login-code';
 
 describe('instantLoginCode', () => {

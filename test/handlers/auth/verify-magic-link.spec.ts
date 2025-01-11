@@ -4,7 +4,7 @@ import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { getLoginCode } from '../../../src/utils/crypt-jwt';
 import { verifyMagicLink } from '../../../src/handlers/auth/verify-magic-link';
 import { Context } from '@netlify/functions';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 
 describe('verifyMagicLink', () => {
   let db: MockDb;

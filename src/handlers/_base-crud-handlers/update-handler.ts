@@ -8,11 +8,11 @@ import {
   UnknownErrorResponse,
   ValidationErrorResponse,
 } from '../../utils/response';
-import { UUID, ValidationError } from 'pk-common';
+import { type UUID, ValidationError } from '../../../common';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import * as yup from 'yup';
 import { ObjectSchema } from 'yup';
-import { DbCollection } from '../../utils/collections';
+import type { DbCollection } from '../../utils/collections';
 
 export async function updateItemHandler(
   req: Request,

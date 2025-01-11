@@ -1,4 +1,4 @@
-import { Config, Context } from '@netlify/functions';
+import type { Config, Context } from '@netlify/functions';
 import { CorsOkResponse, UnknownOperationErrorResponse } from '../src/utils/response';
 import { MongoDbManager } from '../src/utils/mongo-db-manager';
 import { getAllTrips } from '../src/handlers/public/get-all-trips';

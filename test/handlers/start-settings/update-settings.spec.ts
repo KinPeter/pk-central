@@ -3,7 +3,7 @@ import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { updateSettings } from '../../../src/handlers/start-settings/update-settings';
-import { ApiError, PkStartSettings } from 'pk-common';
+import { ApiError, PkStartSettings } from '../../../common';
 import {
   invalidRequestBodies,
   updatedSettings,

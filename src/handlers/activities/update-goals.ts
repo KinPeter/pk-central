@@ -9,7 +9,7 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { Activities, SetGoalsRequest, goalsSchema } from 'pk-common';
+import { Activities, type SetGoalsRequest, goalsSchema } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function updateGoals(

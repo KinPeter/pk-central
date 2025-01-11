@@ -8,7 +8,7 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { getAccessToken, validateLoginCode } from '../../utils/crypt-jwt';
-import { ApiError, AuthData, loginVerifyRequestSchema, User } from 'pk-common';
+import { ApiError, AuthData, loginVerifyRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function verifyLoginCode(req: Request, dbManager: MongoDbManager): Promise<Response> {

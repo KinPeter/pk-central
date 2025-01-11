@@ -6,7 +6,7 @@ import {
   UnknownErrorResponse,
   ValidationErrorResponse,
 } from '../../utils/response';
-import { PkStartSettings, pkStartSettingsSchema } from 'pk-common';
+import { PkStartSettings, pkStartSettingsSchema } from '../../../common';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { v4 as uuid } from 'uuid';
 import { toPkStartSettingsRequest } from '../../utils/request-mappers';

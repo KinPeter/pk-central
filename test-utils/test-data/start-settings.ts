@@ -1,4 +1,4 @@
-import { PkStartSettings, PkStartSettingsRequest } from 'pk-common';
+import { PkStartSettings, type PkStartSettingsRequest } from '../../common';
 
 export const validSettingsRequest: PkStartSettingsRequest = {
   name: 'testuser',

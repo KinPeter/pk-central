@@ -9,7 +9,7 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { Cycling, SetWeeklyGoalRequest, weeklyGoalSchema } from 'pk-common';
+import { Cycling, type SetWeeklyGoalRequest, weeklyGoalSchema } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function updateWeeklyGoal(

@@ -1,3 +1,4 @@
+import { type UUID, ValidationError } from '../../../common';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { AuthManager } from '../../utils/auth-manager';
 import {
@@ -7,9 +8,8 @@ import {
   UnauthorizedInvalidAccessTokenErrorResponse,
   UnknownErrorResponse,
 } from '../../utils/response';
-import { UUID, ValidationError } from 'pk-common';
 import * as yup from 'yup';
-import { DbCollection } from '../../utils/collections';
+import type { DbCollection } from '../../utils/collections';
 
 export async function deleteItemHandler(
   req: Request,

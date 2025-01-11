@@ -1,4 +1,5 @@
-import { BaseEntity, UUID } from './misc';
+import { BaseEntity } from './misc';
+import type { UUID } from './misc';
 
 export interface Link {
   name: string;

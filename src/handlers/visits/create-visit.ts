@@ -1,6 +1,6 @@
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { AuthManager } from '../../utils/auth-manager';
-import { visitSchema } from 'pk-common';
+import { visitSchema } from '../../../common';
 import { createItemHandler } from '../_base-crud-handlers/create-handler';
 import { toVisitRequest } from '../../utils/request-mappers';
 import { DbCollection } from '../../utils/collections';
