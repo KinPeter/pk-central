@@ -1,7 +1,9 @@
-export enum FetchResponseType {
-  JSON,
-  TEXT,
-}
+export const FetchResponseType = {
+  JSON: 'JSON',
+  TEXT: 'TEXT',
+} as const;
+
+export type FetchResponseType = (typeof FetchResponseType)[keyof typeof FetchResponseType];
 
 export type FetchFn = typeof fetch;
 
@@ -46,7 +48,7 @@ export class HttpClient {
     method: string,
     path: string,
     body: unknown,
-    responseType = FetchResponseType.JSON
+    responseType: FetchResponseType = FetchResponseType.JSON
   ): Promise<T> {
     const requestInit: RequestInit = { method };
     if (body) {

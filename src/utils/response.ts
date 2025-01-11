@@ -1,5 +1,6 @@
 import { ValidationError as YupValidationError } from 'yup';
-import { ApiError, ValidationError } from 'pk-common';
+import { ApiError } from 'pk-common';
+import type { ValidationError } from 'pk-common';
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
