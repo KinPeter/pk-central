@@ -1,4 +1,4 @@
-import type { Config, Context } from '@netlify/functions';
+import { Config, Context } from '../server/types';
 import { CorsOkResponse, MethodNotAllowedResponse } from '../src/utils/response';
 import { MongoDbManager } from '../src/utils/mongo-db-manager';
 import { AuthManager } from '../src/utils/auth-manager';

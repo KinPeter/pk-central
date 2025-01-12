@@ -1,4 +1,4 @@
-import { Context } from '@netlify/functions';
+import { Context } from '../../../server/types';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import {
   MethodNotAllowedResponse,

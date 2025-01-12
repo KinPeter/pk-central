@@ -1,25 +1,27 @@
 import { readdir } from 'fs/promises';
 import { join, extname } from 'path';
 import { pathToFileURL } from 'url';
+import { HandlerFunction, Config, ApiFunctionModule } from './types';
 
-export async function importFunctions(functionsDir: string) {
+export async function importFunctions(functionsDir: string): Promise<ApiFunctionModule[]> {
   const files = await readdir(functionsDir);
+  const modules: ApiFunctionModule[] = [];
 
   for (const file of files) {
     if (extname(file) === '.ts') {
+      console.log('Importing file:', file);
       const filePath = join(functionsDir, file);
-      const module = await import(pathToFileURL(filePath).toString());
+      const imported = await import(pathToFileURL(filePath).toString());
 
-      // Access default export function and other const object
-      const defaultFunction = module.default;
-      const exportedObject = module.config;
+      const name = file.replace('.ts', '');
+      const handler: HandlerFunction = imported.default;
+      const config: Config = imported.config;
+      const module = { handler, config, name };
 
-      console.log('Imported function:', defaultFunction);
-      console.log('Imported object:', exportedObject);
-
-      // You can now use the imported function and object
-      // defaultFunction();
-      // console.log(exportedObject);
+      modules.push(module);
+      console.log(`Imported ${name}: ${config.path.join(', ')} (${config.method.join(', ')})`);
     }
   }
+
+  return modules;
 }
