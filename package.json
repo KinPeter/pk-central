@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "netlify dev --no-open",
     "serve": "tsx ./server.ts",
+    "serve:docker": "docker-compose up --build",
     "lint": "eslint . --ext .ts",
     "format:check": "prettier --check \"**/*.{ts,json}\"",
     "format": "prettier --write \"**/*.{ts,json}\"",

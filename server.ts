@@ -6,7 +6,7 @@ import { join } from 'path';
 import http, { IncomingMessage, ServerResponse } from 'http';
 import 'dotenv/config';
 
-const hostname = '127.0.0.1';
+const hostname = '0.0.0.0';
 const port = 5678;
 
 const __filename = fileURLToPath(import.meta.url);
