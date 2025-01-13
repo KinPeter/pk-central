@@ -1,3 +1,4 @@
+import { createInitialActivities, createInitialStartSettings } from '../../utils/create-initial-data';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { EmailManager } from '../../utils/email-manager';
 import {
@@ -47,7 +48,15 @@ export async function passwordSignup(
     const { hashedString: passwordHash, salt: passwordSalt } = await getHashed(password);
     await users.insertOne({ id, email, passwordHash, passwordSalt });
     console.log('Created new user:', email, id);
-    emailManager.sendSignupNotification(email).then(); // no need to await this
+
+    if (process.env.PK_ENV !== 'test') {
+      emailManager.sendSignupNotification(email).then(); // no need to await this
+    }
+
+    await createInitialStartSettings(db, id);
+    console.log('Created initial start settings data');
+    await createInitialActivities(db, id);
+    console.log('Created initial activities data');
 
     return new OkResponse<IdObject>({ id }, 201);
   } catch (e) {

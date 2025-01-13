@@ -1,15 +1,15 @@
 db.createUser({
-  user: 'pkstartdev',
-  pwd: 'pkstartdev',
+  user: 'tester',
+  pwd: 'tester',
   roles: [
     {
       role: 'readWrite',
-      db: 'pkstartdev',
+      db: 'testdb',
     },
   ],
 })
 
-db = db.getSiblingDB('pkstartdev')
+db = db.getSiblingDB('testdb')
 
 db.createCollection('init')
 

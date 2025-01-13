@@ -32,7 +32,6 @@ dist-ssr
 docker/
 seed/
 test/
-test-utils/
 jest.config.ts
 netlify.toml
 

@@ -38,8 +38,10 @@ describe('passwordSignup', () => {
       emailManager as unknown as EmailManager
     );
     expect(db.collection).toHaveBeenCalledWith('users');
+    expect(db.collection).toHaveBeenCalledWith('start-settings');
+    expect(db.collection).toHaveBeenCalledWith('activities');
     expect(collection.findOne).toHaveBeenCalledWith({ email: 'test@test.com' });
-    expect(collection.insertOne).toHaveBeenCalled();
+    expect(collection.insertOne).toHaveBeenCalledTimes(3);
     expect(collection.updateOne).not.toHaveBeenCalled();
     expect(emailManager.sendSignupNotification).toHaveBeenCalled();
     expect(response.status).toBe(201);
