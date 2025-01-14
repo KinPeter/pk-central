@@ -137,10 +137,9 @@
     </div>
       <details class="code-block-details">
         <summary class="code-block-summary">Auth types</summary>
-        <pre>import { UUID } from &apos;./misc&apos;;
+        <pre>import type { BaseEntity, UUID } from &apos;./misc&apos;;
 
-export interface User {
-  id: UUID;
+export interface User extends BaseEntity {
   email: string;
   loginCode?: string;
   loginCodeExpires?: Date;
@@ -274,7 +273,8 @@ export const magicLinkParamsSchema = yup.object({
     </div>
       <details class="code-block-details">
         <summary class="code-block-summary">Notes types</summary>
-        <pre>import { BaseEntity, UUID } from &apos;./misc&apos;;
+        <pre>import { BaseEntity } from &apos;./misc&apos;;
+import type { UUID } from &apos;./misc&apos;;
 
 export interface Link {
   name: string;
@@ -390,7 +390,8 @@ export const noteSchema = yup.object({
     </div>
       <details class="code-block-details">
         <summary class="code-block-summary">Personal Data types</summary>
-        <pre>import { BaseEntity, UUID } from &apos;./misc&apos;;
+        <pre>import { BaseEntity } from &apos;./misc&apos;;
+import type { UUID } from &apos;./misc&apos;;
 
 export interface PersonalData extends BaseEntity {
   userId?: UUID;
@@ -493,7 +494,8 @@ export const personalDataSchema = yup.object({
       <details class="code-block-details">
         <summary class="code-block-summary">Shortcuts types</summary>
         <pre>import { ShortcutCategory } from &apos;../enums&apos;;
-import { BaseEntity, UUID } from &apos;./misc&apos;;
+import { BaseEntity } from &apos;./misc&apos;;
+import type { UUID } from &apos;./misc&apos;;
 
 export interface Shortcut extends BaseEntity {
   userId?: UUID;
@@ -571,7 +573,7 @@ export const shortcutSchema = yup.object({
     </div>
       <details class="code-block-details">
         <summary class="code-block-summary">PK Start settings types</summary>
-        <pre>import { UUID } from &apos;./misc&apos;;
+        <pre>import type { UUID } from &apos;./misc&apos;;
 
 export interface PkStartSettings {
   id: UUID;
@@ -745,8 +747,9 @@ export const pkStartSettingsSchema = yup.object({
     </div>
       <details class="code-block-details">
         <summary class="code-block-summary">Cycling [DEPRECATED] types</summary>
-        <pre>import { BaseEntity, UUID } from &apos;./misc&apos;;
+        <pre>import { BaseEntity } from &apos;./misc&apos;;
 import { CyclingChore } from &apos;./activities&apos;;
+import type { UUID } from &apos;./misc&apos;;
 
 export interface Cycling extends BaseEntity {
   userId: UUID;
@@ -879,7 +882,8 @@ export const monthlyGoalSchema = yup.object({
     </div>
       <details class="code-block-details">
         <summary class="code-block-summary">Activities types</summary>
-        <pre>import { BaseEntity, UUID } from &apos;./misc&apos;;
+        <pre>import { BaseEntity } from &apos;./misc&apos;;
+import type { UUID } from &apos;./misc&apos;;
 
 export interface CyclingChore {
   id: UUID;
@@ -1154,7 +1158,8 @@ export interface KoreanDictItem {
     </div>
       <details class="code-block-details">
         <summary class="code-block-summary">Flights types</summary>
-        <pre>import { BaseEntity, UUID } from &apos;./misc&apos;;
+        <pre>import { BaseEntity } from &apos;./misc&apos;;
+import type { UUID } from &apos;./misc&apos;;
 
 export interface Flight extends BaseEntity {
   userId?: UUID;
@@ -1200,24 +1205,30 @@ export interface Aircraft {
   icao: string;
 }
 
-export enum SeatType {
-  AISLE = &apos;Aisle&apos;,
-  MIDDLE = &apos;Middle&apos;,
-  WINDOW = &apos;Window&apos;,
-}
+export const SeatType = {
+  AISLE: &apos;Aisle&apos;,
+  MIDDLE: &apos;Middle&apos;,
+  WINDOW: &apos;Window&apos;,
+} as const;
 
-export enum FlightClass {
-  ECONOMY = &apos;Economy&apos;,
-  PREMIUM_ECONOMY = &apos;Premium Economy&apos;,
-  BUSINESS = &apos;Business&apos;,
-  FIRST = &apos;First&apos;,
-}
+export type SeatType = (typeof SeatType)[keyof typeof SeatType];
 
-export enum FlightReason {
-  LEISURE = &apos;Leisure&apos;,
-  BUSINESS = &apos;Business&apos;,
-  CREW = &apos;Crew&apos;,
-}
+export const FlightClass = {
+  ECONOMY: &apos;Economy&apos;,
+  PREMIUM_ECONOMY: &apos;Premium Economy&apos;,
+  BUSINESS: &apos;Business&apos;,
+  FIRST: &apos;First&apos;,
+} as const;
+
+export type FlightClass = (typeof FlightClass)[keyof typeof FlightClass];
+
+export const FlightReason = {
+  LEISURE: &apos;Leisure&apos;,
+  BUSINESS: &apos;Business&apos;,
+  CREW: &apos;Crew&apos;,
+} as const;
+
+export type FlightReason = (typeof FlightReason)[keyof typeof FlightReason];
 </pre>
       </details>
     
@@ -1352,7 +1363,8 @@ export const flightSchema = yup.object({
     </div>
       <details class="code-block-details">
         <summary class="code-block-summary">Visits types</summary>
-        <pre>import { BaseEntity, UUID } from &apos;./misc&apos;;
+        <pre>import { BaseEntity } from &apos;./misc&apos;;
+import type { UUID } from &apos;./misc&apos;;
 
 export interface Visit extends BaseEntity {
   userId?: UUID;
