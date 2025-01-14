@@ -35,13 +35,13 @@ export async function getAirport(
     if (!airlabsApiKey) return new NotFoundErrorResponse('Airlabs API key');
     if (!locationApiKey) return new NotFoundErrorResponse('Location IQ API key');
 
-    const airlabsUrl = `https://airlabs.co/api/v9/airports?iata_code=${query}&api_key=${airlabsApiKey}`;
+    const airlabsUrl = `${process.env.PROXY_AIRLABS_AIRPORTS_URL}?iata_code=${query}&api_key=${airlabsApiKey}`;
     const airlabsResponse = await httpClient.get<AirlabsAirportResponse>(airlabsUrl, FetchResponseType.JSON);
     const { response } = airlabsResponse;
     const airportData = response?.[0];
     if (!airportData) return new NotFoundErrorResponse('Airport data');
 
-    const locationUrl = `https://eu1.locationiq.com/v1/reverse?key=${locationApiKey}&lat=${airportData.lat}&lon=${airportData.lng}&format=json`;
+    const locationUrl = `${process.env.PROXY_LOCATION_REVERSE_URL}?key=${locationApiKey}&lat=${airportData.lat}&lon=${airportData.lng}&format=json`;
     const locationResponse = await httpClient.get<LocationIqReverseResponse>(locationUrl, FetchResponseType.JSON);
     if (!locationResponse?.address) return new NotFoundErrorResponse('Location data');
 

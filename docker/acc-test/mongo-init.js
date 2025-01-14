@@ -11,6 +11,9 @@ db.createUser({
 
 db = db.getSiblingDB('testdb')
 
-db.createCollection('init')
+db.createCollection('shared-keys')
 
-db.getCollection('init').insertOne({ initialized: new Date() })
+db.getCollection('shared-keys').insertOne({
+  airlabsApiKey: 'airlabsApiKey',
+  locationIqApiKey: 'locationIqApiKey',
+})
