@@ -46,7 +46,7 @@ export async function passwordSignup(
 
     const id = uuid();
     const { hashedString: passwordHash, salt: passwordSalt } = await getHashed(password);
-    await users.insertOne({ id, email, passwordHash, passwordSalt });
+    await users.insertOne({ id, email, passwordHash, passwordSalt, createdAt: new Date() });
     console.log('Created new user:', email, id);
 
     if (process.env.PK_ENV !== 'test') {

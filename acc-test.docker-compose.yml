@@ -35,7 +35,7 @@ services:
       SELF_URL: https://pk-central.app
       TRIPZ_FRONTEND_URL: https://tripz.com
       START_FRONTEND_URL: https://start.com
-      EMAILS_ALLOWED: test@test.com,main@test.com
+      EMAILS_ALLOWED:
       MAILER_URL: https://stuff.com/mail.php
       MAILER_API_KEY: mailerapikey123
     ports:
