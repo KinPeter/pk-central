@@ -30,4 +30,4 @@ jobs:
         run: npm run checks
 
       - name: Run API acceptance tests in Docker
-        run: docker-compose -f ./acc-test.docker-compose.yml up --build --exit-code-from acc_test
+        run: docker compose -f ./acc-test.docker-compose.yml up --build --exit-code-from acc_test
