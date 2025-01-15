@@ -12,7 +12,7 @@ export async function authTests(API_URL: string) {
           method: 'POST',
           body: JSON.stringify(authRequest),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(201);
         expect(Object.keys(json)).toEqual(['id']);
         expect(json.id).toMatch(uuidV4Regex);
@@ -27,7 +27,7 @@ export async function authTests(API_URL: string) {
           method: 'POST',
           body: JSON.stringify(authRequest),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(200);
         expect(Object.keys(json)).toEqual(['id', 'email', 'token', 'expiresAt']);
         expect(json.id).toMatch(uuidV4Regex);
@@ -46,7 +46,7 @@ export async function authTests(API_URL: string) {
           body: JSON.stringify(updatedAuthRequest),
           headers: getHeaders(),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(201);
         expect(Object.keys(json)).toEqual(['id']);
         expect(json.id).toBe(process.env.USER_ID);
@@ -60,7 +60,7 @@ export async function authTests(API_URL: string) {
           method: 'POST',
           body: JSON.stringify(updatedAuthRequest),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(200);
         expect(Object.keys(json)).toEqual(['id', 'email', 'token', 'expiresAt']);
         expect(json.id).toBe(process.env.USER_ID);
@@ -78,7 +78,7 @@ export async function authTests(API_URL: string) {
           method: 'POST',
           body: JSON.stringify({ email: userEmail }),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(200);
         expect(Object.keys(json)).toEqual(['message']);
         expect(json.message).toBe('Check your inbox');
@@ -93,7 +93,7 @@ export async function authTests(API_URL: string) {
           body: JSON.stringify({ email: userEmail }),
           headers: getHeaders(),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(200);
         expect(Object.keys(json)).toEqual(['id', 'email', 'token', 'expiresAt']);
         expect(json.id).toBe(process.env.USER_ID);

@@ -45,7 +45,7 @@ describe('deleteChore', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.findOneAndUpdate).not.toHaveBeenCalled();
     expect(response.status).toBe(404);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -58,7 +58,7 @@ describe('deleteChore', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.findOneAndUpdate).not.toHaveBeenCalled();
     expect(response.status).toBe(404);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -71,7 +71,7 @@ describe('deleteChore', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.findOneAndUpdate).not.toHaveBeenCalled();
     expect(response.status).toBe(404);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 

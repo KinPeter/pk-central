@@ -114,6 +114,7 @@ export const validFlightRequests: FlightRequest[] = [
       lng: 23.94447,
       country: 'Greece',
     },
+    isPlanned: false,
     departureTime: '10:45:00',
     arrivalTime: '13:45:00',
     duration: '02:00:00',

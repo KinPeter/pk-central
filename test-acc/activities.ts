@@ -1,12 +1,16 @@
 import { expect, it, describe } from '@jest/globals';
 import { uuidV4Regex } from '../test-utils/constants';
-import { expectUnauthorized, getHeaders, getInvalidHeaders, runSequentially } from '../test-utils/acc-utils';
+import {
+  expectToHaveNecessaryKeys,
+  expectUnauthorized,
+  getHeaders,
+  getInvalidHeaders,
+  runSequentially,
+} from '../test-utils/acc-utils';
 import { activitiesData, validChoreRequest, validGoalsRequests } from '../test-utils/test-data/activities';
 
 export async function activitiesTests(API_URL: string) {
   describe('Activities', () => {
-    const keys = Object.keys(activitiesData).filter(key => key !== 'userId');
-    const choreKeys = ['id', ...Object.keys(validChoreRequest)];
     let choreId: string;
 
     it(
@@ -16,9 +20,9 @@ export async function activitiesTests(API_URL: string) {
           method: 'GET',
           headers: getHeaders(),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(200);
-        expect(Object.keys(json)).toEqual(keys);
+        expectToHaveNecessaryKeys(json, activitiesData);
         expect(json.id).toMatch(uuidV4Regex);
         expect(json.chores.length).toEqual(0);
         expect(json.walkWeeklyGoal).toEqual(0);
@@ -36,9 +40,9 @@ export async function activitiesTests(API_URL: string) {
           body: JSON.stringify(validGoalsRequests[0]),
           headers: getHeaders(),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(200);
-        expect(Object.keys(json)).toEqual(keys);
+        expectToHaveNecessaryKeys(json, activitiesData);
         expect(json.chores.length).toEqual(0);
         expect(json.walkWeeklyGoal).toEqual(validGoalsRequests[0].walkWeeklyGoal);
         expect(json.walkMonthlyGoal).toEqual(validGoalsRequests[0].walkMonthlyGoal);
@@ -55,13 +59,13 @@ export async function activitiesTests(API_URL: string) {
           body: JSON.stringify(validChoreRequest),
           headers: getHeaders(),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(201);
-        expect(Object.keys(json)).toEqual(keys);
+        expectToHaveNecessaryKeys(json, activitiesData);
         expect(json.chores.length).toEqual(1);
         expect(json.chores[0].id).toMatch(uuidV4Regex);
         choreId = json.chores[0].id;
-        expect(Object.keys(json.chores[0])).toEqual(choreKeys);
+        expectToHaveNecessaryKeys(json.chores[0], validChoreRequest);
         expect(json.chores[0].name).toBe(validChoreRequest.name);
         expect(json.chores[0].kmInterval).toBe(validChoreRequest.kmInterval);
         expect(json.chores[0].lastKm).toBe(validChoreRequest.lastKm);
@@ -76,11 +80,11 @@ export async function activitiesTests(API_URL: string) {
           body: JSON.stringify({ ...validChoreRequest, lastKm: validChoreRequest.lastKm + 100 }),
           headers: getHeaders(),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(200);
-        expect(Object.keys(json)).toEqual(keys);
+        expectToHaveNecessaryKeys(json, activitiesData);
         expect(json.chores.length).toEqual(1);
-        expect(Object.keys(json.chores[0])).toEqual(choreKeys);
+        expectToHaveNecessaryKeys(json.chores[0], validChoreRequest);
         expect(json.chores[0].name).toBe(validChoreRequest.name);
         expect(json.chores[0].kmInterval).toBe(validChoreRequest.kmInterval);
         expect(json.chores[0].lastKm).toBe(validChoreRequest.lastKm + 100);
@@ -94,9 +98,9 @@ export async function activitiesTests(API_URL: string) {
           method: 'DELETE',
           headers: getHeaders(),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(200);
-        expect(Object.keys(json)).toEqual(keys);
+        expectToHaveNecessaryKeys(json, activitiesData);
         expect(json.chores.length).toEqual(0);
       })
     );

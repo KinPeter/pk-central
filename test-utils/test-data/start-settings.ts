@@ -6,7 +6,7 @@ export const validSettingsRequest: PkStartSettingsRequest = {
   locationApiKey: null,
   unsplashApiKey: null,
   shortcutIconBaseUrl: 'https://other.p-kin.com/start-tile-icons/',
-  birthdaysUrl: null,
+  birthdaysUrl: 'https://stuff.p-kin.com/mock-bdays.tsv',
   koreanUrl: 'https://docs.google.com/asd123aaa',
   stravaClientId: null,
   stravaClientSecret: null,

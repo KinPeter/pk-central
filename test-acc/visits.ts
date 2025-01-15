@@ -7,62 +7,62 @@ import {
   getInvalidHeaders,
   runSequentially,
 } from '../test-utils/acc-utils';
-import { validFlightRequests } from '../test-utils/test-data/flights';
+import { validVisitRequests } from '../test-utils/test-data/visits';
 
-export async function flightsTests(API_URL: string) {
-  describe('Flights', () => {
-    const endpoint = '/flights';
+export async function visitsTests(API_URL: string) {
+  describe('Visits', () => {
+    const endpoint = '/visits';
     let itemId: string;
-    const keys = Object.keys(validFlightRequests[0]).filter(key => key !== 'userId');
+    const keys = Object.keys(validVisitRequests[0]).filter(key => key !== 'userId');
 
     it(
-      'should create a flight',
+      'should create a visit',
       runSequentially(async () => {
         const res = await fetch(`${API_URL}${endpoint}`, {
           method: 'POST',
-          body: JSON.stringify(validFlightRequests[0]),
+          body: JSON.stringify(validVisitRequests[0]),
           headers: getHeaders(),
         });
         const json: any = await res.json();
         expect(res.status).toBe(201);
-        expectToHaveNecessaryKeys(json, validFlightRequests[0]);
+        expectToHaveNecessaryKeys(json, validVisitRequests[0]);
         expect(json.id).toMatch(uuidV4Regex);
         itemId = json.id;
         keys.forEach(key => {
-          expect(json[key]).toEqual(validFlightRequests[0][key as keyof (typeof validFlightRequests)[0]]);
+          expect(json[key]).toEqual(validVisitRequests[0][key as keyof (typeof validVisitRequests)[0]]);
         });
       })
     );
 
     it(
-      'should update a flight',
+      'should update a visit',
       runSequentially(async () => {
         const res = await fetch(`${API_URL}${endpoint}/${itemId}`, {
           method: 'PUT',
-          body: JSON.stringify({ ...validFlightRequests[0], isPlanned: true }),
+          body: JSON.stringify({ ...validVisitRequests[0], year: 2024 }),
           headers: getHeaders(),
         });
         const json: any = await res.json();
         expect(res.status).toBe(200);
-        expectToHaveNecessaryKeys(json, validFlightRequests[0]);
+        expectToHaveNecessaryKeys(json, validVisitRequests[0]);
         expect(json.id).toMatch(uuidV4Regex);
         itemId = json.id;
         keys.forEach(key => {
-          if (key !== 'isPlanned') {
-            expect(json[key]).toEqual(validFlightRequests[0][key as keyof (typeof validFlightRequests)[0]]);
+          if (key !== 'year') {
+            expect(json[key]).toEqual(validVisitRequests[0][key as keyof (typeof validVisitRequests)[0]]);
           } else {
-            expect(json[key]).toBe(true);
+            expect(json[key]).toEqual(2024);
           }
         });
       })
     );
 
     it(
-      'should create a new and get all flights',
+      'should create a new and get all visits',
       runSequentially(async () => {
         const createRes = await fetch(`${API_URL}${endpoint}`, {
           method: 'POST',
-          body: JSON.stringify(validFlightRequests[1]),
+          body: JSON.stringify(validVisitRequests[1]),
           headers: getHeaders(),
         });
         expect(createRes.status).toBe(201);
@@ -74,13 +74,13 @@ export async function flightsTests(API_URL: string) {
         const json: any = await res.json();
         expect(res.status).toBe(200);
         expect(json.length).toEqual(2);
-        expectToHaveNecessaryKeys(json[0], validFlightRequests[0]);
-        expectToHaveNecessaryKeys(json[1], validFlightRequests[0]);
+        expectToHaveNecessaryKeys(json[0], validVisitRequests[0]);
+        expectToHaveNecessaryKeys(json[1], validVisitRequests[0]);
       })
     );
 
     it(
-      'should delete a flight',
+      'should delete a visit',
       runSequentially(async () => {
         const deleteRes = await fetch(`${API_URL}${endpoint}/${itemId}`, {
           method: 'DELETE',
@@ -95,15 +95,15 @@ export async function flightsTests(API_URL: string) {
         const json: any = await res.json();
         expect(res.status).toBe(200);
         expect(json.length).toEqual(1);
-        expectToHaveNecessaryKeys(json[0], validFlightRequests[0]);
+        expectToHaveNecessaryKeys(json[0], validVisitRequests[0]);
         expect(json[0].id).not.toEqual(itemId);
       })
     );
 
     it.each([
       ['GET', endpoint, undefined],
-      ['POST', endpoint, validFlightRequests[0]],
-      ['PUT', endpoint, validFlightRequests[0]],
+      ['POST', endpoint, validVisitRequests[0]],
+      ['PUT', endpoint, validVisitRequests[0]],
       ['DELETE', endpoint, undefined],
     ])('should get unauthorized for %s %s request without token', (method, path, body) => {
       runSequentially(async () => {

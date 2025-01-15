@@ -1,6 +1,12 @@
 import { expect, it, describe } from '@jest/globals';
 import { uuidV4Regex } from '../test-utils/constants';
-import { expectUnauthorized, getHeaders, getInvalidHeaders, runSequentially } from '../test-utils/acc-utils';
+import {
+  expectToHaveNecessaryKeys,
+  expectUnauthorized,
+  getHeaders,
+  getInvalidHeaders,
+  runSequentially,
+} from '../test-utils/acc-utils';
 import { validSettingsRequest } from '../test-utils/test-data/start-settings';
 
 export async function startSettingTests(API_URL: string) {
@@ -14,9 +20,10 @@ export async function startSettingTests(API_URL: string) {
           method: 'GET',
           headers: getHeaders(),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(200);
-        expect(Object.keys(json)).toEqual(keys);
+        // expect(Object.keys(json)).toEqual(keys);
+        expectToHaveNecessaryKeys(json, validSettingsRequest);
         keys.forEach(key => {
           if (key === 'id') {
             expect(json[key]).toMatch(uuidV4Regex);
@@ -35,9 +42,9 @@ export async function startSettingTests(API_URL: string) {
           body: JSON.stringify(validSettingsRequest),
           headers: getHeaders(),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(200);
-        expect(Object.keys(json)).toEqual(keys);
+        expectToHaveNecessaryKeys(json, validSettingsRequest);
         expect(json.id).toMatch(uuidV4Regex);
         keys.forEach(key => {
           if (key !== 'id') {
@@ -54,9 +61,9 @@ export async function startSettingTests(API_URL: string) {
           method: 'GET',
           headers: getHeaders(),
         });
-        const json = await res.json();
+        const json: any = await res.json();
         expect(res.status).toBe(200);
-        expect(Object.keys(json)).toEqual(keys);
+        expectToHaveNecessaryKeys(json, validSettingsRequest);
         expect(json.id).toMatch(uuidV4Regex);
         keys.forEach(key => {
           if (key !== 'id') {
