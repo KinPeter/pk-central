@@ -16,6 +16,16 @@ services:
     networks:
       - acc-test-network
 
+  proxy_mock:
+    container_name: acc-test-proxy-mock
+    build:
+      context: ./docker/proxy-mock
+      dockerfile: ./Dockerfile
+    ports:
+      - "9876:9876"
+    networks:
+      - acc-test-network
+
   api_server:
     container_name: acc-test-server
     build:
@@ -36,11 +46,11 @@ services:
       TRIPZ_FRONTEND_URL: https://tripz.com
       START_FRONTEND_URL: https://start.com
       EMAILS_ALLOWED: all
-      MAILER_URL: https://stuff.p-kin.com/mock-mailer.php
+      MAILER_URL: http://proxy_mock:9876/mail
       MAILER_API_KEY: mailerapikey123
-      PROXY_AIRLABS_AIRLINES_URL: https://stuff.p-kin.com/mock-airlines.php
-      PROXY_AIRLABS_AIRPORTS_URL: https://stuff.p-kin.com/mock-airports.php
-      PROXY_LOCATION_REVERSE_URL: https://stuff.p-kin.com/mock-reverse.php
+      PROXY_AIRLABS_AIRLINES_URL: http://proxy_mock:9876/airlines
+      PROXY_AIRLABS_AIRPORTS_URL: http://proxy_mock:9876/airports
+      PROXY_LOCATION_REVERSE_URL: http://proxy_mock:9876/reverse
     ports:
       - "5678:5678"
     volumes:
