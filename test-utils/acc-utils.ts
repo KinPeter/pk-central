@@ -1,5 +1,5 @@
-import { expect } from '@jest/globals';
 import { ApiError } from '../common';
+import assert from 'node:assert/strict';
 
 export let testOrder = Promise.resolve();
 
@@ -31,6 +31,12 @@ export async function expectUnauthorized(res: Response): Promise<void> {
   const json: any = await res.json();
   expect(res.status).toBe(401);
   expect(json.error).toEqual(ApiError.INVALID_AUTH_TOKEN);
+}
+
+export async function assertUnauthorized(res: Response): Promise<void> {
+  const json: any = await res.json();
+  assert.strictEqual(res.status, 401);
+  assert.strictEqual(json.error, ApiError.INVALID_AUTH_TOKEN);
 }
 
 export function expectToHaveNecessaryKeys(received: object, expected: object): void {

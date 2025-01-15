@@ -10,6 +10,7 @@ import { v4 as uuid } from 'uuid';
 import { getLoginCode } from '../../utils/crypt-jwt';
 import { EmailRequest, emailRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
+import process from 'node:process';
 
 export async function instantLoginCode(req: Request, dbManager: MongoDbManager): Promise<Response> {
   try {
@@ -29,8 +30,9 @@ export async function instantLoginCode(req: Request, dbManager: MongoDbManager):
     const { email } = body;
     console.warn(`[DEV] ${email} is getting instant login code on '${process.env.PK_ENV}' env`);
 
+    const isEmailRestricted = process.env.EMAILS_ALLOWED !== 'all';
     const emailsAllowed = process.env.EMAILS_ALLOWED?.split(',');
-    if (emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
+    if (isEmailRestricted && emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
       return new ForbiddenOperationErrorResponse('Sign up');
     }
 

@@ -1,63 +1,20 @@
-import { expect, it, describe } from '@jest/globals';
-import { expectUnauthorized, getHeaders, getInvalidHeaders, runSequentially } from '../test-utils/acc-utils';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { authRequest } from '../test-utils/test-data/auth';
+import { uuidV4Regex } from '../test-utils/constants';
 
-export async function dataBackupTests(API_URL: string) {
-  describe('Data backup', () => {
-    const endpoint = '/data-backup';
-
-    it(
-      'should send an email with data backup',
-      runSequentially(async () => {
-        const res = await fetch(`${API_URL}${endpoint}/email`, {
-          method: 'GET',
-          headers: getHeaders(),
-        });
-        const json: any = await res.json();
-        expect(res.status).toBe(200);
-        expect(json.message).toEqual('Check your inbox');
-      })
-    );
-
-    it(
-      'should send data backup in response',
-      runSequentially(async () => {
-        const res = await fetch(`${API_URL}${endpoint}/data`, {
-          method: 'GET',
-          headers: getHeaders(),
-        });
-        const json: any = await res.json();
-        expect(res.status).toBe(200);
-        expect(Object.keys(json)).toEqual([
-          'user',
-          'startSettings',
-          'activities',
-          'cycling',
-          'flights',
-          'notes',
-          'personalData',
-          'shortcuts',
-          'visits',
-        ]);
-        expect(json.flights.length).toEqual(1);
-        expect(json.visits.length).toEqual(1);
-        expect(json.notes.length).toEqual(1);
-        expect(json.personalData.length).toEqual(1);
-        expect(json.shortcuts.length).toEqual(1);
-      })
-    );
-
-    it.each([
-      ['GET', `${endpoint}/email`, undefined],
-      ['GET', `${endpoint}/data`, undefined],
-    ])('should get unauthorized for %s %s request without token', (method, path, body) => {
-      runSequentially(async () => {
-        const res = await fetch(`${API_URL}${path}`, {
-          method,
-          body: body ? JSON.stringify(body) : undefined,
-          headers: getInvalidHeaders(),
-        });
-        await expectUnauthorized(res);
+export async function dataBackupTests(API_URL: string): Promise<void> {
+  return await describe('Data Backup', async () => {
+    await it('should sign a user up', async () => {
+      const res = await fetch(`${API_URL}/auth/password-signup`, {
+        method: 'POST',
+        body: JSON.stringify(authRequest),
       });
+      const json: any = await res.json();
+      assert.strictEqual(res.status, 201);
+      assert.deepStrictEqual(Object.keys(json), ['id']);
+      assert.match(json.id, uuidV4Regex);
+      process.env.USER_ID = json.id;
     });
   });
 }

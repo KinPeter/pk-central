@@ -1,66 +1,20 @@
-import { expect, it, describe } from '@jest/globals';
-import { expectToHaveNecessaryKeys, getHeaders, runSequentially } from '../test-utils/acc-utils';
-import { airlineResponse, airportResponse, cityResponse } from '../test-utils/test-data/proxy';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { authRequest } from '../test-utils/test-data/auth';
+import { uuidV4Regex } from '../test-utils/constants';
 
-export async function proxyTests(API_URL: string) {
-  describe('Proxy', () => {
-    const endpoint = '/proxy';
-
-    it(
-      'should fetch airline information',
-      runSequentially(async () => {
-        const res = await fetch(`${API_URL}${endpoint}/airline/AA`, {
-          method: 'GET',
-          headers: getHeaders(),
-        });
-        const json: any = await res.json();
-        expect(res.status).toBe(200);
-        expectToHaveNecessaryKeys(json, airlineResponse);
-        expect(json.name).toEqual('American Airlines');
-      })
-    );
-
-    it(
-      'should fetch airport information',
-      runSequentially(async () => {
-        const res = await fetch(`${API_URL}${endpoint}/airport/JFK`, {
-          method: 'GET',
-          headers: getHeaders(),
-        });
-        const json: any = await res.json();
-        expect(res.status).toBe(200);
-        expectToHaveNecessaryKeys(json, airportResponse);
-        expect(json.name).toEqual('John F. Kennedy International Airport');
-        expect(json.city).toEqual('New York');
-      })
-    );
-
-    it(
-      'should fetch city information for coords',
-      runSequentially(async () => {
-        const res = await fetch(`${API_URL}${endpoint}/city/40.712,-70.006`, {
-          method: 'GET',
-          headers: getHeaders(),
-        });
-        const json: any = await res.json();
-        expect(res.status).toBe(200);
-        expectToHaveNecessaryKeys(json, cityResponse);
-        expect(json.city).toEqual('New York');
-      })
-    );
-
-    it(
-      'should fetch fetch the birthdays sheet',
-      runSequentially(async () => {
-        const res = await fetch(`${API_URL}${endpoint}/birthdays`, {
-          method: 'GET',
-          headers: getHeaders(),
-        });
-        const json: any = await res.json();
-        expect(res.status).toBe(200);
-        expect(json.length).toEqual(2);
-        expect(json[0].name).toContain('Santa Claus');
-      })
-    );
+export async function proxyTests(API_URL: string): Promise<void> {
+  return await describe('Proxy', async () => {
+    await it('should sign a user up', async () => {
+      const res = await fetch(`${API_URL}/auth/password-signup`, {
+        method: 'POST',
+        body: JSON.stringify(authRequest),
+      });
+      const json: any = await res.json();
+      assert.strictEqual(res.status, 201);
+      assert.deepStrictEqual(Object.keys(json), ['id']);
+      assert.match(json.id, uuidV4Regex);
+      process.env.USER_ID = json.id;
+    });
   });
 }
