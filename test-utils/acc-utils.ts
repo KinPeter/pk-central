@@ -1,18 +1,6 @@
 import { ApiError } from '../common';
 import assert from 'node:assert/strict';
 
-export let testOrder = Promise.resolve();
-
-type TestFunction = (...params: any) => Promise<void>;
-
-export const runSequentially = (func: TestFunction) => {
-  return async () => {
-    await testOrder;
-    testOrder = func();
-    await testOrder;
-  };
-};
-
 export function getHeaders() {
   return {
     'Content-Type': 'application/json',
@@ -27,19 +15,13 @@ export function getInvalidHeaders() {
   };
 }
 
-export async function expectUnauthorized(res: Response): Promise<void> {
-  const json: any = await res.json();
-  expect(res.status).toBe(401);
-  expect(json.error).toEqual(ApiError.INVALID_AUTH_TOKEN);
-}
-
 export async function assertUnauthorized(res: Response): Promise<void> {
   const json: any = await res.json();
   assert.strictEqual(res.status, 401);
   assert.strictEqual(json.error, ApiError.INVALID_AUTH_TOKEN);
 }
 
-export function expectToHaveNecessaryKeys(received: object, expected: object): void {
+export function assertToHaveNecessaryKeys(received: object, expected: object): void {
   const set1 = new Set(Object.keys(received));
   const set2 = new Set(Object.keys(expected));
   const difference = set1.symmetricDifference(set2);
@@ -56,5 +38,5 @@ export function expectToHaveNecessaryKeys(received: object, expected: object): v
   if (!condition) {
     console.warn('Difference:', difference);
   }
-  expect(condition).toBe(true);
+  assert(condition, 'Object keys do not match');
 }

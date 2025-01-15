@@ -1,5 +1,14 @@
 export * from './types';
-export { ApiError, ValidationErrorMap, ApiErrorMap, ValidationError, ShortcutCategory } from './enums';
+export {
+  ApiError,
+  ValidationErrorMap,
+  ApiErrorMap,
+  ValidationError,
+  ShortcutCategory,
+  FlightClass,
+  FlightReason,
+  SeatType,
+} from './enums';
 export {
   SIMPLE_DATE_REGEX,
   LOGIN_CODE_REGEX,
