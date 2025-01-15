@@ -25,6 +25,7 @@ dist-ssr
 
 # Custom
 .env
+.npmrc
 .local-utils
 .build/
 .netlify/

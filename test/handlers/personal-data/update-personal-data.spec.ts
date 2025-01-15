@@ -41,7 +41,7 @@ describe('updatePersonalData', () => {
       expect(db.collection).toHaveBeenCalledWith('personal-data');
       expect(collection.findOneAndUpdate).toHaveBeenCalled();
       expect(response.status).toBe(200);
-      const result = await response.json();
+      const result: any = await response.json();
       expect(result.id).toEqual(personalDataObjects[0].id);
     });
   });
@@ -60,7 +60,7 @@ describe('updatePersonalData', () => {
     );
     expect(collection.findOneAndUpdate).not.toHaveBeenCalled();
     expect(response.status).toBe(400);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ValidationError.INVALID_UUID);
   });
 
@@ -78,7 +78,7 @@ describe('updatePersonalData', () => {
     );
     expect(collection.findOneAndUpdate).toHaveBeenCalled();
     expect(response.status).toBe(404);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -96,7 +96,7 @@ describe('updatePersonalData', () => {
       );
       expect(collection.findOneAndUpdate).not.toHaveBeenCalled();
       expect(response.status).toEqual(400);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toEqual(ApiError.REQUEST_VALIDATION_FAILED);
     });
   });

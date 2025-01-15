@@ -27,6 +27,7 @@ dist-ssr
 .env
 .local-utils/http-client.env.json
 .build/
+.npmrc
 
 # Local Netlify folder
 .netlify

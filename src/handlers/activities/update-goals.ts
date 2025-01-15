@@ -24,7 +24,7 @@ export async function updateGoals(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const requestBody: SetGoalsRequest = await req.json();
+    const requestBody = (await req.json()) as SetGoalsRequest;
 
     try {
       await goalsSchema.validate(requestBody);

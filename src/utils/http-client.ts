@@ -9,8 +9,8 @@ export type FetchFn = typeof fetch;
 
 export class HttpClient {
   private readonly fetch: FetchFn;
-  private defaultHeaders: HeadersInit = {};
-  private headers: HeadersInit = {};
+  private defaultHeaders: Record<string, string> = {};
+  private headers: Record<string, string> = {};
 
   constructor(fetchFn: FetchFn) {
     this.fetch = fetchFn;
@@ -57,7 +57,7 @@ export class HttpClient {
     if (Object.keys(this.headers).length) {
       requestInit.headers = { ...this.headers };
     }
-    const response = await this.fetch(path, requestInit);
+    const response: any = await this.fetch(path, requestInit);
     if (!response.ok) {
       const { error } = await response.json();
       console.error(`Error during the ${method}: ${path} request.`, {

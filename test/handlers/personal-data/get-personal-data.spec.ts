@@ -34,7 +34,7 @@ describe('getPersonalData', () => {
     expect(db.collection).toHaveBeenCalledWith('personal-data');
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data)).toBeTruthy();
     expect(data.length).toEqual(2);
     expect(data[0].hasOwnProperty('_id')).toBeFalsy();
@@ -54,7 +54,7 @@ describe('getPersonalData', () => {
     );
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data)).toBeTruthy();
     expect(data.length).toEqual(0);
   });
@@ -70,7 +70,7 @@ describe('getPersonalData', () => {
     );
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(500);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.UNKNOWN_ERROR);
   });
 });

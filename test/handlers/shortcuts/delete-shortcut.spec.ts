@@ -35,7 +35,7 @@ describe('deleteShortcut', () => {
     expect(collection.findOneAndDelete).toHaveBeenCalledWith({ id: shortcuts[0].id, userId: '123' });
     expect(db.collection).toHaveBeenCalledWith('shortcuts');
     expect(response.status).toBe(200);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.id).toEqual(shortcuts[0].id);
   });
 
@@ -47,7 +47,7 @@ describe('deleteShortcut', () => {
     const response = await deleteShortcut(request, 'not-a-uuid', dbManager as unknown as MongoDbManager, authManager);
     expect(collection.findOneAndDelete).not.toHaveBeenCalled();
     expect(response.status).toBe(400);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ValidationError.INVALID_UUID);
   });
 
@@ -64,7 +64,7 @@ describe('deleteShortcut', () => {
     );
     expect(collection.findOneAndDelete).toHaveBeenCalled();
     expect(response.status).toBe(404);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 });

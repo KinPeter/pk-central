@@ -47,7 +47,7 @@ describe('createInitialData', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.insertOne).not.toHaveBeenCalled();
     expect(response.status).toBe(400);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ApiError.DATA_ALREADY_EXISTS);
   });
 

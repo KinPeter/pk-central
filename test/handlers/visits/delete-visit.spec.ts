@@ -30,7 +30,7 @@ describe('deleteVisit', () => {
     expect(db.collection).toHaveBeenCalledWith('visits');
     expect(collection.findOneAndDelete).toHaveBeenCalledWith({ id: visits[0].id, userId: '123' });
     expect(response.status).toBe(200);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.id).toEqual(visits[0].id);
   });
 
@@ -42,7 +42,7 @@ describe('deleteVisit', () => {
     const response = await deleteVisit(request, 'not-a-uuid', dbManager as unknown as MongoDbManager, authManager);
     expect(collection.findOneAndDelete).not.toHaveBeenCalled();
     expect(response.status).toBe(400);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ValidationError.INVALID_UUID);
   });
 
@@ -54,7 +54,7 @@ describe('deleteVisit', () => {
     const response = await deleteVisit(request, visits[0].id, dbManager as unknown as MongoDbManager, authManager);
     expect(collection.findOneAndDelete).toHaveBeenCalled();
     expect(response.status).toBe(404);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 });

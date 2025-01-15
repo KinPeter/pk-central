@@ -37,6 +37,7 @@ export function expectToHaveNecessaryKeys(received: object, expected: object): v
   const set1 = new Set(Object.keys(received));
   const set2 = new Set(Object.keys(expected));
   const difference = set1.symmetricDifference(set2);
+  // const difference = new Set([...set1].filter(x => !set2.has(x)).concat([...set2].filter(x => !set1.has(x))));
   const condition =
     difference.size === 0 ||
     (difference.size === 1 && difference.has('id')) ||

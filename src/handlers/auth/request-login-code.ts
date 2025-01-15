@@ -9,7 +9,7 @@ import {
 } from '../../utils/response';
 import { v4 as uuid } from 'uuid';
 import { getLoginCode } from '../../utils/crypt-jwt';
-import { emailRequestSchema, User } from '../../../common';
+import { EmailRequest, emailRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function requestLoginCode(
@@ -20,7 +20,7 @@ export async function requestLoginCode(
   try {
     if (req.method !== 'POST') return new MethodNotAllowedResponse(req.method);
 
-    const body = await req.json();
+    const body = (await req.json()) as EmailRequest;
 
     try {
       await emailRequestSchema.validate(body);

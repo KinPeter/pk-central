@@ -25,7 +25,7 @@ export async function updateChore(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const requestBody: CyclingChoreRequest = await req.json();
+    const requestBody = (await req.json()) as CyclingChoreRequest;
 
     try {
       await choreSchema.validate(requestBody);

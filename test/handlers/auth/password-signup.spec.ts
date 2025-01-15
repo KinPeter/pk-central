@@ -94,7 +94,7 @@ describe('passwordSignup', () => {
         emailManager as unknown as EmailManager
       );
       expect(response.status).toEqual(400);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toContain(ApiError.REQUEST_VALIDATION_FAILED);
     });
   });
@@ -132,7 +132,7 @@ describe('passwordSignup', () => {
         emailManager as unknown as EmailManager
       );
       expect(response.status).toBe(403);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toContain(ApiError.FORBIDDEN_OPERATION);
     });
   });

@@ -51,7 +51,7 @@ describe('verifyMagicLink', () => {
       dbManager as unknown as MongoDbManager
     );
     expect(response.status).toEqual(401);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toContain(ApiError.INVALID_MAGIC_LINK);
   });
 

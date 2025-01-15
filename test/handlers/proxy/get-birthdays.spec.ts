@@ -39,7 +39,7 @@ describe('getBirthdays', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(httpClient.get).toHaveBeenCalledWith('url', FetchResponseType.TEXT);
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data)).toBeTruthy();
     expect(data.length).toEqual(2);
     expect(data).toEqual(birthdaysResponse);
@@ -57,7 +57,7 @@ describe('getBirthdays', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(httpClient.get).not.toHaveBeenCalled();
     expect(response.status).toEqual(404);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -76,7 +76,7 @@ describe('getBirthdays', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(httpClient.get).toHaveBeenCalledWith('url', FetchResponseType.TEXT);
     expect(response.status).toEqual(500);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.UNKNOWN_ERROR);
   });
 

@@ -24,7 +24,7 @@ export async function updateMonthlyGoal(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const requestBody: SetMonthlyGoalRequest = await req.json();
+    const requestBody = (await req.json()) as SetMonthlyGoalRequest;
 
     try {
       await monthlyGoalSchema.validate(requestBody);

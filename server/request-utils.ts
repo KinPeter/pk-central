@@ -3,7 +3,7 @@ import { IncomingMessage } from 'http';
 export function convertRequest(req: IncomingMessage, body: string): Request {
   const { url, method } = req;
   const reqUrl = `https://${req.headers.host}${url}`;
-  const headersInit: HeadersInit = {};
+  const headersInit: Record<string, string> = {};
   for (const [key, value] of Object.entries(req.headers)) {
     headersInit[key] = value as string;
   }

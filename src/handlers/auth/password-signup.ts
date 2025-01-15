@@ -11,8 +11,9 @@ import {
 } from '../../utils/response';
 import { v4 as uuid } from 'uuid';
 import { getHashed } from '../../utils/crypt-jwt';
-import { ApiError, IdObject, passwordAuthRequestSchema, User } from '../../../common';
+import { ApiError, IdObject, PasswordAuthRequest, passwordAuthRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
+import * as process from 'node:process';
 
 export async function passwordSignup(
   req: Request,
@@ -22,7 +23,7 @@ export async function passwordSignup(
   try {
     if (req.method !== 'POST') return new MethodNotAllowedResponse(req.method);
 
-    const body = await req.json();
+    const body = (await req.json()) as PasswordAuthRequest;
 
     try {
       await passwordAuthRequestSchema.validate(body);
@@ -39,8 +40,9 @@ export async function passwordSignup(
       return new ConflictErrorResponse(ApiError.EMAIL_REGISTERED);
     }
 
+    const isEmailRestricted = process.env.EMAILS_ALLOWED !== 'all';
     const emailsAllowed = process.env.EMAILS_ALLOWED?.split(',');
-    if (emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
+    if (isEmailRestricted && emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
       return new ForbiddenOperationErrorResponse('Sign up');
     }
 

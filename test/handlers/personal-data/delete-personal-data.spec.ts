@@ -35,7 +35,7 @@ describe('deletePersonalData', () => {
     expect(db.collection).toHaveBeenCalledWith('personal-data');
     expect(collection.findOneAndDelete).toHaveBeenCalledWith({ id: personalDataObjects[0].id, userId: '123' });
     expect(response.status).toBe(200);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.id).toEqual(personalDataObjects[0].id);
   });
 
@@ -52,7 +52,7 @@ describe('deletePersonalData', () => {
     );
     expect(collection.findOneAndDelete).not.toHaveBeenCalled();
     expect(response.status).toBe(400);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ValidationError.INVALID_UUID);
   });
 
@@ -69,7 +69,7 @@ describe('deletePersonalData', () => {
     );
     expect(collection.findOneAndDelete).toHaveBeenCalled();
     expect(response.status).toBe(404);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 });

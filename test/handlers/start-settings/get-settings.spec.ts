@@ -31,7 +31,7 @@ describe('getSettings', () => {
     expect(db.collection).toHaveBeenCalledWith('start-settings');
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data)).toBeFalsy();
     expect(data.hasOwnProperty('_id')).toBeFalsy();
     expect(data.hasOwnProperty('userId')).toBeFalsy();

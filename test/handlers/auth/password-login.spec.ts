@@ -30,7 +30,7 @@ describe('passwordLogin', () => {
     const response = await passwordLogin(request, dbManager as unknown as MongoDbManager);
     expect(db.collection).toHaveBeenCalledWith('users');
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(typeof data.token).toBe('string');
     expect(typeof data.expiresAt).toBe('string');
   });
@@ -54,7 +54,7 @@ describe('passwordLogin', () => {
     });
     const response = await passwordLogin(request, dbManager as unknown as MongoDbManager);
     expect(response.status).toEqual(401);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toContain(ApiError.INVALID_PASSWORD);
   });
 
@@ -66,7 +66,7 @@ describe('passwordLogin', () => {
     });
     const response = await passwordLogin(request, dbManager as unknown as MongoDbManager);
     expect(response.status).toEqual(401);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toContain(ApiError.INVALID_PASSWORD);
   });
 

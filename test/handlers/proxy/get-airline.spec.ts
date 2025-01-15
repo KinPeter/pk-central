@@ -40,7 +40,7 @@ describe('getAirline', () => {
     expect(collection.findOne).toHaveBeenCalled();
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data).toEqual(airlineResponse);
   });
 
@@ -56,7 +56,7 @@ describe('getAirline', () => {
     expect(db.collection).not.toHaveBeenCalled();
     expect(httpClient.get).not.toHaveBeenCalled();
     expect(response.status).toEqual(400);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.REQUEST_VALIDATION_FAILED);
   });
 
@@ -72,7 +72,7 @@ describe('getAirline', () => {
     expect(db.collection).toHaveBeenCalledWith('shared-keys');
     expect(httpClient.get).not.toHaveBeenCalled();
     expect(response.status).toEqual(404);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -89,7 +89,7 @@ describe('getAirline', () => {
       httpClient as unknown as HttpClient
     );
     expect(response.status).toEqual(500);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.UNKNOWN_ERROR);
   });
 

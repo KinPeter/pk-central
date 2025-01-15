@@ -32,7 +32,7 @@ describe('getCycling', () => {
     expect(db.collection).toHaveBeenCalledWith('cycling');
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data)).toBeFalsy();
     expect(data.hasOwnProperty('_id')).toBeFalsy();
     expect(data.hasOwnProperty('userId')).toBeFalsy();
@@ -48,7 +48,7 @@ describe('getCycling', () => {
       authManager
     );
     expect(response.status).toEqual(404);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -62,7 +62,7 @@ describe('getCycling', () => {
       authManager
     );
     expect(response.status).toEqual(500);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.UNKNOWN_ERROR);
   });
 

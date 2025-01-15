@@ -8,14 +8,14 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { getAccessToken, validateLoginCode } from '../../utils/crypt-jwt';
-import { ApiError, AuthData, loginVerifyRequestSchema, User } from '../../../common';
+import { ApiError, AuthData, LoginVerifyRequest, loginVerifyRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function verifyLoginCode(req: Request, dbManager: MongoDbManager): Promise<Response> {
   try {
     if (req.method !== 'POST') return new MethodNotAllowedResponse(req.method);
 
-    const body = await req.json();
+    const body = (await req.json()) as LoginVerifyRequest;
 
     try {
       await loginVerifyRequestSchema.validate(body);
