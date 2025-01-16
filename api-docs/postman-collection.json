@@ -1,0 +1,1186 @@
+{
+  "info": {
+    "_postman_id": "2ec110e1-5aa9-4225-a6ae-d049ea7ac939",
+    "name": "PK-Central",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "7965151"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Get login code",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"kinpeter85@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/login",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify login code",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"kinpeter85@gmail.com\",\r\n    \"loginCode\": \"510381\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/verify-code",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "verify-code"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Password login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"main@test.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/password-login",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "password-login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Password signup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"main@test.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/password-signup",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "password-signup"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Set password",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"main@test.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/set-password",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "set-password"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Token refresh",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"kinpeter85@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/token-refresh",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "token-refresh"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[DEV ONLY] Instant login code",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@test.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/instant-login-code",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "instant-login-code"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Activities",
+      "item": [
+        {
+          "name": "Get activities",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/activities",
+              "host": ["{{BASE_URL}}"],
+              "path": ["activities"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create initial data",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/activities/initialize",
+              "host": ["{{BASE_URL}}"],
+              "path": ["activities", "initialize"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update goals",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"walkWeeklyGoal\": 30,\r\n    \"walkMonthlyGoal\": 30,\r\n    \"cyclingWeeklyGoal\": 30,\r\n    \"cyclingMonthlyGoal\": 30\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/activities/goals",
+              "host": ["{{BASE_URL}}"],
+              "path": ["activities", "goals"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add chore",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"kmInterval\": 20,\r\n    \"lastKm\": 1356,\r\n    \"name\": \"other chore\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/activities/chore",
+              "host": ["{{BASE_URL}}"],
+              "path": ["activities", "chore"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update chore",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"kmInterval\": 20,\r\n    \"lastKm\": 1356,\r\n    \"name\": \"updated chore\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/activities/chore/6fb887b6-6ac4-4a2e-9596-02f9c4eb4d11",
+              "host": ["{{BASE_URL}}"],
+              "path": ["activities", "chore", "6fb887b6-6ac4-4a2e-9596-02f9c4eb4d11"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete chore",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/activities/chore/6fb887b6-6ac4-4a2e-9596-02f9c4eb4d11",
+              "host": ["{{BASE_URL}}"],
+              "path": ["activities", "chore", "6fb887b6-6ac4-4a2e-9596-02f9c4eb4d11"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Notes",
+      "item": [
+        {
+          "name": "Get notes",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/notes",
+              "host": ["{{BASE_URL}}"],
+              "path": ["notes"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create note",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"text\": \"the other text\",\r\n    \"archived\": false,\r\n    \"pinned\": false,\r\n    \"links\": [\r\n        {\r\n            \"name\": \"a link\",\r\n            \"url\": \"https://google.com\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/notes",
+              "host": ["{{BASE_URL}}"],
+              "path": ["notes"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update note",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"text\": \"the other text\",\r\n    \"archived\": false,\r\n    \"pinned\": true,\r\n    \"links\": [\r\n        {\r\n            \"name\": \"a link\",\r\n            \"url\": \"https://google.com\"\r\n        },\r\n        {\r\n            \"name\": \"a new link\",\r\n            \"url\": \"https://google.com\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/notes/e7446b18-4083-4a41-8b70-d889c07614ef",
+              "host": ["{{BASE_URL}}"],
+              "path": ["notes", "e7446b18-4083-4a41-8b70-d889c07614ef"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete note",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/notes/e7446b18-4083-4a41-8b70-d889c07614ef",
+              "host": ["{{BASE_URL}}"],
+              "path": ["notes", "e7446b18-4083-4a41-8b70-d889c07614ef"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Shortcuts",
+      "item": [
+        {
+          "name": "Get shortcuts",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/shortcuts",
+              "host": ["{{BASE_URL}}"],
+              "path": ["shortcuts"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create shortcut",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"url\": \"https://www.google.com\",\r\n    \"iconUrl\": \"google.png\",\r\n    \"name\": \"Google\",\r\n    \"priority\": 2,\r\n    \"category\": \"FUN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/shortcuts",
+              "host": ["{{BASE_URL}}"],
+              "path": ["shortcuts"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update shortcut",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"url\": \"https://www.google.com\",\r\n    \"iconUrl\": \"google.png\",\r\n    \"name\": \"Google\",\r\n    \"priority\": 1,\r\n    \"category\": \"FUN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/shortcuts/5785022c-37f4-496f-afb8-aac6bed291a3",
+              "host": ["{{BASE_URL}}"],
+              "path": ["shortcuts", "5785022c-37f4-496f-afb8-aac6bed291a3"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete shortcut",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/shortcuts/5785022c-37f4-496f-afb8-aac6bed291a3",
+              "host": ["{{BASE_URL}}"],
+              "path": ["shortcuts", "5785022c-37f4-496f-afb8-aac6bed291a3"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Personal Data",
+      "item": [
+        {
+          "name": "Get personal data",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/personal-data",
+              "host": ["{{BASE_URL}}"],
+              "path": ["personal-data"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create personal data",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"textoooop\",\r\n    \"identifier\": \"123123123\",\r\n    \"expiry\": \"2024-12-11\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/personal-data",
+              "host": ["{{BASE_URL}}"],
+              "path": ["personal-data"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update personal data",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"textoooop\",\r\n    \"identifier\": \"1231333333\",\r\n    \"expiry\": \"2024-11-11\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/personal-data/12fd32de-a37e-4af3-b3df-ad3d1f55a75f",
+              "host": ["{{BASE_URL}}"],
+              "path": ["personal-data", "12fd32de-a37e-4af3-b3df-ad3d1f55a75f"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete personal data",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/personal-data/12fd32de-a37e-4af3-b3df-ad3d1f55a75f",
+              "host": ["{{BASE_URL}}"],
+              "path": ["personal-data", "12fd32de-a37e-4af3-b3df-ad3d1f55a75f"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Start Settings",
+      "item": [
+        {
+          "name": "Get start settings",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/start-settings",
+              "host": ["{{BASE_URL}}"],
+              "path": ["start-settings"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update start settings",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"testuser\",\r\n    \"weatherApiKey\": \"WeatherApiKey123\",\r\n    \"locationApiKey\": null,\r\n    \"unsplashApiKey\": null,\r\n    \"shortcutIconBaseUrl\": \"https://other.p-kin.com/start-tile-icons/\",\r\n    \"birthdaysUrl\": \"https://stuff.p-kin.com/mock-bdays.tsv\",\r\n    \"koreanUrl\": null,\r\n    \"stravaClientId\": null,\r\n    \"stravaClientSecret\": null,\r\n    \"stravaRedirectUri\": null\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/start-settings",
+              "host": ["{{BASE_URL}}"],
+              "path": ["start-settings"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Data Backup",
+      "item": [
+        {
+          "name": "Get data backup email",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/data-backup/email",
+              "host": ["{{BASE_URL}}"],
+              "path": ["data-backup", "email"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get data backup",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/data-backup/data",
+              "host": ["{{BASE_URL}}"],
+              "path": ["data-backup", "data"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Proxy",
+      "item": [
+        {
+          "name": "Get birthdays",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/proxy/birthdays",
+              "host": ["{{BASE_URL}}"],
+              "path": ["proxy", "birthdays"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Korean wordlist",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/proxy/korean",
+              "host": ["{{BASE_URL}}"],
+              "path": ["proxy", "korean"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get airport data",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/proxy/airport/CHQ",
+              "host": ["{{BASE_URL}}"],
+              "path": ["proxy", "airport", "CHQ"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get airline data",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/proxy/airline/TK",
+              "host": ["{{BASE_URL}}"],
+              "path": ["proxy", "airline", "TK"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get city for coords",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/proxy/city/18.322,-78.332",
+              "host": ["{{BASE_URL}}"],
+              "path": ["proxy", "city", "18.322,-78.332"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Public",
+      "item": [
+        {
+          "name": "Get all trips for user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/public/trips/a06ef9a2-d1ff-417d-bce7-75188a6118c1",
+              "host": ["{{BASE_URL}}"],
+              "path": ["public", "trips", "a06ef9a2-d1ff-417d-bce7-75188a6118c1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Flights",
+      "item": [
+        {
+          "name": "Get flights",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/flights",
+              "host": ["{{BASE_URL}}"],
+              "path": ["flights"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create flight",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date\": \"2025-03-08\",\r\n    \"flightNumber\": \"BT20\",\r\n    \"from\": {\r\n        \"city\": \"Istanbul\",\r\n        \"name\": \"Istanbul Airport\",\r\n        \"iata\": \"IST\",\r\n        \"icao\": \"LTFM\",\r\n        \"lat\": 41.2629,\r\n        \"lng\": 28.74242,\r\n        \"country\": \"Turkey\"\r\n    },\r\n    \"to\": {\r\n        \"city\": \"Seoul\",\r\n        \"name\": \"Incheon\",\r\n        \"iata\": \"ICN\",\r\n        \"icao\": \"RKSI\",\r\n        \"lat\": 37.4492,\r\n        \"lng\": 126.45095,\r\n        \"country\": \"Korea\"\r\n    },\r\n    \"departureTime\": \"17:10:00\",\r\n    \"arrivalTime\": \"08:55:00\",\r\n    \"duration\": \"09:45:00\",\r\n    \"airline\": {\r\n        \"name\": \"Turkish Airlines\",\r\n        \"iata\": \"TK\",\r\n        \"icao\": \"THY\"\r\n    },\r\n    \"aircraft\": {\r\n        \"name\": \"Boeing 777-300ER\",\r\n        \"icao\": \"B77W\"\r\n    },\r\n    \"registration\": \"TC-LJB\",\r\n    \"seatNumber\": \"24H\",\r\n    \"seatType\": \"Aisle\",\r\n    \"flightClass\": \"Economy\",\r\n    \"flightReason\": \"Leisure\",\r\n    \"note\": \"\",\r\n    \"distance\": 7925,\r\n    \"isPlanned\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/flights",
+              "host": ["{{BASE_URL}}"],
+              "path": ["flights"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update flight",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date\": \"2025-03-08\",\r\n    \"flightNumber\": \"BT20\",\r\n    \"from\": {\r\n        \"city\": \"Istanbul\",\r\n        \"name\": \"Istanbul Airport\",\r\n        \"iata\": \"IST\",\r\n        \"icao\": \"LTFM\",\r\n        \"lat\": 41.2629,\r\n        \"lng\": 28.74242,\r\n        \"country\": \"Turkey\"\r\n    },\r\n    \"to\": {\r\n        \"city\": \"Seoul\",\r\n        \"name\": \"Incheon\",\r\n        \"iata\": \"ICN\",\r\n        \"icao\": \"RKSI\",\r\n        \"lat\": 37.4492,\r\n        \"lng\": 126.45095,\r\n        \"country\": \"Korea\"\r\n    },\r\n    \"departureTime\": \"17:10:00\",\r\n    \"arrivalTime\": \"08:55:00\",\r\n    \"duration\": \"09:45:00\",\r\n    \"airline\": {\r\n        \"name\": \"Turkish Airlines\",\r\n        \"iata\": \"TK\",\r\n        \"icao\": \"THY\"\r\n    },\r\n    \"aircraft\": {\r\n        \"name\": \"Boeing 777-300ER\",\r\n        \"icao\": \"B77W\"\r\n    },\r\n    \"registration\": \"TC-LJB\",\r\n    \"seatNumber\": \"24H\",\r\n    \"seatType\": \"Aisle\",\r\n    \"flightClass\": \"Economy\",\r\n    \"flightReason\": \"Leisure\",\r\n    \"note\": \"\",\r\n    \"distance\": 7925,\r\n    \"isPlanned\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/flights/29597c05-6546-44df-af4a-331558cb4fb7",
+              "host": ["{{BASE_URL}}"],
+              "path": ["flights", "29597c05-6546-44df-af4a-331558cb4fb7"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete flight",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/flights/29597c05-6546-44df-af4a-331558cb4fb7",
+              "host": ["{{BASE_URL}}"],
+              "path": ["flights", "29597c05-6546-44df-af4a-331558cb4fb7"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Visits",
+      "item": [
+        {
+          "name": "Get visits",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/visits",
+              "host": ["{{BASE_URL}}"],
+              "path": ["visits"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create visit",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"lat\": 48.2081743,\r\n    \"lng\": 16.3738189,\r\n    \"city\": \"Linz\",\r\n    \"country\": \"Austria\",\r\n    \"year\": \"2024\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/visits",
+              "host": ["{{BASE_URL}}"],
+              "path": ["visits"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update visit",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"lat\": 48.2081743,\r\n    \"lng\": 16.3738189,\r\n    \"city\": \"Mariazell\",\r\n    \"country\": \"Austria\",\r\n    \"year\": \"2024\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/visits/68610f5a-7a82-4b7b-b055-6e6e7751be21",
+              "host": ["{{BASE_URL}}"],
+              "path": ["visits", "68610f5a-7a82-4b7b-b055-6e6e7751be21"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete visit",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/visits/68610f5a-7a82-4b7b-b055-6e6e7751be21",
+              "host": ["{{BASE_URL}}"],
+              "path": ["visits", "68610f5a-7a82-4b7b-b055-6e6e7751be21"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
