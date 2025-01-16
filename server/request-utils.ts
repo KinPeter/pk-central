@@ -1,5 +1,16 @@
 import { IncomingMessage } from 'http';
 
+export function stripPathname(pathname: string): string {
+  const baseRoute = process.env.SERVER_ROUTE || '';
+  if (!baseRoute) {
+    return pathname;
+  }
+  if (pathname.startsWith(baseRoute)) {
+    return pathname.slice(baseRoute.length);
+  }
+  return '';
+}
+
 export function convertRequest(req: IncomingMessage, body: string): Request {
   const { url, method } = req;
   const reqUrl = `https://${req.headers.host}${url}`;

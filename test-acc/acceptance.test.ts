@@ -1,3 +1,4 @@
+import process from 'node:process';
 import { describe } from 'node:test';
 import { activitiesTests } from './activities';
 import { apiDocsTests } from './api-docs';
@@ -15,7 +16,10 @@ import { visitsTests } from './visits';
 describe('Acceptance tests', async () => {
   const API_URL = process.env.TEST_API_URL || 'http://localhost:5678';
 
-  await new Promise(resolve => setTimeout(resolve, 30000));
+  if (process.env.TEST_ENV === 'docker') {
+    await new Promise(resolve => setTimeout(resolve, 30000));
+  }
+
   await apiDocsTests(API_URL);
   await authTests(API_URL);
   await startSettingsTests(API_URL);

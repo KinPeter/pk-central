@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { parse } from 'url';
-import { convertRequest, getParams } from './request-utils';
+import { convertRequest, getParams, stripPathname } from './request-utils';
 import { ApiFunctionModule, Context, type HTTPMethod } from './types';
 
 export async function serveFunction(
@@ -10,8 +10,8 @@ export async function serveFunction(
 ): Promise<void> {
   const { method, url } = req;
   const parsedUrl = parse(url || '', true);
-  const pathname = parsedUrl.pathname;
-  console.log('\nRequest:', method, pathname);
+  const pathname = stripPathname(parsedUrl.pathname ?? '');
+  console.log('\nRequest:', method, parsedUrl.pathname);
 
   // Set the default response headers
   res.setHeader('Content-Type', 'application/json');

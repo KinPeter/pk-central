@@ -1,3 +1,4 @@
+import process from 'node:process';
 import { serveDocs } from './server/api-docs';
 import { serveFunction } from './server/functions';
 import { importFunctions } from './server/import';
@@ -17,7 +18,9 @@ const docsDir = join(__dirname, 'api-docs');
 const functions = await importFunctions(functionsDir);
 
 const server = http.createServer(async (req: IncomingMessage, res: ServerResponse) => {
-  if (req.method === 'GET' && (req.url === '/' || req.url === '/index.css')) {
+  const baseRoute = process.env.SERVER_ROUTE || '';
+
+  if (req.method === 'GET' && (req.url === `${baseRoute}` || req.url === `${baseRoute}/`)) {
     serveDocs(docsDir, req, res);
     return;
   }

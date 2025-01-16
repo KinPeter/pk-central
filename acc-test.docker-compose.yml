@@ -68,6 +68,7 @@ services:
       dockerfile: ./acc-test.Dockerfile
     environment:
       TEST_API_URL: http://api_server:5678
+      TEST_ENV: docker
     depends_on:
       - mongodb_server
       - api_server

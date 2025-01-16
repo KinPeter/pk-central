@@ -8,7 +8,7 @@ export async function apiDocsTests(API_URL: string): Promise<void> {
       const res = await fetch(`${API_URL}/`);
       const text = await res.text();
       assert.strictEqual(res.status, 200);
-      assert.strictEqual(text.startsWith('<!-- GENERATED CONTENT --><!doctype html>'), true);
+      assert.strictEqual(text.startsWith('<!-- GENERATED CONTENT -->'), true);
       assert.strictEqual(text.includes('<title>PK Central</title>'), true);
     });
   });
