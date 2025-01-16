@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  server:
+    image: kinp/pk-central:latest
+    ports:
+      - "5678:5678"
+    restart: always
+    env_file:
+      - .env

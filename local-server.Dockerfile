@@ -1,4 +1,3 @@
-# Use a lightweight Node.js image
 FROM node:22.5.1-alpine
 
 WORKDIR /app
