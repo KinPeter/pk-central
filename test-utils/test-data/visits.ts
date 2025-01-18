@@ -1,4 +1,4 @@
-import { VisitRequest } from 'pk-common';
+import type { VisitRequest } from '../../common';
 
 export const visits = [
   {

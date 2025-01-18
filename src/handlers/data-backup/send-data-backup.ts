@@ -16,7 +16,7 @@ import {
   PkStartSettings,
   Shortcut,
   Visit,
-} from 'pk-common';
+} from '../../../common';
 import { AuthManager } from '../../utils/auth-manager';
 import { DbCollection } from '../../utils/collections';
 

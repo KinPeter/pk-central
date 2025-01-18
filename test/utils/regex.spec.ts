@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { COORDINATES_QUERY_REGEX } from 'pk-common';
+import { COORDINATES_QUERY_REGEX } from '../../common';
 
 describe('regex', () => {
   describe('coordinates query regex', () => {

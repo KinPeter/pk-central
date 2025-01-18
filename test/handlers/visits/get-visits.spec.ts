@@ -3,7 +3,7 @@ import { MockDb, MockCollection, MockCursor, MockDbManager } from '../../../test
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { AuthManager } from '../../../src/utils/auth-manager';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 import { visits } from '../../../test-utils/test-data/visits';
 import { getVisits } from '../../../src/handlers/visits/get-visits';
 
@@ -35,7 +35,7 @@ describe('getVisits', () => {
     expect(db.collection).toHaveBeenCalledWith('visits');
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data)).toBeTruthy();
     expect(data.length).toEqual(2);
     expect(data[0].hasOwnProperty('_id')).toBeFalsy();
@@ -51,7 +51,7 @@ describe('getVisits', () => {
     const response = await getVisits({ method: 'GET' } as Request, dbManager as unknown as MongoDbManager, authManager);
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data)).toBeTruthy();
     expect(data.length).toEqual(0);
   });
@@ -61,7 +61,7 @@ describe('getVisits', () => {
     const response = await getVisits({ method: 'GET' } as Request, dbManager as unknown as MongoDbManager, authManager);
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(500);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.UNKNOWN_ERROR);
   });
 });

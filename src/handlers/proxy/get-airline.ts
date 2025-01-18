@@ -7,7 +7,7 @@ import {
   UnknownErrorResponse,
   ValidationErrorResponse,
 } from '../../utils/response';
-import { Airline, ValidationError } from 'pk-common';
+import { Airline, ValidationError } from '../../../common';
 import { AuthManager } from '../../utils/auth-manager';
 import { FetchResponseType, HttpClient } from '../../utils/http-client';
 import { AirlabsAirlineResponse, SharedKeys } from '../../utils/third-parties';
@@ -33,9 +33,9 @@ export async function getAirline(
     const airlabsApiKey = keys?.airlabsApiKey;
     if (!airlabsApiKey) return new NotFoundErrorResponse('Airlabs API key');
 
-    const airlabsUrl = `https://airlabs.co/api/v9/airlines?iata_code=${query}&api_key=${airlabsApiKey}`;
+    const airlabsUrl = `${process.env.PROXY_AIRLABS_AIRLINES_URL}?iata_code=${query}&api_key=${airlabsApiKey}`;
     const airlabsResponse = await httpClient.get<AirlabsAirlineResponse>(airlabsUrl, FetchResponseType.JSON);
-    console.log(airlabsResponse);
+
     const { response } = airlabsResponse;
     const airlineData = response?.[0];
     if (!airlineData) return new NotFoundErrorResponse('Airline data');

@@ -2,7 +2,7 @@ import { describe, beforeEach, it, expect } from '@jest/globals';
 import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 import { cyclingData, invalidWeeklyGoalRequests } from '../../../test-utils/test-data/cycling';
 import { updateWeeklyGoal } from '../../../src/handlers/cycling/update-weekly-goal';
 
@@ -44,7 +44,7 @@ describe('updateWeeklyGoal', () => {
     expect(collection.findOneAndUpdate).toHaveBeenCalled();
     expect(collection.findOneAndUpdate.mock.calls.slice(-1)[0]).toContainEqual({ userId: '123' });
     expect(response.status).toBe(404);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -67,7 +67,7 @@ describe('updateWeeklyGoal', () => {
       });
       const response = await updateWeeklyGoal(request, dbManager as unknown as MongoDbManager, authManager);
       expect(response.status).toEqual(400);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toEqual(ApiError.REQUEST_VALIDATION_FAILED);
     });
   });

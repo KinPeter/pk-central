@@ -2,7 +2,7 @@ import { describe, beforeEach, it, expect } from '@jest/globals';
 import { MockCollection, MockCursor, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 import { shortcuts } from '../../../test-utils/test-data/shortcuts';
 import { getShortcuts } from '../../../src/handlers/shortcuts/get-shortcuts';
 
@@ -34,7 +34,7 @@ describe('getShortcuts', () => {
     expect(db.collection).toHaveBeenCalledWith('shortcuts');
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data)).toBeTruthy();
     expect(data.length).toEqual(2);
     expect(data[0].hasOwnProperty('_id')).toBeFalsy();
@@ -54,7 +54,7 @@ describe('getShortcuts', () => {
     );
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data)).toBeTruthy();
     expect(data.length).toEqual(0);
   });
@@ -70,7 +70,7 @@ describe('getShortcuts', () => {
     );
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(500);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.UNKNOWN_ERROR);
   });
 });

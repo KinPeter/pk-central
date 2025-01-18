@@ -7,7 +7,7 @@ import {
   UnknownErrorResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { PkStartSettings } from 'pk-common';
+import { PkStartSettings } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function getSettings(

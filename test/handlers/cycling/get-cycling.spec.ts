@@ -3,7 +3,7 @@ import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { getCycling } from '../../../src/handlers/cycling/get-cycling';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 
 const result = { _id: 'm1', id: 'uuid1', userId: '123', weeklyGoal: 200 };
 
@@ -32,7 +32,7 @@ describe('getCycling', () => {
     expect(db.collection).toHaveBeenCalledWith('cycling');
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data)).toBeFalsy();
     expect(data.hasOwnProperty('_id')).toBeFalsy();
     expect(data.hasOwnProperty('userId')).toBeFalsy();
@@ -48,7 +48,7 @@ describe('getCycling', () => {
       authManager
     );
     expect(response.status).toEqual(404);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -62,7 +62,7 @@ describe('getCycling', () => {
       authManager
     );
     expect(response.status).toEqual(500);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.UNKNOWN_ERROR);
   });
 

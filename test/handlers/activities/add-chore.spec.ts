@@ -2,7 +2,7 @@ import { describe, beforeEach, it, expect } from '@jest/globals';
 import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
-import { Activities, ApiError } from 'pk-common';
+import { Activities, ApiError } from '../../../common';
 import { activitiesData, invalidChoreRequests, validChoreRequest } from '../../../test-utils/test-data/activities';
 import { addChore } from '../../../src/handlers/activities/add-chore';
 
@@ -50,7 +50,7 @@ describe('addChore', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.findOneAndUpdate).not.toHaveBeenCalled();
     expect(response.status).toBe(404);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -65,7 +65,7 @@ describe('addChore', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.findOneAndUpdate).toHaveBeenCalled();
     expect(response.status).toBe(404);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -84,7 +84,7 @@ describe('addChore', () => {
       });
       const response = await addChore(request, dbManager as unknown as MongoDbManager, authManager);
       expect(response.status).toEqual(400);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toEqual(ApiError.REQUEST_VALIDATION_FAILED);
     });
   });

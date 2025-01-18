@@ -1,6 +1,6 @@
 import { Db } from 'mongodb';
 import { verifyToken } from './crypt-jwt';
-import { User } from 'pk-common';
+import { User } from '../../common';
 import { DbCollection } from './collections';
 
 export class AuthManager {

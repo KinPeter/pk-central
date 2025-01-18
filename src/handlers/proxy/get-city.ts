@@ -7,7 +7,7 @@ import {
   UnknownErrorResponse,
   ValidationErrorResponse,
 } from '../../utils/response';
-import { COORDINATES_QUERY_REGEX, ValidationError, VisitRequest } from 'pk-common';
+import { COORDINATES_QUERY_REGEX, ValidationError, type VisitRequest } from '../../../common';
 import { AuthManager } from '../../utils/auth-manager';
 import { FetchResponseType, HttpClient } from '../../utils/http-client';
 import { LocationIqReverseResponse, SharedKeys } from '../../utils/third-parties';
@@ -38,7 +38,7 @@ export async function getCity(
     const locationApiKey = keys?.locationIqApiKey;
     if (!locationApiKey) return new NotFoundErrorResponse('Location IQ API key');
 
-    const locationUrl = `https://eu1.locationiq.com/v1/reverse?key=${locationApiKey}&lat=${lat}&lon=${lng}&format=json`;
+    const locationUrl = `${process.env.PROXY_LOCATION_REVERSE_URL}?key=${locationApiKey}&lat=${lat}&lon=${lng}&format=json`;
     const locationResponse = await httpClient.get<LocationIqReverseResponse>(locationUrl, FetchResponseType.JSON);
     if (!locationResponse?.address) return new NotFoundErrorResponse('Location data');
 

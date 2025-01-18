@@ -1,6 +1,6 @@
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { AuthManager } from '../../utils/auth-manager';
-import { UUID } from 'pk-common';
+import type { UUID } from '../../../common';
 import { deleteItemHandler } from '../_base-crud-handlers/delete-handler';
 import { DbCollection } from '../../utils/collections';
 

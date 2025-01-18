@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { JwtPayload } from 'pk-common';
+import { JwtPayload } from '../../common';
 
 export function getAccessToken(email: string, userId: string): { token: string; expiresAt: Date } {
   const nDaysInSeconds = Number(process.env.TOKEN_EXPIRY) * 24 * 60 * 60;

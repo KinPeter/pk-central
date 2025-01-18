@@ -1,14 +1,16 @@
-export enum FetchResponseType {
-  JSON,
-  TEXT,
-}
+export const FetchResponseType = {
+  JSON: 'JSON',
+  TEXT: 'TEXT',
+} as const;
+
+export type FetchResponseType = (typeof FetchResponseType)[keyof typeof FetchResponseType];
 
 export type FetchFn = typeof fetch;
 
 export class HttpClient {
   private readonly fetch: FetchFn;
-  private defaultHeaders: HeadersInit = {};
-  private headers: HeadersInit = {};
+  private defaultHeaders: Record<string, string> = {};
+  private headers: Record<string, string> = {};
 
   constructor(fetchFn: FetchFn) {
     this.fetch = fetchFn;
@@ -46,7 +48,7 @@ export class HttpClient {
     method: string,
     path: string,
     body: unknown,
-    responseType = FetchResponseType.JSON
+    responseType: FetchResponseType = FetchResponseType.JSON
   ): Promise<T> {
     const requestInit: RequestInit = { method };
     if (body) {
@@ -55,7 +57,7 @@ export class HttpClient {
     if (Object.keys(this.headers).length) {
       requestInit.headers = { ...this.headers };
     }
-    const response = await this.fetch(path, requestInit);
+    const response: any = await this.fetch(path, requestInit);
     if (!response.ok) {
       const { error } = await response.json();
       console.error(`Error during the ${method}: ${path} request.`, {

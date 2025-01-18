@@ -1,3 +1,4 @@
+import { createInitialActivities, createInitialStartSettings } from '../../utils/create-initial-data';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { EmailManager } from '../../utils/email-manager';
 import {
@@ -10,8 +11,9 @@ import {
 } from '../../utils/response';
 import { v4 as uuid } from 'uuid';
 import { getHashed } from '../../utils/crypt-jwt';
-import { ApiError, IdObject, passwordAuthRequestSchema, User } from 'pk-common';
+import { ApiError, IdObject, PasswordAuthRequest, passwordAuthRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
+import * as process from 'node:process';
 
 export async function passwordSignup(
   req: Request,
@@ -21,7 +23,7 @@ export async function passwordSignup(
   try {
     if (req.method !== 'POST') return new MethodNotAllowedResponse(req.method);
 
-    const body = await req.json();
+    const body = (await req.json()) as PasswordAuthRequest;
 
     try {
       await passwordAuthRequestSchema.validate(body);
@@ -38,16 +40,25 @@ export async function passwordSignup(
       return new ConflictErrorResponse(ApiError.EMAIL_REGISTERED);
     }
 
+    const isEmailRestricted = process.env.EMAILS_ALLOWED !== 'all';
     const emailsAllowed = process.env.EMAILS_ALLOWED?.split(',');
-    if (emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
+    if (isEmailRestricted && emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
       return new ForbiddenOperationErrorResponse('Sign up');
     }
 
     const id = uuid();
     const { hashedString: passwordHash, salt: passwordSalt } = await getHashed(password);
-    await users.insertOne({ id, email, passwordHash, passwordSalt });
+    await users.insertOne({ id, email, passwordHash, passwordSalt, createdAt: new Date() });
     console.log('Created new user:', email, id);
-    emailManager.sendSignupNotification(email).then(); // no need to await this
+
+    if (process.env.PK_ENV !== 'test') {
+      emailManager.sendSignupNotification(email).then(); // no need to await this
+    }
+
+    await createInitialStartSettings(db, id);
+    console.log('Created initial start settings data');
+    await createInitialActivities(db, id);
+    console.log('Created initial activities data');
 
     return new OkResponse<IdObject>({ id }, 201);
   } catch (e) {

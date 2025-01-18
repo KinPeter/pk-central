@@ -4,7 +4,7 @@ import { MockEmailManager } from '../../../test-utils/mock/email.mock';
 import { requestLoginCode } from '../../../src/handlers/auth/request-login-code';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { EmailManager } from '../../../src/utils/email-manager';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 
 describe('requestLoginCode', () => {
   let db: MockDb;
@@ -90,7 +90,7 @@ describe('requestLoginCode', () => {
         emailManager as unknown as EmailManager
       );
       expect(response.status).toEqual(400);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toContain(ApiError.REQUEST_VALIDATION_FAILED);
     });
   });
@@ -129,7 +129,7 @@ describe('requestLoginCode', () => {
         emailManager as unknown as EmailManager
       );
       expect(response.status).toBe(403);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toContain(ApiError.FORBIDDEN_OPERATION);
     });
   });

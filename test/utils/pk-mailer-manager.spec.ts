@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from '@jest/globals';
-import { DataBackup } from 'pk-common';
+import { DataBackup } from '../../common';
 import { PkMailerManager } from '../../src/utils/pk-mailer-manager';
 import { HttpClient } from '../../src/utils/http-client';
 import { MockHttpClient } from '../../test-utils/mock/http-client.mock';

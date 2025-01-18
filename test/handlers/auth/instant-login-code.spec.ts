@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from '@jest/globals';
 import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
-import { ApiError, LOGIN_CODE_REGEX } from 'pk-common';
+import { ApiError, LOGIN_CODE_REGEX } from '../../../common';
 import { instantLoginCode } from '../../../src/handlers/auth/instant-login-code';
 
 describe('instantLoginCode', () => {
@@ -35,7 +35,7 @@ describe('instantLoginCode', () => {
     expect(collection.insertOne).toHaveBeenCalled();
     expect(collection.updateOne).toHaveBeenCalled();
     expect(response.status).toBe(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.loginCode).toMatch(LOGIN_CODE_REGEX);
   });
 
@@ -51,7 +51,7 @@ describe('instantLoginCode', () => {
     expect(collection.insertOne).not.toHaveBeenCalled();
     expect(collection.updateOne).toHaveBeenCalled();
     expect(response.status).toBe(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.loginCode).toMatch(LOGIN_CODE_REGEX);
   });
 
@@ -66,7 +66,7 @@ describe('instantLoginCode', () => {
       const response = await instantLoginCode(request, dbManager as unknown as MongoDbManager);
       expect(collection.updateOne).not.toHaveBeenCalled();
       expect(response.status).toBe(403);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toMatch(ApiError.FORBIDDEN_OPERATION);
     });
   });
@@ -86,7 +86,7 @@ describe('instantLoginCode', () => {
       });
       const response = await instantLoginCode(request, dbManager as unknown as MongoDbManager);
       expect(response.status).toEqual(400);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toContain(ApiError.REQUEST_VALIDATION_FAILED);
     });
   });
@@ -116,7 +116,7 @@ describe('instantLoginCode', () => {
       });
       const response = await instantLoginCode(request, dbManager as unknown as MongoDbManager);
       expect(response.status).toBe(403);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toContain(ApiError.FORBIDDEN_OPERATION);
     });
   });

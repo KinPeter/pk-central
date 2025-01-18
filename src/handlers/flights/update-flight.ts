@@ -1,6 +1,6 @@
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { AuthManager } from '../../utils/auth-manager';
-import { flightSchema, UUID } from 'pk-common';
+import { flightSchema, type UUID } from '../../../common';
 import { updateItemHandler } from '../_base-crud-handlers/update-handler';
 import { toFlightRequest } from '../../utils/request-mappers';
 import { DbCollection } from '../../utils/collections';

@@ -1,6 +1,6 @@
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { AuthManager } from '../../utils/auth-manager';
-import { shortcutSchema, UUID } from 'pk-common';
+import { shortcutSchema, type UUID } from '../../../common';
 import { updateItemHandler } from '../_base-crud-handlers/update-handler';
 import { toShortcutRequest } from '../../utils/request-mappers';
 import { DbCollection } from '../../utils/collections';

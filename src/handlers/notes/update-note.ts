@@ -1,6 +1,6 @@
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { AuthManager } from '../../utils/auth-manager';
-import { noteSchema, UUID } from 'pk-common';
+import { noteSchema, type UUID } from '../../../common';
 import { updateItemHandler } from '../_base-crud-handlers/update-handler';
 import { toNoteRequest } from '../../utils/request-mappers';
 import { DbCollection } from '../../utils/collections';

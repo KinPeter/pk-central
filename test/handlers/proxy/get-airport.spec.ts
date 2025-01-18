@@ -3,7 +3,7 @@ import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { AuthManager } from '../../../src/utils/auth-manager';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 import { MockHttpClient } from '../../../test-utils/mock/http-client.mock';
 import { HttpClient } from '../../../src/utils/http-client';
 import { airlabsAirportData, airportResponse, locationIqLocationData } from '../../../test-utils/test-data/proxy';
@@ -41,7 +41,7 @@ describe('getAirport', () => {
     expect(collection.findOne).toHaveBeenCalled();
     expect(httpClient.get).toHaveBeenCalledTimes(2);
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data).toEqual(airportResponse);
   });
 
@@ -57,7 +57,7 @@ describe('getAirport', () => {
     expect(db.collection).not.toHaveBeenCalled();
     expect(httpClient.get).not.toHaveBeenCalled();
     expect(response.status).toEqual(400);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.REQUEST_VALIDATION_FAILED);
   });
 
@@ -73,7 +73,7 @@ describe('getAirport', () => {
     expect(db.collection).toHaveBeenCalledWith('shared-keys');
     expect(httpClient.get).not.toHaveBeenCalled();
     expect(response.status).toEqual(404);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -89,7 +89,7 @@ describe('getAirport', () => {
     expect(db.collection).toHaveBeenCalledWith('shared-keys');
     expect(httpClient.get).not.toHaveBeenCalled();
     expect(response.status).toEqual(404);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -106,7 +106,7 @@ describe('getAirport', () => {
       httpClient as unknown as HttpClient
     );
     expect(response.status).toEqual(500);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.UNKNOWN_ERROR);
   });
 

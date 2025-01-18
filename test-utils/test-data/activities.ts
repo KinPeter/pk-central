@@ -1,12 +1,8 @@
-import { Activities, CyclingChoreRequest, SetGoalsRequest } from 'pk-common';
+import { Activities, type CyclingChoreRequest, type SetGoalsRequest } from '../../common';
 
 export const activitiesData: Activities = {
   userId: '123',
   id: 'abc123',
-  walkWeeklyGoal: 0,
-  walkMonthlyGoal: 0,
-  cyclingWeeklyGoal: 0,
-  cyclingMonthlyGoal: 0,
   createdAt: new Date(),
   chores: [
     {
@@ -16,12 +12,16 @@ export const activitiesData: Activities = {
       kmInterval: 200,
     },
   ],
+  walkWeeklyGoal: 0,
+  walkMonthlyGoal: 0,
+  cyclingWeeklyGoal: 0,
+  cyclingMonthlyGoal: 0,
 };
 
 export const validChoreRequest: CyclingChoreRequest = {
+  name: 'test',
   lastKm: 100,
   kmInterval: 100,
-  name: 'test',
 };
 
 export const invalidChoreRequests = [

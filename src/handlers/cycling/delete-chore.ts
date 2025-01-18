@@ -8,7 +8,7 @@ import {
   UnknownErrorResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { Cycling, UUID } from 'pk-common';
+import { Cycling, type UUID } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function deleteChore(

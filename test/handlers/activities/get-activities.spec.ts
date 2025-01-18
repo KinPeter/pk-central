@@ -3,7 +3,7 @@ import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { getActivities } from '../../../src/handlers/activities/get-activities';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 
 const result = { _id: 'm1', id: 'uuid1', userId: '123', walkWeeklyGoal: 200 };
 
@@ -32,7 +32,7 @@ describe('getActivities', () => {
     expect(db.collection).toHaveBeenCalledWith('activities');
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data)).toBeFalsy();
     expect(data.hasOwnProperty('_id')).toBeFalsy();
     expect(data.hasOwnProperty('userId')).toBeFalsy();
@@ -49,7 +49,7 @@ describe('getActivities', () => {
       authManager
     );
     expect(response.status).toEqual(404);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -63,7 +63,7 @@ describe('getActivities', () => {
       authManager
     );
     expect(response.status).toEqual(500);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.UNKNOWN_ERROR);
   });
 

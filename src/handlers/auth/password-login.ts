@@ -7,7 +7,7 @@ import {
   UserNotFoundErrorResponse,
   ValidationErrorResponse,
 } from '../../utils/response';
-import { ApiError, AuthData, passwordAuthRequestSchema, User } from 'pk-common';
+import { ApiError, AuthData, PasswordAuthRequest, passwordAuthRequestSchema, User } from '../../../common';
 import { getAccessToken, validatePassword } from '../../utils/crypt-jwt';
 import { DbCollection } from '../../utils/collections';
 
@@ -15,7 +15,7 @@ export async function passwordLogin(req: Request, dbManager: MongoDbManager): Pr
   try {
     if (req.method !== 'POST') return new MethodNotAllowedResponse(req.method);
 
-    const body = await req.json();
+    const body = (await req.json()) as PasswordAuthRequest;
 
     try {
       await passwordAuthRequestSchema.validate(body);

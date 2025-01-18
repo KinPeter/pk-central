@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./local-server.Dockerfile
+    ports:
+      - "5678:5678"
+    volumes:
+      - .:/app
+    working_dir: /app
+    env_file: .env
+    restart: always

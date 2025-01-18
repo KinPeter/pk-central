@@ -1,5 +1,6 @@
-import { BaseEntity, UUID } from './misc';
+import { BaseEntity } from './misc';
 import { CyclingChore } from './activities';
+import type { UUID } from './misc';
 
 export interface Cycling extends BaseEntity {
   userId: UUID;

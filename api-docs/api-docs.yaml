@@ -50,7 +50,7 @@ functions:
       - method: POST
         route: /auth/token-refresh
         description: Get a new access token
-        request: null
+        request: EmailRequest
         response: AuthData
         authenticated: True
       # POST Request instant Login Code

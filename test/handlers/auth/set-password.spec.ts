@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from '@jest/globals';
 import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 import { setPassword } from '../../../src/handlers/auth/set-password';
 
 describe('setPassword', () => {
@@ -29,7 +29,7 @@ describe('setPassword', () => {
     expect(db.collection).toHaveBeenCalledWith('users');
     expect(collection.updateOne).toHaveBeenCalled();
     expect(response.status).toBe(201);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.id).toEqual('123');
   });
 
@@ -64,7 +64,7 @@ describe('setPassword', () => {
       });
       const response = await setPassword(request, dbManager as unknown as MongoDbManager, authManager);
       expect(response.status).toEqual(400);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toContain(ApiError.REQUEST_VALIDATION_FAILED);
     });
   });

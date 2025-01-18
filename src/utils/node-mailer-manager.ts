@@ -1,5 +1,5 @@
 import { createTransport } from 'nodemailer';
-import { DataBackup } from 'pk-common';
+import { DataBackup } from '../../common';
 import { EmailManager } from './email-manager';
 import { EmailUtils } from './email-utils';
 

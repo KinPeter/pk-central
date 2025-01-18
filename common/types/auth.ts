@@ -1,7 +1,6 @@
-import { UUID } from './misc';
+import type { BaseEntity, UUID } from './misc';
 
-export interface User {
-  id: UUID;
+export interface User extends BaseEntity {
   email: string;
   loginCode?: string;
   loginCodeExpires?: Date;

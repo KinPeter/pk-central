@@ -3,7 +3,7 @@ import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { AuthManager } from '../../../src/utils/auth-manager';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 import { MockHttpClient } from '../../../test-utils/mock/http-client.mock';
 import { FetchResponseType, HttpClient } from '../../../src/utils/http-client';
 import { getKorean } from '../../../src/handlers/proxy/get-korean';
@@ -39,7 +39,7 @@ describe('getKorean', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(httpClient.get).toHaveBeenCalledWith('url', FetchResponseType.TEXT);
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data)).toBeTruthy();
     expect(data.length).toEqual(3);
     expect(data).toEqual(koreanResponse);
@@ -57,7 +57,7 @@ describe('getKorean', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(httpClient.get).not.toHaveBeenCalled();
     expect(response.status).toEqual(404);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.ITEM_NOT_FOUND);
   });
 
@@ -76,7 +76,7 @@ describe('getKorean', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(httpClient.get).toHaveBeenCalledWith('url', FetchResponseType.TEXT);
     expect(response.status).toEqual(500);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toEqual(ApiError.UNKNOWN_ERROR);
   });
 

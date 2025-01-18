@@ -28,7 +28,7 @@ describe('refreshToken', () => {
       authManager
     );
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(typeof data.token).toBe('string');
     expect(typeof data.expiresAt).toBe('string');
   });

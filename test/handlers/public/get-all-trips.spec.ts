@@ -31,7 +31,7 @@ describe('getAllTrips', () => {
     expect(collection.find).toHaveBeenCalledTimes(2);
     expect(collection.find).toHaveBeenCalledWith({ userId: 'c2197832-6a6e-46c3-97a9-dd2a8de8a267' });
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(Array.isArray(data.flights)).toBeTruthy();
     expect(Array.isArray(data.visits)).toBeTruthy();
   });

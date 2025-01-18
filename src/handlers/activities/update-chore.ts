@@ -9,7 +9,7 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { choreSchema, Activities, CyclingChoreRequest, UUID } from 'pk-common';
+import { choreSchema, Activities, type CyclingChoreRequest, type UUID } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function updateChore(
@@ -25,7 +25,7 @@ export async function updateChore(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const requestBody: CyclingChoreRequest = await req.json();
+    const requestBody = (await req.json()) as CyclingChoreRequest;
 
     try {
       await choreSchema.validate(requestBody);

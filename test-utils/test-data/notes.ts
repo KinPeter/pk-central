@@ -1,4 +1,4 @@
-import { Note, NoteRequest } from 'pk-common';
+import { Note, type NoteRequest } from '../../common';
 
 export const notes: Note[] = [
   {

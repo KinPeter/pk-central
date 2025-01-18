@@ -2,7 +2,7 @@ import { describe, beforeEach, it, expect } from '@jest/globals';
 import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 import { invalidNoteRequests, validNoteRequests } from '../../../test-utils/test-data/notes';
 import { createNote } from '../../../src/handlers/notes/create-note';
 
@@ -32,7 +32,7 @@ describe('createNote', () => {
       expect(db.collection).toHaveBeenCalledWith('notes');
       expect(collection.insertOne).toHaveBeenCalled();
       expect(response.status).toBe(201);
-      const result = await response.json();
+      const result: any = await response.json();
       expect(result.hasOwnProperty('id')).toBeTruthy();
       expect(result.hasOwnProperty('createdAt')).toBeTruthy();
     });
@@ -47,7 +47,7 @@ describe('createNote', () => {
       const response = await createNote(request, dbManager as unknown as MongoDbManager, authManager);
       expect(collection.insertOne).not.toHaveBeenCalled();
       expect(response.status).toEqual(400);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toEqual(ApiError.REQUEST_VALIDATION_FAILED);
     });
   });

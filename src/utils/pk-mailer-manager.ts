@@ -1,5 +1,5 @@
 import { EmailManager } from './email-manager';
-import { DataBackup } from 'pk-common';
+import { DataBackup } from '../../common';
 import { EmailUtils } from './email-utils';
 import { HttpClient } from './http-client';
 import * as process from 'node:process';

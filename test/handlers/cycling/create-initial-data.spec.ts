@@ -2,7 +2,7 @@ import { describe, beforeEach, it, expect } from '@jest/globals';
 import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/db.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
-import { ApiError, Cycling } from 'pk-common';
+import { ApiError, Cycling } from '../../../common';
 import { cyclingData } from '../../../test-utils/test-data/cycling';
 import { createInitialData } from '../../../src/handlers/cycling/create-initial-data';
 
@@ -47,7 +47,7 @@ describe('createInitialData', () => {
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.insertOne).not.toHaveBeenCalled();
     expect(response.status).toBe(400);
-    const result = await response.json();
+    const result: any = await response.json();
     expect(result.error).toEqual(ApiError.DATA_ALREADY_EXISTS);
   });
 

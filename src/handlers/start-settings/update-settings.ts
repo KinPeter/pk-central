@@ -6,7 +6,7 @@ import {
   UnknownErrorResponse,
   ValidationErrorResponse,
 } from '../../utils/response';
-import { PkStartSettings, pkStartSettingsSchema } from 'pk-common';
+import { PkStartSettings, pkStartSettingsSchema } from '../../../common';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { v4 as uuid } from 'uuid';
 import { toPkStartSettingsRequest } from '../../utils/request-mappers';
@@ -22,7 +22,7 @@ export async function updateSettings(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const requestBody = await req.json();
+    const requestBody = (await req.json()) as PkStartSettings;
 
     try {
       await pkStartSettingsSchema.validate(requestBody);

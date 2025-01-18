@@ -1,4 +1,4 @@
-import { Shortcut, ShortcutCategory, ShortcutRequest } from 'pk-common';
+import { Shortcut, ShortcutCategory, type ShortcutRequest } from '../../common';
 
 export const shortcuts: Shortcut[] = [
   {

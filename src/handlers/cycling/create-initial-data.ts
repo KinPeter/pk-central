@@ -8,7 +8,7 @@ import {
   ErrorResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { ApiError, Cycling } from 'pk-common';
+import { ApiError, Cycling } from '../../../common';
 import { v4 as uuid } from 'uuid';
 import { DbCollection } from '../../utils/collections';
 

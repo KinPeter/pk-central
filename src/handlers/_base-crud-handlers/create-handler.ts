@@ -9,7 +9,7 @@ import {
 import { v4 as uuid } from 'uuid';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { ObjectSchema } from 'yup';
-import { DbCollection } from '../../utils/collections';
+import type { DbCollection } from '../../utils/collections';
 
 export async function createItemHandler(
   req: Request,

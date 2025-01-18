@@ -3,7 +3,7 @@ import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/
 import { MockEmailManager } from '../../../test-utils/mock/email.mock';
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { EmailManager } from '../../../src/utils/email-manager';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 import { passwordSignup } from '../../../src/handlers/auth/password-signup';
 
 describe('passwordSignup', () => {
@@ -38,8 +38,10 @@ describe('passwordSignup', () => {
       emailManager as unknown as EmailManager
     );
     expect(db.collection).toHaveBeenCalledWith('users');
+    expect(db.collection).toHaveBeenCalledWith('start-settings');
+    expect(db.collection).toHaveBeenCalledWith('activities');
     expect(collection.findOne).toHaveBeenCalledWith({ email: 'test@test.com' });
-    expect(collection.insertOne).toHaveBeenCalled();
+    expect(collection.insertOne).toHaveBeenCalledTimes(3);
     expect(collection.updateOne).not.toHaveBeenCalled();
     expect(emailManager.sendSignupNotification).toHaveBeenCalled();
     expect(response.status).toBe(201);
@@ -92,7 +94,7 @@ describe('passwordSignup', () => {
         emailManager as unknown as EmailManager
       );
       expect(response.status).toEqual(400);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toContain(ApiError.REQUEST_VALIDATION_FAILED);
     });
   });
@@ -130,7 +132,7 @@ describe('passwordSignup', () => {
         emailManager as unknown as EmailManager
       );
       expect(response.status).toBe(403);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toContain(ApiError.FORBIDDEN_OPERATION);
     });
   });

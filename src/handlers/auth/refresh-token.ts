@@ -7,7 +7,7 @@ import {
   UnknownErrorResponse,
 } from '../../utils/response';
 import { getAccessToken } from '../../utils/crypt-jwt';
-import { AuthData } from 'pk-common';
+import { AuthData } from '../../../common';
 
 export async function refreshToken(
   req: Request,

@@ -1,4 +1,6 @@
-import { BaseEntity, UUID } from './misc';
+import { FlightClass, FlightReason, SeatType } from '../enums';
+import { BaseEntity } from './misc';
+import type { UUID } from './misc';
 
 export interface Flight extends BaseEntity {
   userId?: UUID;
@@ -42,23 +44,4 @@ export interface Airline {
 export interface Aircraft {
   name: string;
   icao: string;
-}
-
-export enum SeatType {
-  AISLE = 'Aisle',
-  MIDDLE = 'Middle',
-  WINDOW = 'Window',
-}
-
-export enum FlightClass {
-  ECONOMY = 'Economy',
-  PREMIUM_ECONOMY = 'Premium Economy',
-  BUSINESS = 'Business',
-  FIRST = 'First',
-}
-
-export enum FlightReason {
-  LEISURE = 'Leisure',
-  BUSINESS = 'Business',
-  CREW = 'Crew',
 }

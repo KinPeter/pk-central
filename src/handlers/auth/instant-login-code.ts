@@ -8,15 +8,16 @@ import {
 } from '../../utils/response';
 import { v4 as uuid } from 'uuid';
 import { getLoginCode } from '../../utils/crypt-jwt';
-import { emailRequestSchema, User } from 'pk-common';
+import { EmailRequest, emailRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
+import process from 'node:process';
 
 export async function instantLoginCode(req: Request, dbManager: MongoDbManager): Promise<Response> {
   try {
     if (req.method !== 'POST') return new MethodNotAllowedResponse(req.method);
     if (process.env.PK_ENV !== 'dev') return new ForbiddenOperationErrorResponse();
 
-    const body = await req.json();
+    const body = (await req.json()) as EmailRequest;
 
     try {
       await emailRequestSchema.validate(body);
@@ -29,8 +30,9 @@ export async function instantLoginCode(req: Request, dbManager: MongoDbManager):
     const { email } = body;
     console.warn(`[DEV] ${email} is getting instant login code on '${process.env.PK_ENV}' env`);
 
+    const isEmailRestricted = process.env.EMAILS_ALLOWED !== 'all';
     const emailsAllowed = process.env.EMAILS_ALLOWED?.split(',');
-    if (emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
+    if (isEmailRestricted && emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
       return new ForbiddenOperationErrorResponse('Sign up');
     }
 
@@ -40,8 +42,8 @@ export async function instantLoginCode(req: Request, dbManager: MongoDbManager):
 
     if (!existingUser) {
       const id = uuid();
-      user = { id, email };
-      await users.insertOne({ id, email });
+      user = { id, email, createdAt: new Date() };
+      await users.insertOne(user);
       console.log('Created new user:', email, id);
     } else {
       user = existingUser;

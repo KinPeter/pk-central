@@ -9,7 +9,7 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { Cycling, CyclingChoreRequest, choreSchema } from 'pk-common';
+import { Cycling, type CyclingChoreRequest, choreSchema } from '../../../common';
 import { v4 as uuid } from 'uuid';
 import { toCyclingChoreRequest } from '../../utils/request-mappers';
 import { DbCollection } from '../../utils/collections';
@@ -22,7 +22,7 @@ export async function addChore(req: Request, dbManager: MongoDbManager, authMana
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const requestBody: CyclingChoreRequest = await req.json();
+    const requestBody = (await req.json()) as CyclingChoreRequest;
 
     try {
       await choreSchema.validate(requestBody);

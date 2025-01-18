@@ -3,7 +3,7 @@ import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { updateSettings } from '../../../src/handlers/start-settings/update-settings';
-import { ApiError, PkStartSettings } from 'pk-common';
+import { ApiError, PkStartSettings } from '../../../common';
 import {
   invalidRequestBodies,
   updatedSettings,
@@ -44,7 +44,7 @@ describe('updateSettings', () => {
     expect(Object.keys(settings).length).toEqual(11);
     expect(settings.name).toEqual('testuser');
     expect(settings.weatherApiKey).toEqual('WeatherApiKey123');
-    expect(settings.birthdaysUrl).toBeNull();
+    expect(settings.birthdaysUrl).toEqual('https://stuff.p-kin.com/mock-bdays.tsv');
     expect(typeof settings.id).toEqual('string');
     expect(settings.hasOwnProperty('userId')).toBeFalsy();
   });
@@ -84,7 +84,7 @@ describe('updateSettings', () => {
       });
       const response = await updateSettings(request, dbManager as unknown as MongoDbManager, authManager);
       expect(response.status).toEqual(400);
-      const data = await response.json();
+      const data: any = await response.json();
       expect(data.error).toEqual(ApiError.REQUEST_VALIDATION_FAILED);
     });
   });

@@ -9,8 +9,9 @@ import {
 } from '../../utils/response';
 import { v4 as uuid } from 'uuid';
 import { getLoginCode } from '../../utils/crypt-jwt';
-import { emailRequestSchema, User } from 'pk-common';
+import { EmailRequest, emailRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
+import process from 'node:process';
 
 export async function requestLoginCode(
   req: Request,
@@ -20,7 +21,7 @@ export async function requestLoginCode(
   try {
     if (req.method !== 'POST') return new MethodNotAllowedResponse(req.method);
 
-    const body = await req.json();
+    const body = (await req.json()) as EmailRequest;
 
     try {
       await emailRequestSchema.validate(body);
@@ -32,8 +33,9 @@ export async function requestLoginCode(
 
     const { email } = body;
 
+    const isEmailRestricted = process.env.EMAILS_ALLOWED !== 'all';
     const emailsAllowed = process.env.EMAILS_ALLOWED?.split(',');
-    if (emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
+    if (isEmailRestricted && emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
       return new ForbiddenOperationErrorResponse('Sign up');
     }
 
@@ -43,8 +45,9 @@ export async function requestLoginCode(
 
     if (!existingUser) {
       const id = uuid();
-      user = { id, email };
-      await users.insertOne({ id, email });
+      const createdAt = new Date();
+      user = { id, email, createdAt };
+      await users.insertOne({ id, email, createdAt });
       console.log('Created new user:', email, id);
       emailManager.sendSignupNotification(email).then(); // no need to await this
     } else {

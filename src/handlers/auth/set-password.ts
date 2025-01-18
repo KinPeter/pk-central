@@ -8,7 +8,7 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { getHashed } from '../../utils/crypt-jwt';
-import { IdObject, passwordAuthRequestSchema, User } from 'pk-common';
+import { IdObject, PasswordAuthRequest, passwordAuthRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function setPassword(
@@ -19,7 +19,7 @@ export async function setPassword(
   try {
     if (req.method !== 'PUT') return new MethodNotAllowedResponse(req.method);
 
-    const body = await req.json();
+    const body = (await req.json()) as PasswordAuthRequest;
 
     try {
       await passwordAuthRequestSchema.validate(body);

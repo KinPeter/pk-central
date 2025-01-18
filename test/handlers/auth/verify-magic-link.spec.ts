@@ -4,7 +4,7 @@ import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { getLoginCode } from '../../../src/utils/crypt-jwt';
 import { verifyMagicLink } from '../../../src/handlers/auth/verify-magic-link';
 import { Context } from '@netlify/functions';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 
 describe('verifyMagicLink', () => {
   let db: MockDb;
@@ -51,7 +51,7 @@ describe('verifyMagicLink', () => {
       dbManager as unknown as MongoDbManager
     );
     expect(response.status).toEqual(401);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toContain(ApiError.INVALID_MAGIC_LINK);
   });
 

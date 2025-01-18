@@ -1,9 +1,0 @@
-### Get data backup in email
-GET {{baseUrl}}/data-backup/email
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-### Get data backup in response
-GET {{baseUrl}}/data-backup/data
-Content-Type: application/json
-Authorization: Bearer {{token}}

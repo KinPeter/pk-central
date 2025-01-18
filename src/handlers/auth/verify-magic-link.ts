@@ -1,4 +1,4 @@
-import { Context } from '@netlify/functions';
+import { Context } from '../../../server/types';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import {
   MethodNotAllowedResponse,
@@ -8,7 +8,7 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { getAccessToken, verifyToken } from '../../utils/crypt-jwt';
-import { ApiError, magicLinkParamsSchema, User } from 'pk-common';
+import { ApiError, magicLinkParamsSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function verifyMagicLink(req: Request, context: Context, dbManager: MongoDbManager): Promise<Response> {

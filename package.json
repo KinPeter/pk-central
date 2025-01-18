@@ -1,16 +1,24 @@
 {
   "name": "pk-central",
-  "version": "0.0.0",
+  "version": "1.0.2",
   "description": "Serverless functions based API",
   "scripts": {
     "dev": "netlify dev --no-open",
+    "serve": "tsx ./server.ts",
+    "serve:docker:build": "docker-compose -f ./local-server.docker-compose.yml up --build",
+    "serve:docker": "docker-compose -f ./local-server.docker-compose.yml up",
+    "build-publish": "node ./build-publish.mjs",
     "lint": "eslint . --ext .ts",
     "format:check": "prettier --check \"**/*.{ts,json}\"",
     "format": "prettier --write \"**/*.{ts,json}\"",
     "test": "jest",
+    "test-acc": "node --import tsx --test test-acc/acceptance.test.ts",
+    "test-acc:docker": "docker-compose -f ./acc-test.docker-compose.yml up --build --exit-code-from acc_test && docker-compose -f ./acc-test.docker-compose.yml down -v",
+    "test-acc:docker:clean": "docker-compose -f ./acc-test.docker-compose.yml down -v",
     "checks": "npm run lint && npm run format:check && npm run test",
     "start:db": "docker-compose -f docker/dev-db/docker-compose.yml up",
     "clear:db": "docker-compose -f docker/dev-db/docker-compose.yml down -v",
+    "mock:proxy": "docker-compose -f docker/proxy-mock/docker-compose.yml up",
     "common:publish": "cd common && npm version patch && npm publish --access public",
     "docs:generate": "node ./api-docs/generate-docs.js",
     "prepare": "husky"
@@ -52,6 +60,7 @@
     "prettier": "^3.4.2",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "yaml": "^2.6.1"
   }
 }

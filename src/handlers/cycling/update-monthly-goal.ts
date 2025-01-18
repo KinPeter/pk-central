@@ -9,7 +9,7 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
-import { Cycling, SetMonthlyGoalRequest, monthlyGoalSchema } from 'pk-common';
+import { Cycling, type SetMonthlyGoalRequest, monthlyGoalSchema } from '../../../common';
 import { DbCollection } from '../../utils/collections';
 
 export async function updateMonthlyGoal(
@@ -24,7 +24,7 @@ export async function updateMonthlyGoal(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const requestBody: SetMonthlyGoalRequest = await req.json();
+    const requestBody = (await req.json()) as SetMonthlyGoalRequest;
 
     try {
       await monthlyGoalSchema.validate(requestBody);

@@ -3,7 +3,7 @@ import { MockCollection, MockDb, MockDbManager } from '../../../test-utils/mock/
 import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { verifyLoginCode } from '../../../src/handlers/auth/verify-login-code';
 import { getLoginCode } from '../../../src/utils/crypt-jwt';
-import { ApiError } from 'pk-common';
+import { ApiError } from '../../../common';
 
 describe('verifyLoginCode', () => {
   let db: MockDb;
@@ -29,7 +29,7 @@ describe('verifyLoginCode', () => {
     });
     const response = await verifyLoginCode(request, dbManager as unknown as MongoDbManager);
     expect(response.status).toEqual(200);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(typeof data.token).toBe('string');
     expect(typeof data.expiresAt).toBe('string');
   });
@@ -53,7 +53,7 @@ describe('verifyLoginCode', () => {
     });
     const response = await verifyLoginCode(request, dbManager as unknown as MongoDbManager);
     expect(response.status).toEqual(401);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toContain(ApiError.INVALID_LOGIN_CODE);
   });
 
@@ -66,7 +66,7 @@ describe('verifyLoginCode', () => {
     });
     const response = await verifyLoginCode(request, dbManager as unknown as MongoDbManager);
     expect(response.status).toEqual(401);
-    const data = await response.json();
+    const data: any = await response.json();
     expect(data.error).toContain(ApiError.INVALID_LOGIN_CODE);
   });
 
