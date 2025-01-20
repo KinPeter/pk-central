@@ -42,9 +42,6 @@ services:
       LOGIN_CODE_EXPIRY: 15
       TOKEN_EXPIRY: 7
       NOTIFICATION_EMAIL: main@test.com
-      SELF_URL: https://pk-central.app
-      TRIPZ_FRONTEND_URL: https://tripz.com
-      START_FRONTEND_URL: https://start.com
       EMAILS_ALLOWED: all
       MAILER_URL: http://proxy_mock:9876/mail
       MAILER_API_KEY: mailerapikey123

@@ -1,4 +1,4 @@
-export { emailRequestSchema, magicLinkParamsSchema, loginVerifyRequestSchema, passwordAuthRequestSchema } from './auth';
+export { emailRequestSchema, loginVerifyRequestSchema, passwordAuthRequestSchema } from './auth';
 export { choreSchema, goalsSchema } from './activities';
 export { pkStartSettingsSchema } from './start-settings';
 export { monthlyGoalSchema, weeklyGoalSchema } from './cycling';

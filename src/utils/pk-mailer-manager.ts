@@ -22,9 +22,9 @@ export class PkMailerManager extends EmailUtils implements EmailManager {
     this.http.setHeaders({ 'Content-Type': 'application/json' });
   }
 
-  public async sendLoginCode(email: string, loginCode: string, magicLinkToken: string): Promise<any> {
+  public async sendLoginCode(email: string, loginCode: string): Promise<any> {
     const subject = `${loginCode} - Log in to PK-Central`;
-    const { html } = this.getLoginCodeTemplates(loginCode, magicLinkToken);
+    const { html } = this.getLoginCodeTemplates(loginCode);
     const data = new EmailData(email, subject, html);
     return await this.sendMail(data);
   }

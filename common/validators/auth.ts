@@ -17,8 +17,3 @@ export const loginVerifyRequestSchema = emailRequestSchema.shape({
 export const passwordAuthRequestSchema = emailRequestSchema.shape({
   password: yup.string().strict().min(5, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
 });
-
-export const magicLinkParamsSchema = yup.object({
-  token: yup.string().min(5, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
-  redirectEnv: yup.string().oneOf(['prod', 'dev']).required(ValidationError.STRING_REQUIRED),
-});

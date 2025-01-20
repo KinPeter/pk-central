@@ -19,7 +19,7 @@ describe('PkMailerManager', () => {
   });
 
   it('should call pk-mailer API when sending a login code email', () => {
-    emailManager.sendLoginCode('test@test.com', '123123', 'token');
+    emailManager.sendLoginCode('test@test.com', '123123');
     expect(httpClient.post).toHaveBeenCalled();
     const [path, body] = httpClient.post.mock.lastCall as Array<any>;
     expect(path).toEqual(mockUrl);

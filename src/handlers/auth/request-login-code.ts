@@ -54,7 +54,7 @@ export async function requestLoginCode(
       user = existingUser;
     }
 
-    const { loginCode, hashedLoginCode, loginCodeExpires, salt, magicLinkToken } = await getLoginCode(user.id);
+    const { loginCode, hashedLoginCode, loginCodeExpires, salt } = await getLoginCode();
     await users.updateOne(
       { id: user.id },
       {
@@ -66,7 +66,7 @@ export async function requestLoginCode(
       }
     );
 
-    await emailManager.sendLoginCode(body.email, loginCode, magicLinkToken);
+    await emailManager.sendLoginCode(body.email, loginCode);
     return new OkResponse({ message: 'Check your inbox' });
   } catch (e) {
     console.log(e);

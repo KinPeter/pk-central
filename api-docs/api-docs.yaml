@@ -18,13 +18,6 @@ functions:
         request: LoginVerifyRequest
         response: AuthData
         authenticated: False
-      # GET Verify Magic Link
-      - method: GET
-        route: /auth/verify-link/:token/:redirectEnv
-        description: Verify magic link to redirect client to get access token
-        request: null
-        response: null
-        authenticated: False
       # POST Password login
       - method: POST
         route: /auth/password-login

@@ -210,23 +210,6 @@ summary {
         </details>
       </div>
     
-      <div class="endpoint get">
-        <details>
-          <summary>
-            <span class="method">GET</span>
-            <span class="route">/auth/verify-link/:token/:redirectEnv</span>
-          </summary>
-          <div class="details">
-            <p>Verify magic link to redirect client to get access token</p>
-            <p class="info">
-              <span>Request body:<code class="request">None</code></span>
-              <span>Returns:<code class="response">null</code></span>
-              <span>Authenticated:<span class="authenticated">No</span></span>
-            </p>
-          </div>
-        </details>
-      </div>
-    
       <div class="endpoint post">
         <details>
           <summary>
@@ -371,11 +354,6 @@ export const loginVerifyRequestSchema = emailRequestSchema.shape({
 
 export const passwordAuthRequestSchema = emailRequestSchema.shape({
   password: yup.string().strict().min(5, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
-});
-
-export const magicLinkParamsSchema = yup.object({
-  token: yup.string().min(5, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
-  redirectEnv: yup.string().oneOf(['prod', 'dev']).required(ValidationError.STRING_REQUIRED),
 });
 </pre>
       </details>

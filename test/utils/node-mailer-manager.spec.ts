@@ -16,7 +16,7 @@ describe('NodeMailerManager', () => {
   });
 
   it('should call createTransport function when sending a login code email', () => {
-    emailManager.sendLoginCode('test@test.com', '123123', 'token');
+    emailManager.sendLoginCode('test@test.com', '123123');
     expect(createTransportFn).toHaveBeenCalled();
     expect(transporterSpy.sendMail).toHaveBeenCalled();
   });

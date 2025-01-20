@@ -4,7 +4,6 @@ import { MongoDbManager } from '../src/utils/mongo-db-manager';
 import { AuthManager } from '../src/utils/auth-manager';
 import { requestLoginCode } from '../src/handlers/auth/request-login-code';
 import { verifyLoginCode } from '../src/handlers/auth/verify-login-code';
-import { verifyMagicLink } from '../src/handlers/auth/verify-magic-link';
 import { refreshToken } from '../src/handlers/auth/refresh-token';
 import { instantLoginCode } from '../src/handlers/auth/instant-login-code';
 import { passwordLogin } from '../src/handlers/auth/password-login';
@@ -30,8 +29,6 @@ export default async (req: Request, context: Context) => {
       return await requestLoginCode(req, dbManager, new PkMailerManager(httpClient));
     case 'verify-code':
       return await verifyLoginCode(req, dbManager);
-    case 'verify-link':
-      return await verifyMagicLink(req, context, dbManager);
     case 'token-refresh':
       return await refreshToken(req, dbManager, new AuthManager());
     case 'password-login':

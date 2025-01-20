@@ -21,9 +21,9 @@ export class NodeMailerManager extends EmailUtils implements EmailManager {
     super();
   }
 
-  public async sendLoginCode(email: string, loginCode: string, magicLinkToken: string): Promise<any> {
+  public async sendLoginCode(email: string, loginCode: string): Promise<any> {
     const subject = `${loginCode} - Log in to PK-Central`;
-    const { html, text } = this.getLoginCodeTemplates(loginCode, magicLinkToken);
+    const { html, text } = this.getLoginCodeTemplates(loginCode);
     const data = new EmailData(email, subject, text, html);
     return await this.sendMail(data);
   }

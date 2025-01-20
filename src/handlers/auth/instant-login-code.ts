@@ -49,7 +49,7 @@ export async function instantLoginCode(req: Request, dbManager: MongoDbManager):
       user = existingUser;
     }
 
-    const { loginCode, hashedLoginCode, loginCodeExpires, salt } = await getLoginCode(user.id);
+    const { loginCode, hashedLoginCode, loginCodeExpires, salt } = await getLoginCode();
     await users.updateOne(
       { id: user.id },
       {

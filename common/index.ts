@@ -30,7 +30,6 @@ export {
   noteSchema,
   passwordAuthRequestSchema,
   goalsSchema,
-  magicLinkParamsSchema,
   loginVerifyRequestSchema,
   pkStartSettingsSchema,
   emailRequestSchema,

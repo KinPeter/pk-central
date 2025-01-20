@@ -21,7 +21,7 @@ describe('verifyLoginCode', () => {
   });
 
   it('should return token for valid login code', async () => {
-    const { loginCode, loginCodeExpires, hashedLoginCode, salt } = await getLoginCode('123');
+    const { loginCode, loginCodeExpires, hashedLoginCode, salt } = await getLoginCode();
     collection.findOne.mockResolvedValue({ id: '123', loginCode: hashedLoginCode, loginCodeExpires, salt });
     const request = new Request('http://localhost:8888', {
       method: 'POST',
@@ -45,7 +45,7 @@ describe('verifyLoginCode', () => {
   });
 
   it('should return unauthorized error for invalid login code', async () => {
-    const { loginCodeExpires, hashedLoginCode, salt } = await getLoginCode('123');
+    const { loginCodeExpires, hashedLoginCode, salt } = await getLoginCode();
     collection.findOne.mockResolvedValue({ id: '123', loginCode: hashedLoginCode, loginCodeExpires, salt });
     const request = new Request('http://localhost:8888', {
       method: 'POST',
@@ -58,7 +58,7 @@ describe('verifyLoginCode', () => {
   });
 
   it('should return unauthorized error if no entry in the database', async () => {
-    const { loginCode } = await getLoginCode('123');
+    const { loginCode } = await getLoginCode();
     collection.findOne.mockResolvedValue({ id: '123' });
     const request = new Request('http://localhost:8888', {
       method: 'POST',

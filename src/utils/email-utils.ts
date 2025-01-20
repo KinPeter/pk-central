@@ -4,18 +4,12 @@ interface EmailTemplates {
 }
 
 export class EmailUtils {
-  protected getLoginCodeTemplates(loginCode: string, magicLinkToken: string): EmailTemplates {
+  protected getLoginCodeTemplates(loginCode: string): EmailTemplates {
     const expiresInMinutes = Number(process.env.LOGIN_CODE_EXPIRY);
-    const prodProdMagicLink = `${process.env.SELF_URL}/auth/verify-link/${magicLinkToken}/prod`;
-    const localLocalMagicLink = `http://localhost:8888/auth/verify-link/${magicLinkToken}/dev`;
-    const prodLocalMagicLink = `${process.env.SELF_URL}/auth/verify-link/${magicLinkToken}/dev`;
     const html = `
     <h3>Hello!</h3>
     <p>Please use the code below to log in, it expires in ${expiresInMinutes} minutes.</p>
     <h1>${loginCode}</h1>
-    <p>Or, use the <a href="${prodProdMagicLink}">magic link</a>!</p>
-    <p>[DEV local] <a href="${localLocalMagicLink}">magic link</a>!</p>
-    <p>[DEV prod/local] <a href="${prodLocalMagicLink}">magic link</a>!</p>
     `;
     const text = `
     Hello!

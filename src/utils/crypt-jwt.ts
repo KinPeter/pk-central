@@ -10,32 +10,23 @@ export function getAccessToken(email: string, userId: string): { token: string; 
   return { token, expiresAt };
 }
 
-function getMagicLinkToken(userId: string): { token: string } {
-  const nMinutesInSeconds = Number(process.env.LOGIN_CODE_EXPIRY) * 60;
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET!, { expiresIn: nMinutesInSeconds });
-  return { token };
-}
-
 export async function getHashed(rawString: string): Promise<{ hashedString: string; salt: string }> {
   const salt = await bcrypt.genSalt();
   const hashedString = await bcrypt.hash(rawString, salt);
   return { hashedString, salt };
 }
 
-export async function getLoginCode(userId: string): Promise<{
+export async function getLoginCode(): Promise<{
   loginCode: string;
-  magicLinkToken: string;
   hashedLoginCode: string;
   loginCodeExpires: Date;
   salt: string;
 }> {
   const { loginCode, loginCodeExpires } = generateLoginCode();
-  const { token: magicLinkToken } = getMagicLinkToken(userId);
   const { hashedString: hashedLoginCode, salt } = await getHashed(loginCode);
 
   return {
     loginCode,
-    magicLinkToken,
     hashedLoginCode,
     loginCodeExpires,
     salt,
