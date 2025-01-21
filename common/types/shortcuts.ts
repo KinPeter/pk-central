@@ -1,4 +1,4 @@
-import { ShortcutCategory } from '../enums';
+import { ShortcutCategory } from '../enums/shortcut-category';
 import { BaseEntity } from './misc';
 import type { UUID } from './misc';
 

@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { ValidationError } from '../enums';
+import { ValidationError } from '../enums/api-errors';
 
 export const pkStartSettingsSchema = yup.object({
   name: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),

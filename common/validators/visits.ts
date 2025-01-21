@@ -1,6 +1,6 @@
 import * as yup from 'yup';
-import { ValidationError } from '../enums';
-import { YEAR_REGEX } from '../utils';
+import { ValidationError } from '../enums/api-errors';
+import { YEAR_REGEX } from '../utils/regex';
 
 export const visitSchema = yup.object({
   city: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),

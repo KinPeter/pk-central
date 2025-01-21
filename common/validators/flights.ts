@@ -1,7 +1,7 @@
 import * as yup from 'yup';
-import { ValidationError } from '../enums';
-import { SIMPLE_DATE_REGEX_POSSIBLE_PAST, SIMPLE_TIME_REGEX } from '../utils';
-import { FlightClass, FlightReason, SeatType } from '../enums';
+import { ValidationError } from '../enums/api-errors';
+import { SIMPLE_DATE_REGEX_POSSIBLE_PAST, SIMPLE_TIME_REGEX } from '../utils/regex';
+import { FlightClass, FlightReason, SeatType } from '../enums/flights';
 
 export const airportSchema = yup.object({
   city: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),

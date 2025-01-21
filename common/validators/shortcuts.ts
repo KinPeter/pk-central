@@ -1,6 +1,7 @@
 import * as yup from 'yup';
-import { ShortcutCategory, ValidationError } from '../enums';
-import { FLEXIBLE_URL_REGEX } from '../utils';
+import { ShortcutCategory } from '../enums/shortcut-category';
+import { ValidationError } from '../enums/api-errors';
+import { FLEXIBLE_URL_REGEX } from '../utils/regex';
 
 export const shortcutSchema = yup.object({
   name: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),

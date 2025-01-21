@@ -1,4 +1,4 @@
-import { FlightClass, FlightReason, SeatType } from '../enums';
+import { FlightClass, FlightReason, SeatType } from '../enums/flights';
 import { BaseEntity } from './misc';
 import type { UUID } from './misc';
 

@@ -1,6 +1,6 @@
 import * as yup from 'yup';
-import { LOGIN_CODE_REGEX } from '../utils';
-import { ValidationError } from '../enums';
+import { LOGIN_CODE_REGEX } from '../utils/regex';
+import { ValidationError } from '../enums/api-errors';
 
 export const emailRequestSchema = yup.object({
   email: yup.string().email(ValidationError.INVALID_EMAIL).required(ValidationError.STRING_REQUIRED),

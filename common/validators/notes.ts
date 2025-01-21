@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { ValidationError } from '../enums';
+import { ValidationError } from '../enums/api-errors';
 import { Link } from '../types';
 
 export const linkSchema = yup.object({
