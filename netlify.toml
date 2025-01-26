@@ -1,7 +1,0 @@
-[functions]
-    # Sets a custom directory for Netlify Functions
-    directory = "functions/"
-
-[dev]
-    functions = "functions"
-    functionsPort = 7000

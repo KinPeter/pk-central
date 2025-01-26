@@ -3,7 +3,6 @@
   "version": "1.0.4",
   "description": "Serverless functions based API",
   "scripts": {
-    "dev": "netlify dev --no-open",
     "serve": "tsx ./server.ts",
     "serve:docker:build": "docker-compose -f ./local-server.docker-compose.yml up --build",
     "serve:docker": "docker-compose -f ./local-server.docker-compose.yml up",
@@ -30,7 +29,6 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@netlify/functions": "^2.8.2",
     "bcrypt": "^5.1.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.11.0",
@@ -56,7 +54,6 @@
     "html-entities": "^2.5.2",
     "husky": "^9.1.7",
     "jest": "^29.7.0",
-    "netlify-cli": "^17.38.0",
     "prettier": "^3.4.2",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",

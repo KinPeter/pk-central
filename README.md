@@ -1,5 +1,3 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/4392a538-26c9-440f-8182-b09de5e6177a/deploy-status)](https://app.netlify.com/sites/pk-central/deploys)
-
 # PK-Central
 
 A collection of API endpoints designed as cloud functions providing backend services for my other hobby projects, like PK Start or Tripz.
@@ -62,24 +60,9 @@ npm run serve:docker
 ```
 
 
-## Netlify CLI
-
-- Run `npx netlify login` to log in by opening a browser, signing in to Netlify using GitHub and authorize the CLI.
-- Run `npx netlify link --id <site-ID>` to link the project, find the site ID on Netlify under site configuration.
-- Run `npx netlify dev` or `npm run dev` for a local development server
-
-Find out more at the [Netlify Docs](https://docs.netlify.com/cli/get-started/) or [Netlify CLI Docs](https://cli.netlify.com/)
-
-
 ## Environment variables
 
 Create a `.env` file in the project folder. See the `.env.example` for currently used variables.
-
-### Netlify specific settings
-
-Environment variables are handled by Netlify, it is possible to set one by one or import from .env file on the Netlify UI under Site configuration / Environment variables.
-
-When running the Netlify CLI local dev server it automatically reads the local `.env` file and uses the variables stored in that file (thus ignoring the variables stored on Netlify online).
 
 
 ## Third party API keys
@@ -140,6 +123,7 @@ npm run docs:generate
 
 ### Postman collection
 A Postman collection export can be downloaded [from the repository](./api-docs/postman-collection.json). This file should also be updated on any changes to the API.
+
 
 ## Testing
 
