@@ -2,87 +2,61 @@ import { PkStartSettings, type PkStartSettingsRequest } from '../../common';
 
 export const validSettingsRequest: PkStartSettingsRequest = {
   name: 'testuser',
-  weatherApiKey: 'WeatherApiKey123',
-  locationApiKey: null,
-  unsplashApiKey: null,
   shortcutIconBaseUrl: 'https://other.p-kin.com/start-tile-icons/',
   birthdaysUrl: 'https://stuff.p-kin.com/mock-bdays.tsv',
-  koreanUrl: 'https://docs.google.com/asd123aaa',
-  stravaClientId: null,
-  stravaClientSecret: null,
   stravaRedirectUri: null,
 };
 
+export const sharedSettings: Partial<PkStartSettings> = {
+  openWeatherApiKey: 'openWeatherApiKey',
+  locationIqApiKey: 'locationIqApiKey',
+  unsplashApiKey: 'unsplashApiKey',
+  stravaClientId: 'stravaClientId',
+  stravaClientSecret: 'stravaClientSecret',
+};
+
 export const validSettings: PkStartSettings = {
+  ...sharedSettings,
   ...validSettingsRequest,
   id: 'abc123',
   userId: '123',
-};
+} as PkStartSettings;
 
 export const updatedSettings: PkStartSettings = {
+  ...sharedSettings,
   ...validSettings,
-  locationApiKey: 'apiKey123',
-  koreanUrl: null,
-  stravaClientId: 'clientId',
+  name: 'new name',
 };
 
 export const invalidRequestBodies = [
   {
-    name: 'testuser',
-    weatherApiKey: 'WeatherApiKey123',
-    locationApiKey: null,
-    unsplashApiKey: null,
+    name: 234,
     shortcutIconBaseUrl: 'https://other.p-kin.com/start-tile-icons/',
     birthdaysUrl: null,
-    koreanUrl: 'not-a-valid-url',
-    stravaClientId: null,
-    stravaClientSecret: null,
     stravaRedirectUri: null,
   },
   {
     name: 'testuser',
-    weatherApiKey: 'WeatherApiKey123',
-    locationApiKey: undefined,
-    unsplashApiKey: null,
     shortcutIconBaseUrl: 'https://other.p-kin.com/start-tile-icons/',
-    birthdaysUrl: null,
-    koreanUrl: 'https://docs.google.com/asd123aaa',
-    stravaClientId: null,
-    stravaClientSecret: null,
+    birthdaysUrl: 'not-a-url',
     stravaRedirectUri: null,
   },
   {
     name: 'testuser',
-    weatherApiKey: 'WeatherApiKey123',
-    locationApiKey: null,
-    unsplashApiKey: null,
     shortcutIconBaseUrl: 'https://other.p-kin.com/start-tile-icons/',
     birthdaysUrl: true,
-    koreanUrl: 'https://docs.google.com/asd123aaa',
-    stravaClientId: null,
-    stravaClientSecret: null,
     stravaRedirectUri: null,
   },
   {
     name: 'testuser',
-    locationApiKey: null,
-    unsplashApiKey: null,
-    shortcutIconBaseUrl: 'https://other.p-kin.com/start-tile-icons/',
+    shortcutIconBaseUrl: 'not-a-url',
     birthdaysUrl: null,
-    koreanUrl: 'https://docs.google.com/asd123aaa',
-    stravaClientId: null,
-    stravaClientSecret: null,
     stravaRedirectUri: null,
   },
   {
     name: 'testuser',
-    locationApiKey: null,
-    weatherApiKey: null,
     shortcutIconBaseUrl: 'https://other.p-kin.com/start-tile-icons/',
     birthdaysUrl: null,
-    koreanUrl: 'https://docs.google.com/asd123aaa',
-    stravaClientId: null,
-    stravaClientSecret: null,
-    stravaRedirectUri: null,
+    stravaRedirectUri: 'not-a-url',
   },
 ];

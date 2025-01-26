@@ -38,7 +38,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"kinpeter85@gmail.com\",\r\n    \"loginCode\": \"510381\"\r\n}",
+              "raw": "{\r\n    \"email\": \"kinpeter85@gmail.com\",\r\n    \"loginCode\": \"781585\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -746,7 +746,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\": \"testuser\",\r\n    \"weatherApiKey\": \"WeatherApiKey123\",\r\n    \"locationApiKey\": null,\r\n    \"unsplashApiKey\": null,\r\n    \"shortcutIconBaseUrl\": \"https://other.p-kin.com/start-tile-icons/\",\r\n    \"birthdaysUrl\": \"https://stuff.p-kin.com/mock-bdays.tsv\",\r\n    \"koreanUrl\": null,\r\n    \"stravaClientId\": null,\r\n    \"stravaClientSecret\": null,\r\n    \"stravaRedirectUri\": null\r\n}",
+              "raw": "{\r\n    \"name\": \"testuser\",\r\n    \"shortcutIconBaseUrl\": \"https://other.p-kin.com/start-tile-icons/\",\r\n    \"birthdaysUrl\": \"https://stuff.p-kin.com/mock-bdays.tsv\",\r\n    \"stravaRedirectUri\": \"https://my-new-site.com\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -879,9 +879,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{BASE_URL}}/proxy/airport/CHQ",
+              "raw": "{{BASE_URL}}/proxy/airport/SIN",
               "host": ["{{BASE_URL}}"],
-              "path": ["proxy", "airport", "CHQ"]
+              "path": ["proxy", "airport", "SIN"]
             }
           },
           "response": []

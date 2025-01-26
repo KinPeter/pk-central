@@ -39,6 +39,8 @@ describe('requestLoginCode', () => {
       emailManager as unknown as EmailManager
     );
     expect(db.collection).toHaveBeenCalledWith('users');
+    expect(db.collection).toHaveBeenCalledWith('start-settings');
+    expect(db.collection).toHaveBeenCalledWith('activities');
     expect(collection.findOne).toHaveBeenCalledWith({ email: 'test@test.com' });
     expect(collection.insertOne).toHaveBeenCalled();
     expect(collection.updateOne).toHaveBeenCalled();
@@ -59,6 +61,8 @@ describe('requestLoginCode', () => {
       dbManager as unknown as MongoDbManager,
       emailManager as unknown as EmailManager
     );
+    expect(db.collection).not.toHaveBeenCalledWith('start-settings');
+    expect(db.collection).not.toHaveBeenCalledWith('activities');
     expect(collection.findOne).toHaveBeenCalledWith({ email: 'test@test.com' });
     expect(collection.insertOne).not.toHaveBeenCalled();
     expect(collection.updateOne).toHaveBeenCalled();

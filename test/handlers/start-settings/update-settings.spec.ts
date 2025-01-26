@@ -4,6 +4,7 @@ import { MongoDbManager } from '../../../src/utils/mongo-db-manager';
 import { MockAuthManager } from '../../../test-utils/mock/auth.mock';
 import { updateSettings } from '../../../src/handlers/start-settings/update-settings';
 import { ApiError, PkStartSettings } from '../../../common';
+import { sharedKeys } from '../../../test-utils/test-data/shared-keys';
 import {
   invalidRequestBodies,
   updatedSettings,
@@ -27,7 +28,7 @@ describe('updateSettings', () => {
   });
 
   it('should create new settings if not exists', async () => {
-    collection.findOne.mockResolvedValue(null);
+    collection.findOne.mockResolvedValueOnce(sharedKeys).mockResolvedValue(null);
     collection.insertOne.mockResolvedValue(true);
     collection.updateOne.mockResolvedValue(true);
     const request = new Request('http://localhost:8888', {
@@ -35,30 +36,29 @@ describe('updateSettings', () => {
       body: JSON.stringify(validSettingsRequest),
     });
     const response = await updateSettings(request, dbManager as unknown as MongoDbManager, authManager);
+    expect(db.collection).toHaveBeenCalledWith('shared-keys');
     expect(db.collection).toHaveBeenCalledWith('start-settings');
     expect(collection.findOne).toHaveBeenCalledWith({ userId: '123' });
     expect(collection.insertOne).toHaveBeenCalled();
     expect(collection.findOneAndUpdate).not.toHaveBeenCalled();
     expect(response.status).toBe(200);
     const settings = (await response.json()) as PkStartSettings;
-    expect(Object.keys(settings).length).toEqual(11);
+    expect(Object.keys(settings).length).toEqual(10);
     expect(settings.name).toEqual('testuser');
-    expect(settings.weatherApiKey).toEqual('WeatherApiKey123');
+    expect(settings.openWeatherApiKey).toEqual('openWeatherApiKey');
     expect(settings.birthdaysUrl).toEqual('https://stuff.p-kin.com/mock-bdays.tsv');
     expect(typeof settings.id).toEqual('string');
     expect(settings.hasOwnProperty('userId')).toBeFalsy();
   });
 
   it('should update existing settings', async () => {
-    collection.findOne.mockResolvedValue(validSettings);
+    collection.findOne.mockResolvedValueOnce(sharedKeys).mockResolvedValue(validSettings);
     collection.findOneAndUpdate.mockResolvedValue(updatedSettings);
     const request = new Request('http://localhost:8888', {
       method: 'PUT',
       body: JSON.stringify({
         ...validSettingsRequest,
-        locationApiKey: 'apiKey123',
-        koreanUrl: null,
-        stravaClientId: 'clientId',
+        name: 'new name',
       }),
     });
     const response = await updateSettings(request, dbManager as unknown as MongoDbManager, authManager);
@@ -67,11 +67,10 @@ describe('updateSettings', () => {
     expect(collection.findOneAndUpdate).toHaveBeenCalled();
     expect(response.status).toBe(200);
     const settings = (await response.json()) as PkStartSettings;
-    expect(Object.keys(settings).length).toEqual(11);
-    expect(settings.koreanUrl).toBeNull();
-    expect(settings.name).toEqual('testuser');
-    expect(settings.weatherApiKey).toEqual('WeatherApiKey123');
-    expect(settings.locationApiKey).toEqual('apiKey123');
+    expect(Object.keys(settings).length).toEqual(10);
+    expect(settings.name).toEqual('new name');
+    expect(settings.openWeatherApiKey).toEqual('openWeatherApiKey');
+    expect(settings.locationIqApiKey).toEqual('locationIqApiKey');
     expect(settings.id).toEqual('abc123');
     expect(settings.hasOwnProperty('userId')).toBeFalsy();
   });

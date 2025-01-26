@@ -1,3 +1,4 @@
+import { createInitialActivities, createInitialStartSettings } from '../../utils/create-initial-data';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { EmailManager } from '../../utils/email-manager';
 import {
@@ -49,6 +50,10 @@ export async function requestLoginCode(
       user = { id, email, createdAt };
       await users.insertOne({ id, email, createdAt });
       console.log('Created new user:', email, id);
+      await createInitialStartSettings(db, id);
+      console.log('Created initial start settings data');
+      await createInitialActivities(db, id);
+      console.log('Created initial activities data');
       emailManager.sendSignupNotification(email).then(); // no need to await this
     } else {
       user = existingUser;

@@ -89,7 +89,11 @@ For some endpoints third party API keys are expected to be stored in the databas
 ```json
 {
   "airlabsApiKey": "api key",
-  "locationIqApiKey": "api key"
+  "locationIqApiKey": "api key",
+  "unsplashApiKey": "api key",
+  "openWeatherApiKey": "api key",
+  "stravaClientId": "client id",
+  "stravaClientSecret": "secret"
 }
 ```
 

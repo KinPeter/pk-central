@@ -13,9 +13,9 @@ import {
   Flight,
   Note,
   PersonalData,
-  PkStartSettings,
   Shortcut,
   Visit,
+  PkStartSettingsResource,
 } from '../../../common';
 import { AuthManager } from '../../utils/auth-manager';
 import { DbCollection } from '../../utils/collections';
@@ -35,8 +35,8 @@ export async function sendDataBackup(
 
     const result = { user } as DataBackup;
 
-    const settingsCollection = db.collection<PkStartSettings>(DbCollection.START_SETTINGS);
-    result.startSettings = (await settingsCollection.findOne({ userId: user.id })) ?? ({} as PkStartSettings);
+    const settingsCollection = db.collection<PkStartSettingsResource>(DbCollection.START_SETTINGS);
+    result.startSettings = (await settingsCollection.findOne({ userId: user.id })) ?? ({} as PkStartSettingsResource);
     const name = result.startSettings?.name ?? 'User';
 
     const activitiesCollection = db.collection<Activities>(DbCollection.ACTIVITIES);

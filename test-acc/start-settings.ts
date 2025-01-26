@@ -2,7 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { assertToHaveNecessaryKeys, assertUnauthorized, getHeaders, getInvalidHeaders } from '../test-utils/acc-utils';
 import { uuidV4Regex } from '../test-utils/constants';
-import { validSettingsRequest } from '../test-utils/test-data/start-settings';
+import { sharedSettings, validSettingsRequest } from '../test-utils/test-data/start-settings';
 
 export async function startSettingsTests(API_URL: string): Promise<void> {
   return await describe('Start settings', async () => {
@@ -15,7 +15,7 @@ export async function startSettingsTests(API_URL: string): Promise<void> {
       });
       const json: any = await res.json();
       assert.strictEqual(res.status, 200);
-      assertToHaveNecessaryKeys(json, validSettingsRequest);
+      assertToHaveNecessaryKeys(json, { ...validSettingsRequest, ...sharedSettings });
       keys.forEach(key => {
         if (key === 'id') {
           assert.match(json[key], uuidV4Regex);
@@ -23,6 +23,7 @@ export async function startSettingsTests(API_URL: string): Promise<void> {
           assert.strictEqual(json[key], null);
         }
       });
+      assert.strictEqual(json.stravaClientId, 'stravaClientId');
     });
 
     await it('should update the settings', async () => {
@@ -33,7 +34,7 @@ export async function startSettingsTests(API_URL: string): Promise<void> {
       });
       const json: any = await res.json();
       assert.strictEqual(res.status, 200);
-      assertToHaveNecessaryKeys(json, validSettingsRequest);
+      assertToHaveNecessaryKeys(json, { ...validSettingsRequest, ...sharedSettings });
       assert.match(json.id, uuidV4Regex);
       keys.forEach(key => {
         if (key !== 'id') {
@@ -49,7 +50,7 @@ export async function startSettingsTests(API_URL: string): Promise<void> {
       });
       const json: any = await res.json();
       assert.strictEqual(res.status, 200);
-      assertToHaveNecessaryKeys(json, validSettingsRequest);
+      assertToHaveNecessaryKeys(json, { ...validSettingsRequest, ...sharedSettings });
       assert.match(json.id, uuidV4Regex);
       keys.forEach(key => {
         if (key !== 'id') {

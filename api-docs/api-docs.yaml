@@ -311,13 +311,6 @@ functions:
         request: null
         response: BirthdayItem[]
         authenticated: True
-      # GET Fetch korean word list
-      - method: GET
-        route: /proxy/korean
-        description: Get korean word list of the current user
-        request: null
-        response: KoreanDictItem[]
-        authenticated: True
       # GET Fetch airport data by IATA code
       - method: GET
         route: /proxy/airport/:iata

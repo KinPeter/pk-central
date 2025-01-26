@@ -3,9 +3,6 @@ import { ValidationError } from '../enums/api-errors';
 
 export const pkStartSettingsSchema = yup.object({
   name: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
-  weatherApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
-  locationApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
-  unsplashApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
   shortcutIconBaseUrl: yup
     .string()
     .url(ValidationError.INVALID_URL)
@@ -16,9 +13,6 @@ export const pkStartSettingsSchema = yup.object({
     .url(ValidationError.INVALID_URL)
     .nullable()
     .defined(ValidationError.NULLABLE_FIELD_REQUIRED),
-  koreanUrl: yup.string().url(ValidationError.INVALID_URL).nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
-  stravaClientId: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
-  stravaClientSecret: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
   stravaRedirectUri: yup
     .string()
     .url(ValidationError.INVALID_URL)

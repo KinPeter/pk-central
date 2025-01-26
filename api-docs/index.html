@@ -337,8 +337,8 @@ export interface PasswordAuthRequest extends EmailRequest {
       <details class="code-block-details">
         <summary class="code-block-summary">Auth validators</summary>
         <pre>import * as yup from 'yup';
-import { LOGIN_CODE_REGEX } from '../utils';
-import { ValidationError } from '../enums';
+import { LOGIN_CODE_REGEX } from '../utils/regex';
+import { ValidationError } from '../enums/api-errors';
 
 export const emailRequestSchema = yup.object({
   email: yup.string().email(ValidationError.INVALID_EMAIL).required(ValidationError.STRING_REQUIRED),
@@ -451,7 +451,7 @@ export type NoteRequest = Omit&lt;Note, &apos;createdAt&apos; | &apos;id&apos; |
       <details class="code-block-details">
         <summary class="code-block-summary">Notes validators</summary>
         <pre>import * as yup from 'yup';
-import { ValidationError } from '../enums';
+import { ValidationError } from '../enums/api-errors';
 import { Link } from '../types';
 
 export const linkSchema = yup.object({
@@ -562,8 +562,8 @@ export type PersonalDataRequest = Omit&lt;PersonalData, &apos;createdAt&apos; | 
       <details class="code-block-details">
         <summary class="code-block-summary">Personal Data validators</summary>
         <pre>import * as yup from 'yup';
-import { ValidationError } from '../enums';
-import { SIMPLE_DATE_REGEX } from '../utils';
+import { ValidationError } from '../enums/api-errors';
+import { SIMPLE_DATE_REGEX } from '../utils/regex';
 
 export const personalDataSchema = yup.object({
   name: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
@@ -648,7 +648,7 @@ export const personalDataSchema = yup.object({
     </div>
       <details class="code-block-details">
         <summary class="code-block-summary">Shortcuts types</summary>
-        <pre>import { ShortcutCategory } from &apos;../enums&apos;;
+        <pre>import { ShortcutCategory } from &apos;../enums/shortcut-category&apos;;
 import { BaseEntity } from &apos;./misc&apos;;
 import type { UUID } from &apos;./misc&apos;;
 
@@ -668,8 +668,9 @@ export type ShortcutRequest = Omit&lt;Shortcut, &apos;createdAt&apos; | &apos;id
       <details class="code-block-details">
         <summary class="code-block-summary">Shortcuts validators</summary>
         <pre>import * as yup from 'yup';
-import { ShortcutCategory, ValidationError } from '../enums';
-import { FLEXIBLE_URL_REGEX } from '../utils';
+import { ShortcutCategory } from '../enums/shortcut-category';
+import { ValidationError } from '../enums/api-errors';
+import { FLEXIBLE_URL_REGEX } from '../utils/regex';
 
 export const shortcutSchema = yup.object({
   name: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
@@ -730,35 +731,38 @@ export const shortcutSchema = yup.object({
         <summary class="code-block-summary">PK Start settings types</summary>
         <pre>import type { UUID } from &apos;./misc&apos;;
 
-export interface PkStartSettings {
+export interface PkStartSettingsResource {
   id: UUID;
   userId: UUID;
   name: string | null;
-  weatherApiKey: string | null;
-  locationApiKey: string | null;
-  unsplashApiKey: string | null;
   shortcutIconBaseUrl: string | null;
   birthdaysUrl: string | null;
-  koreanUrl: string | null;
-  stravaClientId: string | null;
-  stravaClientSecret: string | null;
   stravaRedirectUri: string | null;
 }
 
-export type PkStartSettingsRequest = Omit&lt;PkStartSettings, &apos;id&apos; | &apos;userId&apos;&gt;;
+export interface PkStartSettings extends PkStartSettingsResource {
+  /* coming from shared keys: */
+  openWeatherApiKey: string | null;
+  locationIqApiKey: string | null;
+  unsplashApiKey: string | null;
+  stravaClientId: string | null;
+  stravaClientSecret: string | null;
+}
+
+export type PkStartSettingsRequest = Pick&lt;
+  PkStartSettings,
+  &apos;name&apos; | &apos;shortcutIconBaseUrl&apos; | &apos;birthdaysUrl&apos; | &apos;stravaRedirectUri&apos;
+&gt;;
 </pre>
       </details>
     
       <details class="code-block-details">
         <summary class="code-block-summary">PK Start settings validators</summary>
         <pre>import * as yup from 'yup';
-import { ValidationError } from '../enums';
+import { ValidationError } from '../enums/api-errors';
 
 export const pkStartSettingsSchema = yup.object({
   name: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
-  weatherApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
-  locationApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
-  unsplashApiKey: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
   shortcutIconBaseUrl: yup
     .string()
     .url(ValidationError.INVALID_URL)
@@ -769,9 +773,6 @@ export const pkStartSettingsSchema = yup.object({
     .url(ValidationError.INVALID_URL)
     .nullable()
     .defined(ValidationError.NULLABLE_FIELD_REQUIRED),
-  koreanUrl: yup.string().url(ValidationError.INVALID_URL).nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
-  stravaClientId: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
-  stravaClientSecret: yup.string().strict().nullable().defined(ValidationError.NULLABLE_FIELD_REQUIRED),
   stravaRedirectUri: yup
     .string()
     .url(ValidationError.INVALID_URL)
@@ -921,7 +922,7 @@ export type SetMonthlyGoalRequest = Pick&lt;Cycling, &apos;monthlyGoal&apos;&gt;
       <details class="code-block-details">
         <summary class="code-block-summary">Cycling [DEPRECATED] validators</summary>
         <pre>import * as yup from 'yup';
-import { ValidationError } from '../enums';
+import { ValidationError } from '../enums/api-errors';
 
 export const weeklyGoalSchema = yup.object({
   weeklyGoal: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
@@ -1067,7 +1068,7 @@ export type CyclingChoreRequest = Omit&lt;CyclingChore, &apos;id&apos;&gt;;
       <details class="code-block-details">
         <summary class="code-block-summary">Activities validators</summary>
         <pre>import * as yup from 'yup';
-import { ValidationError } from '../enums';
+import { ValidationError } from '../enums/api-errors';
 
 export const choreSchema = yup.object({
   kmInterval: yup.number().strict().min(0, ValidationError.MIN_VALUE).required(ValidationError.NUMBER_REQUIRED),
@@ -1125,14 +1126,14 @@ import { Note } from &apos;./notes&apos;;
 import { Shortcut } from &apos;./shortcuts&apos;;
 import { PersonalData } from &apos;./personal-data&apos;;
 import { Cycling } from &apos;./cycling&apos;;
-import { PkStartSettings } from &apos;./start-settings&apos;;
+import { PkStartSettingsResource } from &apos;./start-settings&apos;;
 import { Flight } from &apos;./flights&apos;;
 import { Visit } from &apos;./visits&apos;;
 import { Activities } from &apos;./activities&apos;;
 
 export interface DataBackup {
   user: User;
-  startSettings: PkStartSettings;
+  startSettings: PkStartSettingsResource;
   notes: Note[];
   shortcuts: Shortcut[];
   personalData: PersonalData[];
@@ -1155,23 +1156,6 @@ export interface DataBackup {
             <p class="info">
               <span>Request body:<code class="request">None</code></span>
               <span>Returns:<code class="response">BirthdayItem[]</code></span>
-              <span>Authenticated:<span class="authenticated">Yes</span></span>
-            </p>
-          </div>
-        </details>
-      </div>
-    
-      <div class="endpoint get">
-        <details>
-          <summary>
-            <span class="method">GET</span>
-            <span class="route">/proxy/korean</span>
-          </summary>
-          <div class="details">
-            <p>Get korean word list of the current user</p>
-            <p class="info">
-              <span>Request body:<code class="request">None</code></span>
-              <span>Returns:<code class="response">KoreanDictItem[]</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
           </div>
@@ -1234,11 +1218,6 @@ export interface DataBackup {
         <pre>export interface BirthdayItem {
   name: string;
   date: string;
-}
-
-export interface KoreanDictItem {
-  kor: string;
-  hun: string;
 }
 </pre>
       </details>
@@ -1313,7 +1292,7 @@ export interface KoreanDictItem {
     </div>
       <details class="code-block-details">
         <summary class="code-block-summary">Flights types</summary>
-        <pre>import { FlightClass, FlightReason, SeatType } from &apos;../enums&apos;;
+        <pre>import { FlightClass, FlightReason, SeatType } from &apos;../enums/flights&apos;;
 import { BaseEntity } from &apos;./misc&apos;;
 import type { UUID } from &apos;./misc&apos;;
 
@@ -1366,9 +1345,9 @@ export interface Aircraft {
       <details class="code-block-details">
         <summary class="code-block-summary">Flights validators</summary>
         <pre>import * as yup from 'yup';
-import { ValidationError } from '../enums';
-import { SIMPLE_DATE_REGEX_POSSIBLE_PAST, SIMPLE_TIME_REGEX } from '../utils';
-import { FlightClass, FlightReason, SeatType } from '../enums';
+import { ValidationError } from '../enums/api-errors';
+import { SIMPLE_DATE_REGEX_POSSIBLE_PAST, SIMPLE_TIME_REGEX } from '../utils/regex';
+import { FlightClass, FlightReason, SeatType } from '../enums/flights';
 
 export const airportSchema = yup.object({
   city: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
@@ -1513,8 +1492,8 @@ export type VisitRequest = Omit&lt;Visit, &apos;id&apos; | &apos;userId&apos; | 
       <details class="code-block-details">
         <summary class="code-block-summary">Visits validators</summary>
         <pre>import * as yup from 'yup';
-import { ValidationError } from '../enums';
-import { YEAR_REGEX } from '../utils';
+import { ValidationError } from '../enums/api-errors';
+import { YEAR_REGEX } from '../utils/regex';
 
 export const visitSchema = yup.object({
   city: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),

@@ -1,6 +1,10 @@
 export interface SharedKeys {
   airlabsApiKey: string;
   locationIqApiKey: string;
+  openWeatherApiKey: string;
+  unsplashApiKey: string;
+  stravaClientId: string;
+  stravaClientSecret: string;
 }
 
 export interface AirlabsAirportResponse {
