@@ -1,8 +1,11 @@
+import { DeeplLanguage } from '../../common';
+
 export interface SharedKeys {
   airlabsApiKey: string;
   locationIqApiKey: string;
   openWeatherApiKey: string;
   unsplashApiKey: string;
+  deeplApiKey: string;
   stravaClientId: string;
   stravaClientSecret: string;
 }
@@ -37,3 +40,52 @@ export interface LocationIqReverseResponse {
     country_code?: string; // lowercase
   };
 }
+
+export interface DeeplTranslationRequest {
+  text: string;
+  target_lang: string;
+  source_lang?: string;
+}
+
+export interface DeeplTranslation {
+  text: string;
+  detected_source_language: string;
+}
+
+export interface DeeplTranslationResponse {
+  translations: DeeplTranslation[];
+}
+
+export const sourceLanguages: Record<DeeplLanguage, string> = {
+  da: 'DA',
+  de: 'DE',
+  en: 'EN',
+  es: 'ES',
+  fr: 'FR',
+  hu: 'HU',
+  it: 'IT',
+  ja: 'JA',
+  ko: 'KO',
+  nl: 'NL',
+  pl: 'PL',
+  pt: 'PT',
+  ru: 'RU',
+  zh: 'ZH',
+};
+
+export const targetLanguages: Record<DeeplLanguage, string> = {
+  da: 'DA',
+  de: 'DE',
+  en: 'EN-US',
+  es: 'ES',
+  fr: 'FR',
+  hu: 'HU',
+  it: 'IT',
+  ja: 'JA',
+  ko: 'KO',
+  nl: 'NL',
+  pl: 'PL',
+  pt: 'PT-PT',
+  ru: 'RU',
+  zh: 'ZH-HANS',
+};

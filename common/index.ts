@@ -3,6 +3,7 @@ export * from './types';
 export { ApiError, ApiErrorMap, ValidationError, ValidationErrorMap } from './enums/api-errors';
 export { FlightClass, FlightReason, SeatType } from './enums/flights';
 export { ShortcutCategory } from './enums/shortcut-category';
+export { DeeplLanguage } from './enums/proxy';
 
 export {
   SIMPLE_DATE_REGEX,
@@ -23,3 +24,4 @@ export { personalDataSchema } from './validators/personal-data';
 export { shortcutSchema } from './validators/shortcuts';
 export { flightSchema, airportSchema, airlineSchema, aircraftSchema } from './validators/flights';
 export { visitSchema } from './validators/visits';
+export { translationSchema } from './validators/proxy';

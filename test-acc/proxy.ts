@@ -1,7 +1,13 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { assertToHaveNecessaryKeys, getHeaders } from '../test-utils/acc-utils';
-import { airlineResponse, airportResponse, cityResponse } from '../test-utils/test-data/proxy';
+import {
+  airlineResponse,
+  airportResponse,
+  cityResponse,
+  translationResponse,
+  validTranslationRequest,
+} from '../test-utils/test-data/proxy';
 
 export async function proxyTests(API_URL: string): Promise<void> {
   return await describe('Proxy', async () => {
@@ -50,6 +56,17 @@ export async function proxyTests(API_URL: string): Promise<void> {
       assert.strictEqual(res.status, 200);
       assert.strictEqual(json.length, 2);
       assert(json[0].name.includes('Santa Claus'), 'Name should include Santa Claus');
+    });
+
+    await it('should translate text', async () => {
+      const res = await fetch(`${API_URL}${endpoint}/translate`, {
+        method: 'POST',
+        body: JSON.stringify(validTranslationRequest),
+        headers: getHeaders(),
+      });
+      const json: any = await res.json();
+      assert.strictEqual(res.status, 200);
+      assert.deepEqual(json, translationResponse);
     });
   });
 }

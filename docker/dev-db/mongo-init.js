@@ -496,6 +496,11 @@ db.getCollection('visits').insertMany([
 db.createCollection('shared-keys')
 
 db.getCollection('shared-keys').insertOne({
-  airlabsApiKey: 'TBA',
-  locationIqApiKey: 'TBA',
+  airlabsApiKey: 'airlabsApiKey',
+  locationIqApiKey: 'locationIqApiKey',
+  openWeatherApiKey: 'openWeatherApiKey',
+  unsplashApiKey: 'unsplashApiKey',
+  deeplApiKey: 'deeplApiKey',
+  stravaClientId: 'stravaClientId',
+  stravaClientSecret: 'stravaClientSecret',
 })

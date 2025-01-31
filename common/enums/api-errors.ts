@@ -62,6 +62,7 @@ export const ValidationError = {
   INVALID_CATEGORY: 'INVALID_CATEGORY',
   INVALID_UUID: 'INVALID_UUID',
   INVALID_LINK: 'INVALID_LINK',
+  NOT_SUPPORTED_VALUE: 'NOT_SUPPORTED_VALUE',
 } as const;
 
 export type ValidationError = (typeof ValidationError)[keyof typeof ValidationError];
@@ -88,4 +89,5 @@ export const ValidationErrorMap: Record<ValidationError, string> = {
   [ValidationError.STRING_REQUIRED]: 'String required',
   [ValidationError.NULLABLE_FIELD_REQUIRED]: 'Field is nullable but required',
   [ValidationError.TEXT_OR_LINK_REQUIRED]: 'Text or link required',
+  [ValidationError.NOT_SUPPORTED_VALUE]: 'Not supported value',
 };

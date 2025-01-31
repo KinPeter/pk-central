@@ -302,7 +302,7 @@ functions:
   - name: Proxy
     description: Endpoints to access third party APIs or remote files
     types: types/proxy.ts
-    validators: null
+    validators: validators/proxy.ts
     endpoints:
       # GET Fetch birthdays list
       - method: GET
@@ -331,6 +331,13 @@ functions:
         description: Get city and country for coordinates, lat and lng should be separated by comma, e.g. 12.3456,87.76543
         request: null
         response: VisitRequest
+        authenticated: True
+      # POST Translate text from source to target language
+      - method: GET
+        route: /proxy/translate
+        description: Translate text from source to target language
+        request: TranslationRequest
+        response: TranslationResponse
         authenticated: True
 
   - name: Flights

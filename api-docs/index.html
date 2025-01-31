@@ -1212,13 +1212,65 @@ export interface DataBackup {
           </div>
         </details>
       </div>
+    
+      <div class="endpoint get">
+        <details>
+          <summary>
+            <span class="method">GET</span>
+            <span class="route">/proxy/translate</span>
+          </summary>
+          <div class="details">
+            <p>Translate text from source to target language</p>
+            <p class="info">
+              <span>Request body:<code class="request">TranslationRequest</code></span>
+              <span>Returns:<code class="response">TranslationResponse</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+          </div>
+        </details>
+      </div>
     </div>
       <details class="code-block-details">
         <summary class="code-block-summary">Proxy types</summary>
-        <pre>export interface BirthdayItem {
+        <pre>import { DeeplLanguage } from &apos;../enums/proxy&apos;;
+
+export interface BirthdayItem {
   name: string;
   date: string;
 }
+
+export interface TranslationRequest {
+  text: string;
+  targetLang: DeeplLanguage;
+  sourceLang: DeeplLanguage;
+}
+
+export interface TranslationResponse {
+  original: string;
+  translation: string;
+  targetLang: DeeplLanguage;
+  sourceLang: DeeplLanguage;
+}
+</pre>
+      </details>
+    
+      <details class="code-block-details">
+        <summary class="code-block-summary">Proxy validators</summary>
+        <pre>import * as yup from 'yup';
+import { DeeplLanguage } from '../enums/proxy';
+import { ValidationError } from '../enums/api-errors';
+
+export const translationSchema = yup.object({
+  text: yup.string().strict().min(1, ValidationError.MIN_LENGTH).required(ValidationError.STRING_REQUIRED),
+  sourceLang: yup
+    .string()
+    .oneOf(Object.values(DeeplLanguage), ValidationError.NOT_SUPPORTED_VALUE)
+    .required(ValidationError.STRING_REQUIRED),
+  targetLang: yup
+    .string()
+    .oneOf(Object.values(DeeplLanguage), ValidationError.NOT_SUPPORTED_VALUE)
+    .required(ValidationError.STRING_REQUIRED),
+});
 </pre>
       </details>
     <div class="function"><h2>Flights</h2><p>Endpoints related to Flights (Tripz)</p>

@@ -5,6 +5,7 @@ export const sharedKeys: SharedKeys = {
   openWeatherApiKey: 'openWeatherApiKey',
   locationIqApiKey: 'locationIqApiKey',
   unsplashApiKey: 'unsplashApiKey',
+  deeplApiKey: 'deeplApiKey',
   stravaClientId: 'stravaClientId',
   stravaClientSecret: 'stravaClientSecret',
 };

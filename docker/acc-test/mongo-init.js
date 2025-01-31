@@ -18,6 +18,7 @@ db.getCollection('shared-keys').insertOne({
   locationIqApiKey: 'locationIqApiKey',
   openWeatherApiKey: 'openWeatherApiKey',
   unsplashApiKey: 'unsplashApiKey',
+  deeplApiKey: 'deeplApiKey',
   stravaClientId: 'stravaClientId',
   stravaClientSecret: 'stravaClientSecret',
 })

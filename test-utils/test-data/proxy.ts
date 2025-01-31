@@ -56,3 +56,43 @@ export const cityResponse = {
   lat: 23.222,
   lng: 10,
 };
+
+export const validTranslationRequest = {
+  text: 'Szia ott',
+  targetLang: 'en',
+  sourceLang: 'hu',
+};
+
+export const invalidTranslationRequests = [
+  {
+    text: '',
+    targetLang: 'en',
+    sourceLang: 'hu',
+  },
+  {
+    text: 'Szia ott',
+    targetLang: 'en',
+    sourceLang: 'xx',
+  },
+  {
+    text: 'Szia ott',
+    targetLang: 'xx',
+    sourceLang: 'hu',
+  },
+];
+
+export const translationResponse = {
+  original: 'Szia ott',
+  translation: 'Hello there',
+  targetLang: 'en',
+  sourceLang: 'hu',
+};
+
+export const deeplTranslationResponse = {
+  translations: [
+    {
+      text: 'Hello there',
+      detected_source_language: 'HU',
+    },
+  ],
+};

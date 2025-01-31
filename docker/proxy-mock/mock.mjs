@@ -68,6 +68,15 @@ const mailResponse = {
   message: 'Email sent successfully.',
 }
 
+const translationResponse = {
+  translations: [
+    {
+      text: 'Hello there',
+      detected_source_language: 'hu',
+    },
+  ],
+}
+
 const server = http.createServer((req, res) => {
   const parsedUrl = parse(req.url, true)
   const path = parsedUrl.pathname
@@ -83,6 +92,9 @@ const server = http.createServer((req, res) => {
   } else if (path === '/reverse') {
     res.writeHead(200)
     res.end(JSON.stringify(reverseResponse))
+  } else if (path === '/translate') {
+    res.writeHead(200)
+    res.end(JSON.stringify(translationResponse))
   } else if (path === '/birthdays') {
     res.setHeader('Content-Type', 'text/plain')
     res.writeHead(200)

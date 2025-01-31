@@ -38,7 +38,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"kinpeter85@gmail.com\",\r\n    \"loginCode\": \"781585\"\r\n}",
+              "raw": "{\r\n    \"email\": \"kinpeter85@gmail.com\",\r\n    \"loginCode\": \"602315\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -841,29 +841,6 @@
           "response": []
         },
         {
-          "name": "Get Korean wordlist",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{TOKEN}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BASE_URL}}/proxy/korean",
-              "host": ["{{BASE_URL}}"],
-              "path": ["proxy", "korean"]
-            }
-          },
-          "response": []
-        },
-        {
           "name": "Get airport data",
           "request": {
             "auth": {
@@ -928,6 +905,38 @@
               "raw": "{{BASE_URL}}/proxy/city/18.322,-78.332",
               "host": ["{{BASE_URL}}"],
               "path": ["proxy", "city", "18.322,-78.332"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Translate",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"text\": \"Hello there!\",\r\n    \"sourceLang\": \"en\",\r\n    \"targetLang\": \"ko\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/proxy/translate",
+              "host": ["{{BASE_URL}}"],
+              "path": ["proxy", "translate"]
             }
           },
           "response": []

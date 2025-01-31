@@ -75,6 +75,7 @@ For some endpoints third party API keys are expected to be stored in the databas
   "locationIqApiKey": "api key",
   "unsplashApiKey": "api key",
   "openWeatherApiKey": "api key",
+  "deeplApiKey": "deeplApiKey",
   "stravaClientId": "client id",
   "stravaClientSecret": "secret"
 }

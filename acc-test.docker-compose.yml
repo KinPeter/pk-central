@@ -48,6 +48,7 @@ services:
       PROXY_AIRLABS_AIRLINES_URL: http://proxy_mock:9876/airlines
       PROXY_AIRLABS_AIRPORTS_URL: http://proxy_mock:9876/airports
       PROXY_LOCATION_REVERSE_URL: http://proxy_mock:9876/reverse
+      PROXY_DEEPL_TRANSLATE_URL: http://proxy_mock:9876/translate
     ports:
       - "5678:5678"
     volumes:
