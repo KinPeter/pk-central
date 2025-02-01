@@ -18,6 +18,7 @@
     "start:db": "docker-compose -f docker/dev-db/docker-compose.yml up",
     "clear:db": "docker-compose -f docker/dev-db/docker-compose.yml down -v",
     "mock:proxy": "docker-compose -f docker/proxy-mock/docker-compose.yml up",
+    "mock:proxy:local": "node ./docker/proxy-mock/mock.mjs",
     "common:publish": "cd common && npm version patch && npm publish --access public",
     "docs:generate": "node ./api-docs/generate-docs.js",
     "prepare": "husky"
