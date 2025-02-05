@@ -350,6 +350,10 @@ functions:
         route: /flights
         description: Get all flights of the current user
         request: null
+        queryParams:
+          - name: plannedOnly
+            description: Get only planned flights
+            type: boolean
         response: Flight[]
         authenticated: True
       # POST Create a flight

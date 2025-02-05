@@ -29,7 +29,7 @@ export async function flightsTests(API_URL: string): Promise<void> {
     await it('should update a flight', async () => {
       const res = await fetch(`${API_URL}${endpoint}/${itemId}`, {
         method: 'PUT',
-        body: JSON.stringify({ ...validFlightRequests[0], isPlanned: true }),
+        body: JSON.stringify({ ...validFlightRequests[0], seatNumber: '1A' }),
         headers: getHeaders(),
       });
       const json: any = await res.json();
@@ -38,10 +38,10 @@ export async function flightsTests(API_URL: string): Promise<void> {
       assert.match(json.id, uuidV4Regex);
       itemId = json.id;
       keys.forEach(key => {
-        if (key !== 'isPlanned') {
+        if (key !== 'seatNumber') {
           assert.deepEqual(json[key], validFlightRequests[0][key as keyof (typeof validFlightRequests)[0]]);
         } else {
-          assert.strictEqual(json[key], true);
+          assert.strictEqual(json[key], '1A');
         }
       });
     });
@@ -63,6 +63,18 @@ export async function flightsTests(API_URL: string): Promise<void> {
       assert.strictEqual(json.length, 2);
       assertToHaveNecessaryKeys(json[0], validFlightRequests[0]);
       assertToHaveNecessaryKeys(json[1], validFlightRequests[0]);
+    });
+
+    await it('should get only planned flights', async () => {
+      const res = await fetch(`${API_URL}${endpoint}?plannedOnly=true`, {
+        method: 'GET',
+        headers: getHeaders(),
+      });
+      const json: any = await res.json();
+      assert.strictEqual(res.status, 200);
+      assert.strictEqual(json.length, 1);
+      assertToHaveNecessaryKeys(json[0], validFlightRequests[1]);
+      assert.strictEqual(json[0].isPlanned, true);
     });
 
     await it('should delete a flight', async () => {

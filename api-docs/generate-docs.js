@@ -38,6 +38,14 @@ docs.functions.forEach(fn => {
   let fnContent = `<div class="function"><h2>${fn.name}</h2><p>${fn.description}</p>`;
 
   fn.endpoints?.forEach(endpoint => {
+    const queryParams = endpoint.queryParams
+      ? `
+        <p>Query parameters:</p>
+        <ul class="query-params">
+          ${endpoint.queryParams.map(param => `<li><code>${param.name}</code>${param.description}, type: ${param.type}</li>`).join('')}
+        </ul>
+        `
+      : '';
     fnContent += `
       <div class="endpoint ${endpoint.method.toLowerCase()}">
         <details>
@@ -52,6 +60,7 @@ docs.functions.forEach(fn => {
               <span>Returns:<code class="response">${endpoint.response}</code></span>
               <span>Authenticated:<span class="authenticated">${endpoint.authenticated ? 'Yes' : 'No'}</span></span>
             </p>
+            ${queryParams}
           </div>
         </details>
       </div>

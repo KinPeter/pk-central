@@ -147,7 +147,8 @@ summary {
   margin-bottom: 6px;
 }
 
-.endpoint .info code {
+.endpoint .info code,
+.endpoint .query-params code {
   font-family: 'Source Code Pro', Courier, monospace;
   font-weight: bolder;
   background: #e7e7e7;
@@ -189,6 +190,7 @@ summary {
               <span>Returns:<code class="response">{ message: 'Check your inbox' }</code></span>
               <span>Authenticated:<span class="authenticated">No</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -206,6 +208,7 @@ summary {
               <span>Returns:<code class="response">AuthData</code></span>
               <span>Authenticated:<span class="authenticated">No</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -223,6 +226,7 @@ summary {
               <span>Returns:<code class="response">AuthData</code></span>
               <span>Authenticated:<span class="authenticated">No</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -240,6 +244,7 @@ summary {
               <span>Returns:<code class="response">IdObject</code></span>
               <span>Authenticated:<span class="authenticated">No</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -257,6 +262,7 @@ summary {
               <span>Returns:<code class="response">IdObject</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -274,6 +280,7 @@ summary {
               <span>Returns:<code class="response">AuthData</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -291,6 +298,7 @@ summary {
               <span>Returns:<code class="response">{ loginCode: string }</code></span>
               <span>Authenticated:<span class="authenticated">No</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -371,6 +379,7 @@ export const passwordAuthRequestSchema = emailRequestSchema.shape({
               <span>Returns:<code class="response">Note[]</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -388,6 +397,7 @@ export const passwordAuthRequestSchema = emailRequestSchema.shape({
               <span>Returns:<code class="response">Note</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -405,6 +415,7 @@ export const passwordAuthRequestSchema = emailRequestSchema.shape({
               <span>Returns:<code class="response">Note</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -422,6 +433,7 @@ export const passwordAuthRequestSchema = emailRequestSchema.shape({
               <span>Returns:<code class="response">IdObject</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -488,6 +500,7 @@ export const noteSchema = yup.object({
               <span>Returns:<code class="response">PersonalData[]</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -505,6 +518,7 @@ export const noteSchema = yup.object({
               <span>Returns:<code class="response">PersonalData</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -522,6 +536,7 @@ export const noteSchema = yup.object({
               <span>Returns:<code class="response">PersonalData</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -539,6 +554,7 @@ export const noteSchema = yup.object({
               <span>Returns:<code class="response">IdObject</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -591,6 +607,7 @@ export const personalDataSchema = yup.object({
               <span>Returns:<code class="response">Shortcut[]</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -608,6 +625,7 @@ export const personalDataSchema = yup.object({
               <span>Returns:<code class="response">Shortcut</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -625,6 +643,7 @@ export const personalDataSchema = yup.object({
               <span>Returns:<code class="response">Shortcut</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -642,6 +661,7 @@ export const personalDataSchema = yup.object({
               <span>Returns:<code class="response">IdObject</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -706,6 +726,7 @@ export const shortcutSchema = yup.object({
               <span>Returns:<code class="response">PkStartSettings</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -723,6 +744,7 @@ export const shortcutSchema = yup.object({
               <span>Returns:<code class="response">PkStartSettings</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -795,6 +817,7 @@ export const pkStartSettingsSchema = yup.object({
               <span>Returns:<code class="response">Cycling</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -812,6 +835,7 @@ export const pkStartSettingsSchema = yup.object({
               <span>Returns:<code class="response">Cycling</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -829,6 +853,7 @@ export const pkStartSettingsSchema = yup.object({
               <span>Returns:<code class="response">Cycling</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -846,6 +871,7 @@ export const pkStartSettingsSchema = yup.object({
               <span>Returns:<code class="response">Cycling</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -863,6 +889,7 @@ export const pkStartSettingsSchema = yup.object({
               <span>Returns:<code class="response">Cycling</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -880,6 +907,7 @@ export const pkStartSettingsSchema = yup.object({
               <span>Returns:<code class="response">Cycling</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -897,6 +925,7 @@ export const pkStartSettingsSchema = yup.object({
               <span>Returns:<code class="response">Cycling</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -947,6 +976,7 @@ export const monthlyGoalSchema = yup.object({
               <span>Returns:<code class="response">Activities</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -964,6 +994,7 @@ export const monthlyGoalSchema = yup.object({
               <span>Returns:<code class="response">Activities</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -981,6 +1012,7 @@ export const monthlyGoalSchema = yup.object({
               <span>Returns:<code class="response">Activities</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -998,6 +1030,7 @@ export const monthlyGoalSchema = yup.object({
               <span>Returns:<code class="response">Activities</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1015,6 +1048,7 @@ export const monthlyGoalSchema = yup.object({
               <span>Returns:<code class="response">Activities</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1032,6 +1066,7 @@ export const monthlyGoalSchema = yup.object({
               <span>Returns:<code class="response">Activities</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1098,6 +1133,7 @@ export const goalsSchema = yup.object({
               <span>Returns:<code class="response">DataBackup</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1115,6 +1151,7 @@ export const goalsSchema = yup.object({
               <span>Returns:<code class="response">DataBackup</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1158,6 +1195,7 @@ export interface DataBackup {
               <span>Returns:<code class="response">BirthdayItem[]</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1175,6 +1213,7 @@ export interface DataBackup {
               <span>Returns:<code class="response">Airport</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1192,6 +1231,7 @@ export interface DataBackup {
               <span>Returns:<code class="response">Airline</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1209,6 +1249,7 @@ export interface DataBackup {
               <span>Returns:<code class="response">VisitRequest</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1226,6 +1267,7 @@ export interface DataBackup {
               <span>Returns:<code class="response">TranslationResponse</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1287,6 +1329,12 @@ export const translationSchema = yup.object({
               <span>Returns:<code class="response">Flight[]</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
+        <p>Query parameters:</p>
+        <ul class="query-params">
+          <li><code>plannedOnly</code>Get only planned flights, type: boolean</li>
+        </ul>
+        
           </div>
         </details>
       </div>
@@ -1304,6 +1352,7 @@ export const translationSchema = yup.object({
               <span>Returns:<code class="response">Flight</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1321,6 +1370,7 @@ export const translationSchema = yup.object({
               <span>Returns:<code class="response">Flight</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1338,6 +1388,7 @@ export const translationSchema = yup.object({
               <span>Returns:<code class="response">IdObject</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1468,6 +1519,7 @@ export const flightSchema = yup.object({
               <span>Returns:<code class="response">Visit[]</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1485,6 +1537,7 @@ export const flightSchema = yup.object({
               <span>Returns:<code class="response">Visit</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1502,6 +1555,7 @@ export const flightSchema = yup.object({
               <span>Returns:<code class="response">Visit</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1519,6 +1573,7 @@ export const flightSchema = yup.object({
               <span>Returns:<code class="response">IdObject</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
+            
           </div>
         </details>
       </div>
@@ -1570,6 +1625,7 @@ export const visitSchema = yup.object({
               <span>Returns:<code class="response">Trips</code></span>
               <span>Authenticated:<span class="authenticated">No</span></span>
             </p>
+            
           </div>
         </details>
       </div>

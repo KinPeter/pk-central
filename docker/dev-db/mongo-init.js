@@ -380,6 +380,7 @@ db.getCollection('flights').insertMany([
     distance: 268,
     id: 'efce815a-ceae-4521-8db6-3a88b1c5b7c9',
     userId: 'a06ef9a2-d1ff-417d-bce7-75188a6118c1',
+    isPlanned: true,
     createdAt: new Date(),
   },
   {
@@ -417,6 +418,7 @@ db.getCollection('flights').insertMany([
     distance: 1123,
     id: '0a9be75c-e673-4410-8600-abaf10053890',
     userId: 'a06ef9a2-d1ff-417d-bce7-75188a6118c1',
+    isPlanned: false,
     createdAt: new Date(),
   },
   {
@@ -454,6 +456,7 @@ db.getCollection('flights').insertMany([
     distance: 1123,
     id: '1b8be75c-e673-4410-8600-abaf10053111',
     userId: 'c13ef9a2-d1ff-417d-bce7-75188a6114d2',
+    isPlanned: false,
     createdAt: new Date(),
   },
 ])

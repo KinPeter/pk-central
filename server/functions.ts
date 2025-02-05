@@ -11,7 +11,12 @@ export async function serveFunction(
   const { method, url } = req;
   const parsedUrl = parse(url || '', true);
   const pathname = stripPathname(parsedUrl.pathname ?? '');
-  console.log('\nRequest:', method, parsedUrl.pathname);
+  console.log(
+    '\nRequest:',
+    method,
+    parsedUrl.pathname,
+    Object.keys(parsedUrl.query).length ? JSON.stringify(parsedUrl.query) : ''
+  );
 
   // Set the default response headers
   res.setHeader('Content-Type', 'application/json');

@@ -27,11 +27,8 @@ describe('getFlights', () => {
 
   it('should return flights without object and user ids', async () => {
     cursor.toArray.mockResolvedValue(flights);
-    const response = await getFlights(
-      { method: 'GET' } as Request,
-      dbManager as unknown as MongoDbManager,
-      authManager as AuthManager
-    );
+    const request = new Request('http://localhost:8888', { method: 'GET' });
+    const response = await getFlights(request, dbManager as unknown as MongoDbManager, authManager as AuthManager);
     expect(db.collection).toHaveBeenCalledWith('flights');
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
@@ -46,13 +43,22 @@ describe('getFlights', () => {
     expect(data[1].id).toEqual('b2197832-6a6e-46c3-97a9-dd2a8de8a267');
   });
 
+  it('should return only planned flights with plannedOnly queryParam', async () => {
+    cursor.toArray.mockResolvedValue([flights[0]]);
+    const request = new Request('http://localhost:8888?plannedOnly=true', { method: 'GET' });
+    const response = await getFlights(request, dbManager as unknown as MongoDbManager, authManager as AuthManager);
+    expect(db.collection).toHaveBeenCalledWith('flights');
+    expect(collection.find).toHaveBeenCalledWith({ userId: '123', isPlanned: true });
+    expect(response.status).toEqual(200);
+    const data: any = await response.json();
+    expect(Array.isArray(data)).toBeTruthy();
+    expect(data.length).toEqual(1);
+  });
+
   it('should return empty array if no flights', async () => {
     cursor.toArray.mockResolvedValue([]);
-    const response = await getFlights(
-      { method: 'GET' } as Request,
-      dbManager as unknown as MongoDbManager,
-      authManager
-    );
+    const request = new Request('http://localhost:8888', { method: 'GET' });
+    const response = await getFlights(request, dbManager as unknown as MongoDbManager, authManager);
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(200);
     const data: any = await response.json();
@@ -62,11 +68,8 @@ describe('getFlights', () => {
 
   it('should return server error if collection.find fails', async () => {
     collection.find.mockReturnValue(new Error());
-    const response = await getFlights(
-      { method: 'GET' } as Request,
-      dbManager as unknown as MongoDbManager,
-      authManager
-    );
+    const request = new Request('http://localhost:8888', { method: 'GET' });
+    const response = await getFlights(request, dbManager as unknown as MongoDbManager, authManager);
     expect(collection.find).toHaveBeenCalledWith({ userId: '123' });
     expect(response.status).toEqual(500);
     const data: any = await response.json();

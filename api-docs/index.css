@@ -134,7 +134,8 @@ summary {
   margin-bottom: 6px;
 }
 
-.endpoint .info code {
+.endpoint .info code,
+.endpoint .query-params code {
   font-family: 'Source Code Pro', Courier, monospace;
   font-weight: bolder;
   background: #e7e7e7;
