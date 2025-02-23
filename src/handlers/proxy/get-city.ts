@@ -8,10 +8,10 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { COORDINATES_QUERY_REGEX, ValidationError, type VisitRequest } from '../../../common';
+import { getEnv } from '../../utils/environment';
 import { AuthManager } from '../../utils/auth-manager';
 import { FetchResponseType, HttpClient } from '../../utils/http-client';
-import { LocationIqReverseResponse, SharedKeys } from '../../utils/third-parties';
-import { DbCollection } from '../../utils/collections';
+import { LocationIqReverseResponse } from '../../utils/third-parties';
 
 export async function getCity(
   req: Request,
@@ -33,12 +33,13 @@ export async function getCity(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const sharedKeysCollection = db.collection<SharedKeys>(DbCollection.SHARED_KEYS);
-    const keys = await sharedKeysCollection.findOne();
-    const locationApiKey = keys?.locationIqApiKey;
-    if (!locationApiKey) return new NotFoundErrorResponse('Location IQ API key');
+    const [LOCATION_IQ_API_KEY, PROXY_LOCATION_REVERSE_URL] = getEnv(
+      'LOCATION_IQ_API_KEY',
+      'PROXY_LOCATION_REVERSE_URL'
+    );
+    if (!LOCATION_IQ_API_KEY) return new NotFoundErrorResponse('Location IQ API key');
 
-    const locationUrl = `${process.env.PROXY_LOCATION_REVERSE_URL}?key=${locationApiKey}&lat=${lat}&lon=${lng}&format=json`;
+    const locationUrl = `${PROXY_LOCATION_REVERSE_URL}?key=${LOCATION_IQ_API_KEY}&lat=${lat}&lon=${lng}&format=json`;
     const locationResponse = await httpClient.get<LocationIqReverseResponse>(locationUrl, FetchResponseType.JSON);
     if (!locationResponse?.address) return new NotFoundErrorResponse('Location data');
 

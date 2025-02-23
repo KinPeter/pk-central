@@ -29,10 +29,12 @@ describe('translate', () => {
     httpClient = new MockHttpClient();
     db.collection.mockReturnValue(collection);
     authManager.authenticateUser.mockResolvedValue({ id: '123' });
+    process.env.PROXY_DEEPL_TRANSLATE_URL = 'https://deepl.com';
+    process.env.DEEPL_API_KEY = '';
   });
 
   it('should call deepl api to translate text', async () => {
-    collection.findOne.mockResolvedValue({ deeplApiKey: 'deepl1' });
+    process.env.DEEPL_API_KEY = 'deepl1';
     httpClient.post.mockResolvedValueOnce(deeplTranslationResponse);
     const request = new Request('http://localhost:8888', {
       method: 'POST',
@@ -44,8 +46,6 @@ describe('translate', () => {
       authManager as AuthManager,
       httpClient as unknown as HttpClient
     );
-    expect(db.collection).toHaveBeenCalledWith('shared-keys');
-    expect(collection.findOne).toHaveBeenCalled();
     expect(httpClient.post).toHaveBeenCalledTimes(1);
     expect(response.status).toEqual(200);
     const data: any = await response.json();
@@ -53,7 +53,7 @@ describe('translate', () => {
   });
 
   it('should return server error if http.post fails', async () => {
-    collection.findOne.mockResolvedValue({ deeplApiKey: 'deepl1' });
+    process.env.DEEPL_API_KEY = 'deepl1';
     httpClient.post.mockImplementation(() => {
       throw new Error();
     });

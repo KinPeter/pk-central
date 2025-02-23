@@ -1,4 +1,5 @@
 import { createInitialActivities, createInitialStartSettings } from '../../utils/create-initial-data';
+import { getEnv } from '../../utils/environment';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { EmailManager } from '../../utils/email-manager';
 import {
@@ -13,7 +14,6 @@ import { v4 as uuid } from 'uuid';
 import { getHashed } from '../../utils/crypt-jwt';
 import { ApiError, IdObject, PasswordAuthRequest, passwordAuthRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
-import * as process from 'node:process';
 
 export async function passwordSignup(
   req: Request,
@@ -40,8 +40,9 @@ export async function passwordSignup(
       return new ConflictErrorResponse(ApiError.EMAIL_REGISTERED);
     }
 
-    const isEmailRestricted = process.env.EMAILS_ALLOWED !== 'all';
-    const emailsAllowed = process.env.EMAILS_ALLOWED?.split(',');
+    const [EMAILS_ALLOWED, PK_ENV] = getEnv('EMAILS_ALLOWED', 'PK_ENV');
+    const isEmailRestricted = EMAILS_ALLOWED !== 'all';
+    const emailsAllowed = EMAILS_ALLOWED?.split(',');
     if (isEmailRestricted && emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
       return new ForbiddenOperationErrorResponse('Sign up');
     }
@@ -51,7 +52,7 @@ export async function passwordSignup(
     await users.insertOne({ id, email, passwordHash, passwordSalt, createdAt: new Date() });
     console.log('Created new user:', email, id);
 
-    if (process.env.PK_ENV !== 'test') {
+    if (PK_ENV !== 'test') {
       emailManager.sendSignupNotification(email).then(); // no need to await this
     }
 

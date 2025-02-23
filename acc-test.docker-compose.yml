@@ -49,6 +49,14 @@ services:
       PROXY_AIRLABS_AIRPORTS_URL: http://proxy_mock:9876/airports
       PROXY_LOCATION_REVERSE_URL: http://proxy_mock:9876/reverse
       PROXY_DEEPL_TRANSLATE_URL: http://proxy_mock:9876/translate
+      AIRLABS_API_KEY: airlabsApiKey
+      LOCATION_IQ_API_KEY: locationIqApiKey
+      OPEN_WEATHER_MAP_API_KEY: openWeatherMapApiKey
+      UNSPLASH_API_KEY: unsplashApiKey
+      DEEPL_API_KEY: deeplApiKey
+      STRAVA_CLIENT_ID: stravaClientId
+      STRAVA_CLIENT_SECRET: stravaClientSecret
+      GEMINI_API_KEY: geminiApiKey
     ports:
       - "5678:5678"
     volumes:

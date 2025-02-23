@@ -1,4 +1,5 @@
 import { createInitialActivities, createInitialStartSettings } from '../../utils/create-initial-data';
+import { getEnv } from '../../utils/environment';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { EmailManager } from '../../utils/email-manager';
 import {
@@ -12,7 +13,6 @@ import { v4 as uuid } from 'uuid';
 import { getLoginCode } from '../../utils/crypt-jwt';
 import { EmailRequest, emailRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
-import process from 'node:process';
 
 export async function requestLoginCode(
   req: Request,
@@ -34,8 +34,9 @@ export async function requestLoginCode(
 
     const { email } = body;
 
-    const isEmailRestricted = process.env.EMAILS_ALLOWED !== 'all';
-    const emailsAllowed = process.env.EMAILS_ALLOWED?.split(',');
+    const [EMAILS_ALLOWED] = getEnv('EMAILS_ALLOWED');
+    const isEmailRestricted = EMAILS_ALLOWED !== 'all';
+    const emailsAllowed = EMAILS_ALLOWED?.split(',');
     if (isEmailRestricted && emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
       return new ForbiddenOperationErrorResponse('Sign up');
     }

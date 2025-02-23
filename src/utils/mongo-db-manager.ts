@@ -1,18 +1,20 @@
 import { Db, MongoClient, ServerApiVersion } from 'mongodb';
+import { getEnv } from './environment';
 
 export class MongoDbManager {
   private client: MongoClient | null = null;
 
   public async getMongoDb(): Promise<{ client: MongoClient; db: Db }> {
     try {
-      this.client = new MongoClient(process.env.MONGO_DB_URI ?? '', {
+      const [MONGO_DB_URI, MONGO_DB_NAME] = getEnv('MONGO_DB_URI', 'MONGO_DB_NAME');
+      this.client = new MongoClient(MONGO_DB_URI ?? '', {
         serverApi: {
           version: ServerApiVersion.v1,
           strict: true,
           deprecationErrors: true,
         },
       });
-      const db = (await this.client.connect()).db(process.env.MONGO_DB_NAME);
+      const db = (await this.client.connect()).db(MONGO_DB_NAME);
       console.log('Connected to the database:', db.databaseName);
       return { client: this.client, db };
     } catch (e) {

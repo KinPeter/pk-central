@@ -8,14 +8,15 @@ import {
 } from '../../utils/response';
 import { v4 as uuid } from 'uuid';
 import { getLoginCode } from '../../utils/crypt-jwt';
+import { getEnv } from '../../utils/environment';
 import { EmailRequest, emailRequestSchema, User } from '../../../common';
 import { DbCollection } from '../../utils/collections';
-import process from 'node:process';
 
 export async function instantLoginCode(req: Request, dbManager: MongoDbManager): Promise<Response> {
   try {
+    const [PK_ENV, EMAILS_ALLOWED] = getEnv('PK_ENV', 'EMAILS_ALLOWED');
     if (req.method !== 'POST') return new MethodNotAllowedResponse(req.method);
-    if (process.env.PK_ENV !== 'dev') return new ForbiddenOperationErrorResponse();
+    if (PK_ENV !== 'dev') return new ForbiddenOperationErrorResponse();
 
     const body = (await req.json()) as EmailRequest;
 
@@ -28,10 +29,10 @@ export async function instantLoginCode(req: Request, dbManager: MongoDbManager):
     const { db } = await dbManager.getMongoDb();
 
     const { email } = body;
-    console.warn(`[DEV] ${email} is getting instant login code on '${process.env.PK_ENV}' env`);
+    console.warn(`[DEV] ${email} is getting instant login code on '${PK_ENV}' env`);
 
-    const isEmailRestricted = process.env.EMAILS_ALLOWED !== 'all';
-    const emailsAllowed = process.env.EMAILS_ALLOWED?.split(',');
+    const isEmailRestricted = EMAILS_ALLOWED !== 'all';
+    const emailsAllowed = EMAILS_ALLOWED?.split(',');
     if (isEmailRestricted && emailsAllowed && Array.isArray(emailsAllowed) && !emailsAllowed.includes(email)) {
       return new ForbiddenOperationErrorResponse('Sign up');
     }

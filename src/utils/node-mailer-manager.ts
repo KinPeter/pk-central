@@ -2,23 +2,42 @@ import { createTransport } from 'nodemailer';
 import { DataBackup } from '../../common';
 import { EmailManager } from './email-manager';
 import { EmailUtils } from './email-utils';
+import { getEnv } from './environment';
 
 class EmailData {
-  public from = `"P-Kin.com" <${process.env.EMAIL_USER}>`;
+  public from: string;
   constructor(
     public to: string,
     public subject: string,
     public text: string,
     public html: string,
     public attachments?: { filename: string; content: string }[]
-  ) {}
+  ) {
+    const [EMAIL_USER] = getEnv('EMAIL_USER');
+    this.from = `"P-Kin.com" <${EMAIL_USER}>`;
+  }
 }
 
 export type TransportCreatorFn = typeof createTransport;
 
 export class NodeMailerManager extends EmailUtils implements EmailManager {
+  private readonly notificationEmail: string;
+  private readonly host: string;
+  private readonly user: string;
+  private readonly pass: string;
+
   constructor(private createTransport: TransportCreatorFn) {
     super();
+    const [EMAIL_USER, EMAIL_HOST, EMAIL_PASS, NOTIFICATION_EMAIL] = getEnv(
+      'EMAIL_USER',
+      'EMAIL_HOST',
+      'EMAIL_PASS',
+      'NOTIFICATION_EMAIL'
+    );
+    this.notificationEmail = NOTIFICATION_EMAIL;
+    this.host = EMAIL_HOST;
+    this.user = EMAIL_USER;
+    this.pass = EMAIL_PASS;
   }
 
   public async sendLoginCode(email: string, loginCode: string): Promise<any> {
@@ -31,7 +50,7 @@ export class NodeMailerManager extends EmailUtils implements EmailManager {
   public async sendSignupNotification(email: string) {
     const subject = 'A user signed up to PK-Central';
     const { html, text } = this.getSignupNotificationTemplates(email);
-    const data = new EmailData(process.env.NOTIFICATION_EMAIL ?? '', subject, text, html);
+    const data = new EmailData(this.notificationEmail ?? '', subject, text, html);
     return await this.sendMail(data);
   }
 
@@ -51,12 +70,12 @@ export class NodeMailerManager extends EmailUtils implements EmailManager {
   private async sendMail(emailData: EmailData): Promise<any> {
     try {
       const transporter = this.createTransport({
-        host: process.env.EMAIL_HOST,
+        host: this.host,
         port: 465,
         secure: true,
         auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS,
+          user: this.user,
+          pass: this.pass,
         },
         tls: {
           rejectUnauthorized: false,

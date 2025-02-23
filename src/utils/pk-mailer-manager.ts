@@ -1,11 +1,11 @@
 import { EmailManager } from './email-manager';
 import { DataBackup } from '../../common';
 import { EmailUtils } from './email-utils';
+import { getEnv } from './environment';
 import { HttpClient } from './http-client';
-import * as process from 'node:process';
 
 class EmailData {
-  public apiKey = process.env.MAILER_API_KEY;
+  public readonly apiKey: string;
 
   constructor(
     public to: string,
@@ -13,13 +13,18 @@ class EmailData {
     public html: string,
     public attachmentContent?: string,
     public attachmentFilename?: string
-  ) {}
+  ) {
+    this.apiKey = getEnv('MAILER_API_KEY')[0];
+  }
 }
 
 export class PkMailerManager extends EmailUtils implements EmailManager {
+  private readonly mailerUrl: string;
+
   constructor(private http: HttpClient) {
     super();
     this.http.setHeaders({ 'Content-Type': 'application/json' });
+    this.mailerUrl = getEnv('MAILER_URL')[0];
   }
 
   public async sendLoginCode(email: string, loginCode: string): Promise<any> {
@@ -49,8 +54,8 @@ export class PkMailerManager extends EmailUtils implements EmailManager {
 
   private async sendMail(data: EmailData): Promise<any> {
     try {
-      console.log(`Sending email to ${data.to} via ${process.env.MAILER_URL}`);
-      const res = await this.http.post(process.env.MAILER_URL!, data);
+      console.log(`Sending email to ${data.to} via ${this.mailerUrl}`);
+      const res = await this.http.post(this.mailerUrl, data);
       return { message: 'Attempted to send email', response: JSON.stringify(res) };
     } catch (error: any) {
       console.error('Error in sendMail:');

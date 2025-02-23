@@ -1,3 +1,4 @@
+import { getEnv } from '../../utils/environment';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import { AuthManager } from '../../utils/auth-manager';
 import {
@@ -12,7 +13,6 @@ import { omitIdsForOne } from '../../utils/omit-ids';
 import { v4 as uuid } from 'uuid';
 import { toPkStartSettingsRequest } from '../../utils/request-mappers';
 import { DbCollection } from '../../utils/collections';
-import { SharedKeys } from '../../utils/third-parties';
 
 export async function updateSettings(
   req: Request,
@@ -32,18 +32,16 @@ export async function updateSettings(
       return new ValidationErrorResponse(e);
     }
 
-    const sharedKeysCollection = db.collection<SharedKeys>(DbCollection.SHARED_KEYS);
-    const keys = await sharedKeysCollection.findOne();
-    if (
-      !keys?.openWeatherApiKey ||
-      !keys?.locationIqApiKey ||
-      !keys?.unsplashApiKey ||
-      !keys?.stravaClientId ||
-      !keys?.stravaClientSecret
-    ) {
-      return new NotFoundErrorResponse('Shared keys');
+    const [openWeatherApiKey, locationIqApiKey, unsplashApiKey, stravaClientId, stravaClientSecret] = getEnv(
+      'OPEN_WEATHER_MAP_API_KEY',
+      'LOCATION_IQ_API_KEY',
+      'UNSPLASH_API_KEY',
+      'STRAVA_CLIENT_ID',
+      'STRAVA_CLIENT_SECRET'
+    );
+    if (!openWeatherApiKey || !locationIqApiKey || !unsplashApiKey || !stravaClientId || !stravaClientSecret) {
+      return new NotFoundErrorResponse('API keys');
     }
-    const { openWeatherApiKey, locationIqApiKey, unsplashApiKey, stravaClientId, stravaClientSecret } = keys;
 
     const collection = db.collection<PkStartSettingsResource>(DbCollection.START_SETTINGS);
     const existingSettings = await collection.findOne({ userId: user.id });

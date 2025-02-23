@@ -8,7 +8,7 @@ export const validSettingsRequest: PkStartSettingsRequest = {
 };
 
 export const sharedSettings: Partial<PkStartSettings> = {
-  openWeatherApiKey: 'openWeatherApiKey',
+  openWeatherApiKey: 'openWeatherMapApiKey',
   locationIqApiKey: 'locationIqApiKey',
   unsplashApiKey: 'unsplashApiKey',
   stravaClientId: 'stravaClientId',

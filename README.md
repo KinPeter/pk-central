@@ -65,23 +65,6 @@ npm run serve:docker
 Create a `.env` file in the project folder. See the `.env.example` for currently used variables.
 
 
-## Third party API keys
-
-For some endpoints third party API keys are expected to be stored in the database in a collection named `shared-keys`. There has to be only one document, an object containing these properties:
-
-```json
-{
-  "airlabsApiKey": "api key",
-  "locationIqApiKey": "api key",
-  "unsplashApiKey": "api key",
-  "openWeatherApiKey": "api key",
-  "deeplApiKey": "deeplApiKey",
-  "stravaClientId": "client id",
-  "stravaClientSecret": "secret"
-}
-```
-
-
 ## Common types and utils
 
 This repository contains type declarations and utils like validators that can be used by frontends or other clients.

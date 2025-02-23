@@ -1,3 +1,5 @@
+import { getEnv } from './environment';
+
 interface EmailTemplates {
   html: string;
   text: string;
@@ -5,7 +7,8 @@ interface EmailTemplates {
 
 export class EmailUtils {
   protected getLoginCodeTemplates(loginCode: string): EmailTemplates {
-    const expiresInMinutes = Number(process.env.LOGIN_CODE_EXPIRY);
+    const [loginCodeExpiry] = getEnv('LOGIN_CODE_EXPIRY');
+    const expiresInMinutes = Number(loginCodeExpiry);
     const html = `
     <h3>Hello!</h3>
     <p>Please use the code below to log in, it expires in ${expiresInMinutes} minutes.</p>

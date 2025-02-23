@@ -1,15 +1,5 @@
 import { DeeplLanguage } from '../../common';
 
-export interface SharedKeys {
-  airlabsApiKey: string;
-  locationIqApiKey: string;
-  openWeatherApiKey: string;
-  unsplashApiKey: string;
-  deeplApiKey: string;
-  stravaClientId: string;
-  stravaClientSecret: string;
-}
-
 export interface AirlabsAirportResponse {
   response: Array<{
     name: string;

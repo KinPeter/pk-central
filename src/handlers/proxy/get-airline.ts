@@ -8,10 +8,10 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { Airline, ValidationError } from '../../../common';
+import { getEnv } from '../../utils/environment';
 import { AuthManager } from '../../utils/auth-manager';
 import { FetchResponseType, HttpClient } from '../../utils/http-client';
-import { AirlabsAirlineResponse, SharedKeys } from '../../utils/third-parties';
-import { DbCollection } from '../../utils/collections';
+import { AirlabsAirlineResponse } from '../../utils/third-parties';
 
 export async function getAirline(
   req: Request,
@@ -28,12 +28,10 @@ export async function getAirline(
     const user = await authManager.authenticateUser(req, db);
     if (!user) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const sharedKeysCollection = db.collection<SharedKeys>(DbCollection.SHARED_KEYS);
-    const keys = await sharedKeysCollection.findOne();
-    const airlabsApiKey = keys?.airlabsApiKey;
-    if (!airlabsApiKey) return new NotFoundErrorResponse('Airlabs API key');
+    const [AIRLABS_API_KEY, PROXY_AIRLABS_AIRLINES_URL] = getEnv('AIRLABS_API_KEY', 'PROXY_AIRLABS_AIRLINES_URL');
+    if (!AIRLABS_API_KEY) return new NotFoundErrorResponse('Airlabs API key');
 
-    const airlabsUrl = `${process.env.PROXY_AIRLABS_AIRLINES_URL}?iata_code=${query}&api_key=${airlabsApiKey}`;
+    const airlabsUrl = `${PROXY_AIRLABS_AIRLINES_URL}?iata_code=${query}&api_key=${AIRLABS_API_KEY}`;
     const airlabsResponse = await httpClient.get<AirlabsAirlineResponse>(airlabsUrl, FetchResponseType.JSON);
 
     const { response } = airlabsResponse;

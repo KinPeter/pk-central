@@ -1,6 +1,6 @@
 import { TranslationRequest, TranslationResponse, translationSchema } from '../../../common';
 import { AuthManager } from '../../utils/auth-manager';
-import { DbCollection } from '../../utils/collections';
+import { getEnv } from '../../utils/environment';
 import { HttpClient } from '../../utils/http-client';
 import { MongoDbManager } from '../../utils/mongo-db-manager';
 import {
@@ -11,7 +11,7 @@ import {
   UnknownErrorResponse,
   ValidationErrorResponse,
 } from '../../utils/response';
-import { DeeplTranslationResponse, SharedKeys, sourceLanguages, targetLanguages } from '../../utils/third-parties';
+import { DeeplTranslationResponse, sourceLanguages, targetLanguages } from '../../utils/third-parties';
 
 export async function translate(
   req: Request,
@@ -36,15 +36,13 @@ export async function translate(
 
     const { text, targetLang, sourceLang } = requestBody;
 
-    const sharedKeysCollection = db.collection<SharedKeys>(DbCollection.SHARED_KEYS);
-    const keys = await sharedKeysCollection.findOne();
-    const deeplApiKey = keys?.deeplApiKey;
-    if (!deeplApiKey) return new NotFoundErrorResponse('DeepL API key');
+    const [DEEPL_API_KEY, PROXY_DEEPL_TRANSLATE_URL] = getEnv('DEEPL_API_KEY', 'PROXY_DEEPL_TRANSLATE_URL');
+    if (!DEEPL_API_KEY) return new NotFoundErrorResponse('DeepL API key');
 
-    const url = process.env.PROXY_DEEPL_TRANSLATE_URL;
+    const url = PROXY_DEEPL_TRANSLATE_URL;
     httpClient.setHeaders({
       'Content-Type': 'application/json',
-      Authorization: `DeepL-Auth-Key ${deeplApiKey}`,
+      Authorization: `DeepL-Auth-Key ${DEEPL_API_KEY}`,
     });
     const deeplResponse = await httpClient.post<DeeplTranslationResponse>(url!, {
       text: [text],

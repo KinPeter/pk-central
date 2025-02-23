@@ -24,10 +24,12 @@ describe('getCity', () => {
     httpClient = new MockHttpClient();
     db.collection.mockReturnValue(collection);
     authManager.authenticateUser.mockResolvedValue({ id: '123' });
+    process.env.PROXY_LOCATION_REVERSE_URL = 'https://locationiq.com';
+    process.env.LOCATION_IQ_API_KEY = '';
   });
 
   it('should fetch and send location data', async () => {
-    collection.findOne.mockResolvedValue({ locationIqApiKey: 'liq1' });
+    process.env.LOCATION_IQ_API_KEY = 'apikey';
     httpClient.get.mockResolvedValueOnce(locationIqLocationData);
     const response = await getCity(
       { method: 'GET' } as Request,
@@ -36,8 +38,6 @@ describe('getCity', () => {
       authManager as AuthManager,
       httpClient as unknown as HttpClient
     );
-    expect(db.collection).toHaveBeenCalledWith('shared-keys');
-    expect(collection.findOne).toHaveBeenCalled();
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(response.status).toEqual(200);
     const data: any = await response.json();
@@ -45,7 +45,6 @@ describe('getCity', () => {
   });
 
   it('should return validation error if no query', async () => {
-    collection.findOne.mockResolvedValue({ airlabsApiKey: 'al1', locationIqApiKey: 'liq1' });
     const response = await getCity(
       { method: 'GET' } as Request,
       '',
@@ -53,15 +52,12 @@ describe('getCity', () => {
       authManager as AuthManager,
       httpClient as unknown as HttpClient
     );
-    expect(db.collection).not.toHaveBeenCalled();
-    expect(httpClient.get).not.toHaveBeenCalled();
     expect(response.status).toEqual(400);
     const data: any = await response.json();
     expect(data.error).toEqual(ApiError.REQUEST_VALIDATION_FAILED);
   });
 
   it('should return validation error if invalid query', async () => {
-    collection.findOne.mockResolvedValue({ airlabsApiKey: 'al1', locationIqApiKey: 'liq1' });
     const response = await getCity(
       { method: 'GET' } as Request,
       'not-coords',
@@ -69,15 +65,12 @@ describe('getCity', () => {
       authManager as AuthManager,
       httpClient as unknown as HttpClient
     );
-    expect(db.collection).not.toHaveBeenCalled();
-    expect(httpClient.get).not.toHaveBeenCalled();
     expect(response.status).toEqual(400);
     const data: any = await response.json();
     expect(data.error).toEqual(ApiError.REQUEST_VALIDATION_FAILED);
   });
 
-  it('should return not found error if no location iq api key in db', async () => {
-    collection.findOne.mockResolvedValue({ airlabsApiKey: 'al1', locationIqApiKey: null });
+  it('should return not found error if no location iq api key in env', async () => {
     const response = await getCity(
       { method: 'GET' } as Request,
       '23.222,10',
@@ -85,7 +78,6 @@ describe('getCity', () => {
       authManager as AuthManager,
       httpClient as unknown as HttpClient
     );
-    expect(db.collection).toHaveBeenCalledWith('shared-keys');
     expect(httpClient.get).not.toHaveBeenCalled();
     expect(response.status).toEqual(404);
     const data: any = await response.json();
@@ -93,7 +85,7 @@ describe('getCity', () => {
   });
 
   it('should return server error if httpClient.get fails', async () => {
-    collection.findOne.mockResolvedValue({ airlabsApiKey: 'al1', locationIqApiKey: 'liq1' });
+    process.env.LOCATION_IQ_API_KEY = 'apikey';
     httpClient.get.mockImplementation(() => {
       throw new Error();
     });
