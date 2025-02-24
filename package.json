@@ -1,6 +1,6 @@
 {
   "name": "pk-central",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Serverless functions based API",
   "scripts": {
     "serve": "tsx ./server.ts",
@@ -30,6 +30,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@google/generative-ai": "^0.22.0",
     "bcrypt": "^5.1.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.11.0",

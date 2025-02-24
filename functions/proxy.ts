@@ -1,5 +1,7 @@
 import { Config, Context } from '../server/types';
+import { promptGemini } from '../src/handlers/proxy/prompt-gemini';
 import { translate } from '../src/handlers/proxy/translate';
+import { GeminiManager } from '../src/utils/gemini-manager';
 import { CorsOkResponse, UnknownOperationErrorResponse } from '../src/utils/response';
 import { MongoDbManager } from '../src/utils/mongo-db-manager';
 import { AuthManager } from '../src/utils/auth-manager';
@@ -33,6 +35,8 @@ export default async (req: Request, context: Context) => {
       return await getCity(req, query, dbManager, authManager, httpClient);
     case 'translate':
       return await translate(req, dbManager, authManager, httpClient);
+    case 'gemini':
+      return await promptGemini(req, dbManager, authManager, new GeminiManager());
     default:
       return new UnknownOperationErrorResponse(`/proxy/${operation}`);
   }

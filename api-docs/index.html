@@ -1254,10 +1254,10 @@ export interface DataBackup {
         </details>
       </div>
     
-      <div class="endpoint get">
+      <div class="endpoint post">
         <details>
           <summary>
-            <span class="method">GET</span>
+            <span class="method">POST</span>
             <span class="route">/proxy/translate</span>
           </summary>
           <div class="details">
@@ -1265,6 +1265,24 @@ export interface DataBackup {
             <p class="info">
               <span>Request body:<code class="request">TranslationRequest</code></span>
               <span>Returns:<code class="response">TranslationResponse</code></span>
+              <span>Authenticated:<span class="authenticated">Yes</span></span>
+            </p>
+            
+          </div>
+        </details>
+      </div>
+    
+      <div class="endpoint post">
+        <details>
+          <summary>
+            <span class="method">POST</span>
+            <span class="route">/proxy/gemini</span>
+          </summary>
+          <div class="details">
+            <p>Prompt Google Gemini AI for text generation</p>
+            <p class="info">
+              <span>Request body:<code class="request">GenerateContentRequest (@google/generative-ai)</code></span>
+              <span>Returns:<code class="response">GenerateContentResult (@google/generative-ai)</code></span>
               <span>Authenticated:<span class="authenticated">Yes</span></span>
             </p>
             

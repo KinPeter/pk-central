@@ -333,11 +333,18 @@ functions:
         response: VisitRequest
         authenticated: True
       # POST Translate text from source to target language
-      - method: GET
+      - method: POST
         route: /proxy/translate
         description: Translate text from source to target language
         request: TranslationRequest
         response: TranslationResponse
+        authenticated: True
+      # POST Prompt Google Gemini AI for text generation
+      - method: POST
+        route: /proxy/gemini
+        description: Prompt Google Gemini AI for text generation
+        request: GenerateContentRequest (@google/generative-ai)
+        response: GenerateContentResult (@google/generative-ai)
         authenticated: True
 
   - name: Flights
