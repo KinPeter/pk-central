@@ -32,7 +32,8 @@ export class ErrorResponse extends Response {
 
 export class ValidationErrorResponse extends ErrorResponse {
   constructor(error: YupValidationError | ValidationError) {
-    const payload = error instanceof YupValidationError ? error.errors : { reason: error };
+    const payload =
+      error instanceof YupValidationError ? { path: error.path, error: error.errors[0] } : { reason: error };
     super(ApiError.REQUEST_VALIDATION_FAILED, 400, payload);
   }
 }
